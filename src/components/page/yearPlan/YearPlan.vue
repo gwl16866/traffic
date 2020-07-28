@@ -133,10 +133,6 @@
             </el-breadcrumb>
         </div> 
         <div class="container">
-         <!--  <div class="plugins-tips">
-                Vue-Quill-Editor：基于Quill、适用于Vue2的富文本编辑器。
-                访问地址：<a href="https://github.com/surmon-china/vue-quill-editor" target="_blank">vue-quill-editor</a>
-            </div> -->
             <quill-editor ref="myTextEditor"  v-model="year.bodys" :options="editorOption"></quill-editor>
         </div>   
       <el-form-item>
