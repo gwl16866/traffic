@@ -85,7 +85,18 @@ export default new Router({
                      meta: {
                          title: '公文公告'
                      }
-                 }
+                 },
+                {
+                    path: '/particulars',
+                    component: () => import(/* webpackChunkName: "login" */ '../components/page/index/particulars.vue'),
+                    meta: { title: '培训统计' }
+                }
+                ,
+                {
+                    path: '/xyparticulars',
+                    component: () => import(/* webpackChunkName: "login" */ '../components/page/index/xyparticulars.vue'),
+                    meta: { title: '学员详情' }
+                }
           
             ]
         },

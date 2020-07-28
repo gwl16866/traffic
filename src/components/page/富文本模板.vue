@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <!-- <div class="crumbs">
+    <!-- <div>
+        <div class="crumbs">
             <el-breadcrumb separator="/">
                 <el-breadcrumb-item><i class="el-icon-lx-calendar"></i> 表单</el-breadcrumb-item>
                 <el-breadcrumb-item>编辑器</el-breadcrumb-item>
@@ -14,7 +14,7 @@
             <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>
             <!-- <el-button class="editor-btn" type="primary" @click="submit">提交</el-button> -->
         </div>
-    </div>
+    <!-- </div> -->
 </template>
 
 <script>
