@@ -12,9 +12,13 @@ import 'babel-polyfill';
 
 // 2020-07-24 晚  新导入  时间转换器   echarts统计图  
 import moment from 'moment'
+Vue.prototype.$moment = moment// 赋值使用
 import echarts from 'echarts'
 import Axios from 'axios';
-
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+ 
+Vue.prototype.$video = Video
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
