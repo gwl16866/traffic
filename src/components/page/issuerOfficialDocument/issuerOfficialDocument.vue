@@ -1,15 +1,6 @@
 <template>
     <div>
         <div>
-            <!-- <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
-                <el-select v-model="select" slot="prepend" placeholder="请选择">
-                    <el-option label="餐厅名" value="1"></el-option>
-                    <el-option label="订单号" value="2"></el-option>
-                    <el-option label="用户电话" value="3"></el-option>
-                </el-select>
-                <el-button slot="append" icon="el-icon-search"></el-button>
-            </el-input>-->
-
             <el-button
                 type="success"
                 plain
@@ -18,7 +9,7 @@
             >发布公文</el-button>
 
             <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
-                <el-form :model="form" >
+                <el-form :model="form">
                     <el-form-item label="活动名称" :label-width="formLabelWidth">
                         <el-input v-model="form.title" autocomplete="off"></el-input>
                     </el-form-item>
@@ -55,7 +46,6 @@
                 <el-table-column property="status" label="状态"></el-table-column>
                 <el-table-column label="操作">
                     <template slot-scope="scope">
-                        <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">回执</el-button> -->
                         <el-button size="mini" @click="handleUpdate( scope.row)">编辑</el-button>
                         <el-button size="mini" @click="handleyulan( scope.row)">预览</el-button>
                     </template>
@@ -101,7 +91,7 @@ export default {
             editorOption: {
                 placeholder: '请输入内容！！！'
             },
-            sdjkf:false,
+            sdjkf: false
         };
     },
     components: {
@@ -173,16 +163,16 @@ export default {
                     console.log(response);
                     th.form = response.data;
                     console.log(response.data.texts);
-                    th.content=response.data.texts;
+                    th.content = response.data.texts;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
-        handleyulan(row){
-console.log('*****' + row.id);
+        handleyulan(row) {
+            console.log('*****' + row.id);
             this.dialogFormVisible = true;
-            this.sdjkf=true;
+            this.sdjkf = true;
 
             var th = this;
             this.$axios
@@ -191,7 +181,7 @@ console.log('*****' + row.id);
                     console.log(response);
                     th.form = response.data;
                     console.log(response.data.texts);
-                    th.content=response.data.texts;
+                    th.content = response.data.texts;
                 })
                 .catch(function (error) {
                     console.log(error);

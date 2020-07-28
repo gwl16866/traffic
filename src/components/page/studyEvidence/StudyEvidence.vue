@@ -1,104 +1,111 @@
 <template>
     <el-tabs type="border-card" style="height:100%">
         <el-tab-pane label="月度证明">
-    <el-container>
-        <el-header style="height:80%">
-            <el-container>
-                <el-main>
-                    <div>
-                        <div class="block">
-                            <span>选择月份：</span>
-                            <el-date-picker v-model="yuefen" type="month" placeholder="选择月份："></el-date-picker>
-                            <el-button round @click="tijiaoshijian">根据月份查询</el-button>
-                            <el-button round @click="onloadsaftyEdu()">查看全部</el-button>
-                        </div>
-                        <div>
-                            <el-table
-                                ref="multipleTable"
-                                :data="tableData"
-                                tooltip-effect="dark"
-                                style="width: 100%"
-                                border
-                                @selection-change="handleSelectionChange"
-                            >
-                                <el-table-column type="selection"></el-table-column>
-
-                                <el-table-column prop="theme" label="培训名称"></el-table-column>
-                                <el-table-column prop="learnType" label="培训类型"></el-table-column>
-                                <el-table-column sortable label="开始时间">
-                                    <template slot-scope="scope">{{ scope.row.startTime }}</template>
-                                </el-table-column>
-                                <el-table-column label="结束时间">
-                                    <template slot-scope="scope">{{ scope.row.endTime }}</template>
-                                </el-table-column>
-                            </el-table>
-                        </div>
-                        <div class="block">
-                            <el-pagination
-                                background
-                                layout="prev, pager, next, sizes, total, jumper"
-                                :page-sizes="[3,5, 10, 15, 20]"
-                                :page-size="pagesize"
-                                :total="tableDatasize"
-                                @current-change="handleCurrentChange"
-                                @size-change="handleSizeChange"
-                            ></el-pagination>
-                        </div>
-                    </div>
-                </el-main>
-
-                <el-main v-if="ifmain">
-                    <div class="block">
-                        <el-input placeholder="请输入内容" v-model="neirong" class="input-with-select">
-                            <el-select v-model="select" slot="prepend" placeholder="请选择">
-                                <el-option label="姓名" value="realName"></el-option>
-                                <el-option label="身份证号" value="cardId"></el-option>
-                                <el-option label="车牌号" value="busName"></el-option>
-                            </el-select>
-                            
-                        </el-input><el-button  @click="xialashuru" icon="el-icon-search"></el-button>
-                    </div>
-                    <div>
-                        <el-table
-                            :data="tableData2"
-                            tooltip-effect="dark"
-                            style="width: 100%"
-                            @selection-change="handleSelectionChange2"
-                        >
-                            <el-table-column type="selection"></el-table-column>
-
-                            <el-table-column prop="headImg" width="100px" label="头像">
-                                <img src alt />
-                            </el-table-column>
-                            <el-table-column prop="realName" width="100px" label="真实姓名"></el-table-column>
-                            <el-table-column prop="cardId" width="100px" label="身份证号"></el-table-column>
-                            <el-table-column prop="busNum" width="100px" label="车牌号"></el-table-column>
-                        </el-table>
-                    </div>
-                    <div class="block">
-                        <el-pagination
-                            background
-                            layout="prev, pager, next, sizes, total, jumper"
-                            :page-sizes="[3,5, 10, 15, 20]"
-                            :page-size="pagesize2"
-                            :total="tableDatasize2"
-                            @current-change="handleCurrentChange2"
-                            @size-change="handleSizeChange2"
-                        ></el-pagination>
-                    </div>
-                </el-main>
-            </el-container>
-        </el-header>
-        <el-footer style="height:10%">
-            <el-button type="success" @click="dayin()" plain>成功按钮</el-button>
-        </el-footer>
-    </el-container>
-
-        </el-tab-pane>
-    <el-tab-pane label="自定义查询证明">
             <el-container>
                 <el-header style="height:80%">
-                     <div class="block">
+                    <el-container>
+                        <el-main>
+                            <div>
+                                <div class="block">
+                                    <span>选择月份：</span>
+                                    <el-date-picker
+                                        v-model="yuefen"
+                                        type="month"
+                                        placeholder="选择月份："
+                                    ></el-date-picker>
+                                    <el-button round @click="tijiaoshijian">根据月份查询</el-button>
+                                    <el-button round @click="onloadsaftyEdu()">查看全部</el-button>
+                                </div>
+                                <div>
+                                    <el-table
+                                        ref="multipleTable"
+                                        :data="tableData"
+                                        tooltip-effect="dark"
+                                        style="width: 100%"
+                                        border
+                                        @selection-change="handleSelectionChange"
+                                    >
+                                        <el-table-column type="selection"></el-table-column>
+
+                                        <el-table-column prop="theme" label="培训名称"></el-table-column>
+                                        <el-table-column prop="learnType" label="培训类型"></el-table-column>
+                                        <el-table-column sortable label="开始时间">
+                                            <template slot-scope="scope">{{ scope.row.startTime }}</template>
+                                        </el-table-column>
+                                        <el-table-column label="结束时间">
+                                            <template slot-scope="scope">{{ scope.row.endTime }}</template>
+                                        </el-table-column>
+                                    </el-table>
+                                </div>
+                                <div class="block">
+                                    <el-pagination
+                                        background
+                                        layout="prev, pager, next, sizes, total, jumper"
+                                        :page-sizes="[3,5, 10, 15, 20]"
+                                        :page-size="pagesize"
+                                        :total="tableDatasize"
+                                        @current-change="handleCurrentChange"
+                                        @size-change="handleSizeChange"
+                                    ></el-pagination>
+                                </div>
+                            </div>
+                        </el-main>
+
+                        <el-main v-if="ifmain">
+                            <div class="block">
+                                <el-input
+                                    placeholder="请输入内容"
+                                    v-model="neirong"
+                                    class="input-with-select"
+                                >
+                                    <el-select v-model="select" slot="prepend" placeholder="请选择">
+                                        <el-option label="姓名" value="realName"></el-option>
+                                        <el-option label="身份证号" value="cardId"></el-option>
+                                        <el-option label="车牌号" value="busName"></el-option>
+                                    </el-select>
+                                </el-input>
+                                <el-button @click="xialashuru" icon="el-icon-search"></el-button>
+                            </div>
+                            <div>
+                                <el-table
+                                    :data="tableData2"
+                                    tooltip-effect="dark"
+                                    style="width: 100%"
+                                    @selection-change="handleSelectionChange2"
+                                >
+                                    <el-table-column type="selection"></el-table-column>
+
+                                    <el-table-column prop="headImg" width="100px" label="头像">
+                                        <img src alt />
+                                    </el-table-column>
+                                    <el-table-column prop="realName" width="100px" label="真实姓名"></el-table-column>
+                                    <el-table-column prop="cardId" width="100px" label="身份证号"></el-table-column>
+                                    <el-table-column prop="busNum" width="100px" label="车牌号"></el-table-column>
+                                </el-table>
+                            </div>
+                            <div class="block">
+                                <el-pagination
+                                    background
+                                    layout="prev, pager, next, sizes, total, jumper"
+                                    :page-sizes="[3,5, 10, 15, 20]"
+                                    :page-size="pagesize2"
+                                    :total="tableDatasize2"
+                                    @current-change="handleCurrentChange2"
+                                    @size-change="handleSizeChange2"
+                                ></el-pagination>
+                            </div>
+                        </el-main>
+                    </el-container>
+                </el-header>
+                <el-footer style="height:10%">
+                    <el-button type="success" @click="dayin()" plain>成功按钮</el-button>
+                </el-footer>
+            </el-container>
+        </el-tab-pane>
+        <el-tab-pane label="自定义查询证明">
+            <el-container>
+                <el-header style="height:80%">
+                    <div class="block">
                         <span>开始日期</span>
                         <el-date-picker v-model="kaishiriqi" type="date" placeholder="选择日期"></el-date-picker>
 
@@ -114,7 +121,7 @@
                             <el-button slot="append" icon="el-icon-search"></el-button>
                         </el-input>
                     </div>
-                     <div>
+                    <div>
                         <el-table
                             :data="tableData3"
                             tooltip-effect="dark"
@@ -168,33 +175,24 @@
                 </el-footer>
             </el-container>
         </el-tab-pane>
-          <div> 
-
-   </div> 
-
-
-
-     </el-tabs>
-
-
-
+        <div></div>
+    </el-tabs>
 </template>
 
 
 
 
 <script>
-	import pdf from 'vue-pdf'
-
+import pdf from 'vue-pdf';
 
 export default {
-    name:'pdf',
- components: {
-    pdf
-  },
+    name: 'pdf',
+    components: {
+        pdf
+    },
     data() {
         return {
-            dayinpanduan:false,
+            dayinpanduan: false,
             yuefen: '',
             yuefenfromet: '',
             neirong: '',
@@ -211,20 +209,17 @@ export default {
             currpage2: 1,
             multipleSelection: [],
             dayinshuzu: [],
-             tableData3: [],
+            tableData3: [],
             tableDatasize3: 0,
             pagesize3: 3,
             currpage3: 1,
-            src:'E:/Users/HAO/IdeaProjects/traffic_manager/src/main/java/com/hy/traffic/pdf汤豪.pdf',
-             pdfTop:40,
+            src: 'E:/Users/HAO/IdeaProjects/traffic_manager/src/main/java/com/hy/traffic/pdf汤豪.pdf',
+            pdfTop: 40,
 
-      showTips:true
-
+            showTips: true
         };
     },
     mounted() {
-    
-
         this.onload();
         this.onloadsaftyEdu();
     },
@@ -241,13 +236,14 @@ export default {
                 .then(function (response) {
                     console.log(response);
                     th.tableData3 = response.data.data;
-                    th.tableDatasize3=response.data.count;
+                    th.tableDatasize3 = response.data.count;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
         },
         onloadsaftyEdu() {
+            this.yuefen = '';
             var th = this;
             this.$axios
                 .get('http://localhost:8081/saftyEdu/saftyedu/querySaftyedu?pagesize=' + this.pagesize + '&currpage=' + this.currpage)
@@ -279,7 +275,7 @@ export default {
                 this.tijiaoshijian();
             }
         },
-             handleCurrentChange2(cpage) {
+        handleCurrentChange2(cpage) {
             this.currpage2 = cpage;
             this.queryStudentByid();
         },
@@ -287,9 +283,8 @@ export default {
         handleSizeChange2(psize) {
             this.pagesize2 = psize;
             this.queryStudentByid();
-           
         },
-                  handleCurrentChange3(cpage) {
+        handleCurrentChange3(cpage) {
             this.currpage3 = cpage;
             this.onload();
         },
@@ -297,7 +292,6 @@ export default {
         handleSizeChange3(psize) {
             this.pagesize3 = psize;
             this.onload();
-           
         },
         tijiaoshijian() {
             if (this.yuefen == '') {
@@ -340,10 +334,10 @@ export default {
         },
 
         handleSelectionChange(val) {
-        
             var th = this;
             if (val.length > 0) {
                 th.ifmain = true;
+                th.dayinshuzu = [];
                 if (val.length > 1) {
                     th.$refs.multipleTable.clearSelection();
                     th.$refs.multipleTable.toggleRowSelection(val.pop());
@@ -351,59 +345,63 @@ export default {
                     th.multipleSelection = val.pop();
                 }
 
-                console.log(th.multipleSelection)
-               this.$axios
-                .get('http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' + th.multipleSelection.id+'&pagesize=' + this.pagesize2 + '&currpage=' + this.currpage2)
-                .then(function (response) {
-                    th.tableData2 = response.data.data;
-                    th.tableDatasize2 = response.data.count;
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
-            } else {
-                this.multipleSelection == ''
-                th.ifmain = false;
-            }
-        },
-        handleSelectionChange2(val) {
-            var arr=new Array();
-       for(var i=0;i<val.length;i++){
-           arr[i]=val[i].id;
-       }
-          
-
-            this.dayinshuzu = arr;
-        },
-         handleSelectionChange3(val) {
-            var arr=new Array();
-       for(var i=0;i<val.length;i++){
-           arr[i]=val[i].id;
-       }
-          
-
-            this.dayinshuzu = arr;
-        },
-        dayin() {
-            var th=this;
-            if (this.dayinshuzu == '') {
-                this.$message('没有可打印的东风西');
-            } else if (this.multipleSelection == '') {
-  this.$axios
-                    .get('http://localhost:8081/saftyEdu/saftyedu/genjustuxiazaipdf?arr='+this.dayinshuzu)
+                console.log(th.multipleSelection);
+                this.$axios
+                    .get(
+                        'http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' +
+                            th.multipleSelection.id +
+                            '&pagesize=' +
+                            this.pagesize2 +
+                            '&currpage=' +
+                            this.currpage2
+                    )
                     .then(function (response) {
-                         th.$message('已下载到本地');
+                        th.tableData2 = response.data.data;
+                        th.tableDatasize2 = response.data.count;
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
-                
-                // this.$message('未选择打印的东西');
+            } else {
+                this.multipleSelection == '';
+                th.ifmain = false;
+                th.dayinshuzu = [];
+            }
+        },
+        handleSelectionChange2(val) {
+            var arr = new Array();
+            for (var i = 0; i < val.length; i++) {
+                arr[i] = val[i].id;
+            }
+
+            this.dayinshuzu = arr;
+        },
+        handleSelectionChange3(val) {
+            var arr = new Array();
+            for (var i = 0; i < val.length; i++) {
+                arr[i] = val[i].id;
+            }
+
+            this.dayinshuzu = arr;
+        },
+        dayin() {
+            var th = this;
+            if (this.dayinshuzu == '') {
+                this.$message('没有可打印的东风西');
+            } else if (this.multipleSelection == '') {
+                this.$axios
+                    .get('http://localhost:8081/saftyEdu/saftyedu/genjustuxiazaipdf?arr=' + this.dayinshuzu)
+                    .then(function (response) {
+                        th.$message('已下载到本地');
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
             } else {
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/saftyedu/xiazaipdf?arr='+this.dayinshuzu+'&said='+this.multipleSelection.id)
+                    .get('http://localhost:8081/saftyEdu/saftyedu/xiazaipdf?arr=' + this.dayinshuzu + '&said=' + this.multipleSelection.id)
                     .then(function (response) {
-                         th.$message('已下载到本地');
+                        th.$message('已下载到本地');
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -411,7 +409,7 @@ export default {
             }
         },
         xialashuru() {
-            console.log()
+            console.log();
             this.dayinshuzu = '';
             var th = this;
             this.$axios
@@ -421,10 +419,14 @@ export default {
                         '&select=' +
                         th.select +
                         '&neirong=' +
-                        th.neirong+'&pagesize=' + this.pagesize2 + '&currpage=' + this.currpage2
+                        th.neirong +
+                        '&pagesize=' +
+                        this.pagesize2 +
+                        '&currpage=' +
+                        this.currpage2
                 )
                 .then(function (response) {
-                      th.tableData2 = response.data.data;
+                    th.tableData2 = response.data.data;
                     th.tableDatasize2 = response.data.count;
                 })
                 .catch(function (error) {
@@ -432,9 +434,16 @@ export default {
                 });
         },
         queryStudentByid() {
-            var th=this;
+            var th = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' + th.multipleSelection.id+'&pagesize=' + this.pagesize2 + '&currpage=' + this.currpage2)
+                .get(
+                    'http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' +
+                        th.multipleSelection.id +
+                        '&pagesize=' +
+                        this.pagesize2 +
+                        '&currpage=' +
+                        this.currpage2
+                )
                 .then(function (response) {
                     th.tableData2 = response.data.data;
                     th.tableDatasize2 = response.data.count;
@@ -443,9 +452,7 @@ export default {
                     console.log(error);
                 });
         }
-    },
-    
-
+    }
 };
 </script>
 <style>
