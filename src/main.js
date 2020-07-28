@@ -14,7 +14,10 @@ import 'babel-polyfill';
 import moment from 'moment'
 import echarts from 'echarts'
 import Axios from 'axios';
-
+import Video from 'video.js'
+import 'video.js/dist/video-js.css'
+ 
+Vue.prototype.$video = Video
 
 Vue.config.productionTip = false;
 Vue.use(VueI18n);
