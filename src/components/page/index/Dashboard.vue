@@ -1,103 +1,14 @@
 <template>
+
     <div>
-        <el-row :gutter="20">
-            <el-col :span="8">
-                <el-card shadow="hover" class="mgb20" style="height:252px;">
-                    <div class="user-info">
-                        <img src="../../../assets/img/img.jpg" class="user-avator" alt />
-                        <div class="user-info-cont">
-                            <div class="user-info-name">{{name}}</div>
-                            <div>{{role}}</div>
-                        </div>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录时间：
-                        <span>2019-11-01</span>
-                    </div>
-                    <div class="user-info-list">
-                        上次登录地点：
-                        <span>东莞</span>
-                    </div>
-                </el-card>
-                <el-card shadow="hover" style="height:252px;">
-                    <div slot="header" class="clearfix">
-                        <span>语言详情</span>
-                    </div>Vue
-                    <el-progress :percentage="71.3" color="#42b983"></el-progress>JavaScript
-                    <el-progress :percentage="24.1" color="#f1e05a"></el-progress>CSS
-                    <el-progress :percentage="13.7"></el-progress>HTML
-                    <el-progress :percentage="5.9" color="#f56c6c"></el-progress>
-                </el-card>
-            </el-col>
-            <el-col :span="16">
-                <el-row :gutter="20" class="mgb20">
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-1">
-                                <i class="el-icon-lx-people grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">1234</div>
-                                    <div>用户访问量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-2">
-                                <i class="el-icon-lx-notice grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">321</div>
-                                    <div>系统消息</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                    <el-col :span="8">
-                        <el-card shadow="hover" :body-style="{padding: '0px'}">
-                            <div class="grid-content grid-con-3">
-                                <i class="el-icon-lx-goods grid-con-icon"></i>
-                                <div class="grid-cont-right">
-                                    <div class="grid-num">5000</div>
-                                    <div>数量</div>
-                                </div>
-                            </div>
-                        </el-card>
-                    </el-col>
-                </el-row>
-                <el-card shadow="hover" style="height:403px;">
-                    <div slot="header" class="clearfix">
-                        <span>待办事项</span>
-                        <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
-                    </div>
-                    <el-table :show-header="false" :data="todoList" style="width:100%;">
-                        <el-table-column width="40">
-                            <template slot-scope="scope">
-                                <el-checkbox v-model="scope.row.status"></el-checkbox>
-                            </template>
-                        </el-table-column>
-                        <el-table-column>
-                            <template slot-scope="scope">
-                                <div
-                                    class="todo-item"
-                                    :class="{'todo-item-del': scope.row.status}"
-                                >{{scope.row.title}}</div>
-                            </template>
-                        </el-table-column>
-                        <el-table-column width="60">
-                            <template>
-                                <i class="el-icon-edit"></i>
-                                <i class="el-icon-delete"></i>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                </el-card>
-            </el-col>
-        </el-row>
-        <el-row :gutter="20">
+       <!-- <div id="zxcolumn" style="width:100%; height: 350px;"></div> -->
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top:15px">
+        <div id="zxcolumn" style="width:100%; height: 350px;"></div>
+    </el-row>
+        <!-- <el-row :gutter="20">
             <el-col :span="12">
                 <el-card shadow="hover">
-                    <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
+                  <div id="zxcolumn" style="width:100%; height: 350px;"></div>
                 </el-card>
             </el-col>
             <el-col :span="12">
@@ -105,119 +16,130 @@
                     <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
                 </el-card>
             </el-col>
-        </el-row>
+        </el-row> -->
+
+  <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top:15px">
+       <div id="bbcolumn" style="width:100%; height: 350px;"></div>
+        <el-table
+    :data="tableData"
+    border
+    style="width: 100%">
+    <el-table-column
+      align="center"
+      prop="learning"
+      label="学习方式"
+      width="650">
+    </el-table-column>
+    <el-table-column
+      align="center"
+      prop="num"
+      label="报名总人数"
+      width="650">
+    </el-table-column>
+    <el-table-column
+      align="center"
+      prop="percentage"
+      label="完成率(%)"
+       width="650">
+    </el-table-column>
+  </el-table>
+    </el-row>
+    
+    <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top:15px">
+
+   <el-col :span="24" style="background:#DCDFE6;"><div class="grid-content bg-purple-dark" style="height:70px;text-align:center; line-height:70px;border:#18a077 solid 1px; ">
+    <h3 style="display: inline;">下属企业培训统计-2020年</h3>
+    </div></el-col>
+
+  <el-col :span="24"><div class="grid-content bg-purple-dark">
+ 
+      <el-table
+    :data="tableData2"
+    border
+    style="width: 100%">
+    <el-table-column
+    align="center"
+      prop="name"
+      label="企业名称"
+      width="330">
+    </el-table-column>
+    <el-table-column
+    align="center"
+      prop="wcl"
+      label="完成率(%)"
+      width="330">
+    </el-table-column>
+    <el-table-column
+    align="center"
+      prop="jhs"
+      label="培训计划数"
+       width="330">
+    </el-table-column>
+      <el-table-column
+      align="center"
+      prop="count"
+      label="报名总人次"
+        width="330">
+    </el-table-column>
+      <el-table-column
+      align="center"
+      prop="okcount"
+      label="完成总人次"
+        width="330">
+    </el-table-column>
+    <el-table-column label="操作" align="center">
+      <template slot-scope="scope" >
+        <el-button
+        align="center"
+          size="mini"
+          type="danger"
+          @click="handleDelete()">查看详情</el-button>
+      </template>
+    </el-table-column>
+     
+  </el-table>
+
+    </div></el-col>
+</el-row>
+
     </div>
 </template>
 
 <script>
 import Schart from 'vue-schart';
 import bus from '../../common/bus';
+ import echarts from 'echarts'
+ 
 export default {
     name: 'dashboard',
     data() {
         return {
-            name: localStorage.getItem('ms_username'),
-            todoList: [
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要写100行代码加几个bug吧',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: false
-                },
-                {
-                    title: '今天要修复100个bug',
-                    status: true
-                },
-                {
-                    title: '今天要写100行代码加几个bug吧',
-                    status: true
-                }
-            ],
-            data: [
-                {
-                    name: '2018/09/04',
-                    value: 1083
-                },
-                {
-                    name: '2018/09/05',
-                    value: 941
-                },
-                {
-                    name: '2018/09/06',
-                    value: 1139
-                },
-                {
-                    name: '2018/09/07',
-                    value: 816
-                },
-                {
-                    name: '2018/09/08',
-                    value: 327
-                },
-                {
-                    name: '2018/09/09',
-                    value: 228
-                },
-                {
-                    name: '2018/09/10',
-                    value: 1065
-                }
-            ],
-            options: {
-                type: 'bar',
-                title: {
-                    text: '最近一周各品类销售图'
-                },
-                xRorate: 25,
-                labels: ['周一', '周二', '周三', '周四', '周五'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 190, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [144, 198, 150, 235, 120]
-                    }
-                ]
-            },
-            options2: {
-                type: 'line',
-                title: {
-                    text: '最近几个月各品类销售趋势图'
-                },
-                labels: ['6月', '7月', '8月', '9月', '10月'],
-                datasets: [
-                    {
-                        label: '家电',
-                        data: [234, 278, 270, 190, 230]
-                    },
-                    {
-                        label: '百货',
-                        data: [164, 178, 150, 135, 160]
-                    },
-                    {
-                        label: '食品',
-                        data: [74, 118, 200, 235, 90]
-                    }
-                ]
-            }
+            tableData:[],
+            tableData2:[],
+            thenumbers:[],
+            thenumbers2:[],
+            Bchar1:{},
+            Bchar2:{},
+            Bchar3:{}
+          
         };
     },
+    mounted(){
+            //1-12月培训人数
+            this.thenumber();
+            this.Bchar1info();
+            this.Bchar1info2();
+            this.Bchar1info3();
+            this.inittableData();
+            this.inittableData2();
+
+            //this.mqbbcolumns();
+    },
+    
+componentWillReceiveProps() {
+   this.mqbbcolumns();
+}
+ ,
     components: {
         Schart
     },
@@ -226,17 +148,7 @@ export default {
             return this.name === 'admin' ? '超级管理员' : '普通用户';
         }
     },
-    // created() {
-    //     this.handleListener();
-    //     this.changeDate();
-    // },
-    // activated() {
-    //     this.handleListener();
-    // },
-    // deactivated() {
-    //     window.removeEventListener('resize', this.renderChart);
-    //     bus.$off('collapse', this.handleBus);
-    // },
+  
     methods: {
         changeDate() {
             const now = new Date().getTime();
@@ -244,23 +156,238 @@ export default {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
             });
+        },
+        handleDelete(){
+           this.$router.push({path:'/particulars'});
+        },
+        inittableData2(){
+
+              var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/inittableData2')
+			  .then(function (response) {
+                a.tableData2=response.data
+                
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+
+
+        },
+        inittableData(){
+
+
+             var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/inittableData')
+			  .then(function (response) {
+                a.tableData=response.data
+                
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+
+        },
+        Bchar1info(){
+            
+                var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar1')
+			  .then(function (response) {
+                a.Bchar1=response.data
+                
+                a.mqbbcolumns();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+        },
+           Bchar1info2(){
+            
+                var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar2')
+			  .then(function (response) {
+                a.Bchar2=response.data
+                
+                a.mqbbcolumns();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+        },
+           Bchar1info3(){
+            
+                var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar3')
+			  .then(function (response) {
+                a.Bchar3=response.data
+                //alert(response)
+                a.mqbbcolumns();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+        },
+        thenumber(){
+
+            var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/year')
+			  .then(function (response) {
+                a.thenumbers=response.data
+                a.thenumber2();
+                a.mqZxcolumns();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+        },
+        thenumber2(){
+
+            var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/thenumber')
+			  .then(function (response) {
+                a.thenumbers2=response.data
+                a.mqZxcolumns();
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+
+        },
+           mqZxcolumns(){
+    
+         var a=this;
+         this.zxcolumns = echarts.init(document.getElementById('zxcolumn'));
+         this.zxcolumns.setOption({
+
+                    title: {
+        text: '2020年培训人次统计',
+        subtext: '(含子公司)'
+    },
+    tooltip: {
+        trigger: 'axis'
+    },
+    legend: {
+        data: ['完成人次', '报名人次']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            dataView: {show: true, readOnly: false},
+            magicType: {show: true, type: ['line', 'bar']},
+            restore: {show: true},
+            saveAsImage: {show: true}
         }
-        // handleListener() {
-        //     bus.$on('collapse', this.handleBus);
-        //     // 调用renderChart方法对图表进行重新渲染
-        //     window.addEventListener('resize', this.renderChart);
-        // },
-        // handleBus(msg) {
-        //     setTimeout(() => {
-        //         this.renderChart();
-        //     }, 200);
-        // },
-        // renderChart() {
-        //     this.$refs.bar.renderChart();
-        //     this.$refs.line.renderChart();
-        // }
+    },
+    calculable: true,
+    xAxis: [
+        {
+            type: 'category',
+            data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月']
+        }
+    ],
+    yAxis: [
+        {
+            type: 'value'
+        }
+    ],
+    series: [
+        {
+            name: '完成人次',
+            type: 'bar',
+            data: a.thenumbers2,
+         
+        },
+        {
+            name: '报名人次',
+            type: 'bar',
+            data:  a.thenumbers,
+          
+        }
+    ]
+         })
+
+          
+    },
+         mqbbcolumns(){
+         //window.console.log(this.Bchar1[0].value)
+         var a=this;
+        
+         this.bbcolumns = echarts.init(document.getElementById('bbcolumn'));
+         this.bbcolumns.setOption({
+             
+
+    title: {
+        text: '2020培训（线上/现场/现场+线上）分类统计',
+        subtext: '真实有效',
+        left: 'center'
+    },
+    tooltip: {
+        trigger: 'item',
+        formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    legend: {
+        left: 'center',
+        top: 'bottom',
+        data: ['完成人数', '未完成人数']
+    },
+    toolbox: {
+        show: true,
+        feature: {
+            mark: {show: true},
+            dataView: {show: true, readOnly: false},
+            magicType: {
+                show: true,
+                type: ['pie', 'funnel']
+            },
+            restore: {show: true},
+            saveAsImage: {show: true}
+        }
+    },
+    series: [
+        {
+            name: '线上培训',
+            type: 'pie',
+            radius: [20, 110],
+            center: ['20%', '50%'],
+            roseType: 'radius',
+            data:a.Bchar1
+           
+        },
+        {
+            name: '现场培训',
+            type: 'pie',
+            radius: [30, 110],
+            center: ['50%', '50%'],
+            roseType: 'area',
+            data:a.Bchar2
+            
+        },
+             {
+            name: '现场+线上',
+            type: 'pie',
+            radius: [30, 110],
+            center: ['80%', '50%'],
+            roseType: 'area',
+            data:a.Bchar3
+        }
+    ]
+
+
+         })
+
+
+
+    }
+      
     }
 };
+
 </script>
 
 

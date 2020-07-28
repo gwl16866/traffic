@@ -78,6 +78,24 @@ export default new Router({
                     path: '/gongwengonggao',
                     component: () => import(/* webpackChunkName: "i18n" */ '../components/page/OfficialDocument/OfficialDocument.vue'),
                     meta: { title: '公文公告' }
+                },
+                 {
+                     path: '/fuwenben',
+                     component: () => import( /* webpackChunkName: "i18n" */ '../components/page/富文本模板.vue'),
+                     meta: {
+                         title: '公文公告'
+                     }
+                 },
+                {
+                    path: '/particulars',
+                    component: () => import(/* webpackChunkName: "login" */ '../components/page/index/particulars.vue'),
+                    meta: { title: '培训统计' }
+                }
+                ,
+                {
+                    path: '/xyparticulars',
+                    component: () => import(/* webpackChunkName: "login" */ '../components/page/index/xyparticulars.vue'),
+                    meta: { title: '学员详情' }
                 }
           
             ]
