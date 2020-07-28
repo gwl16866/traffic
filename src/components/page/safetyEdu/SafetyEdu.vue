@@ -136,9 +136,24 @@
             <el-table :data="lessionlist" border style="width: 100%;">
                 <el-table-column prop="id" label="编号" width="90"></el-table-column>
                 <el-table-column prop="oneTitle" label="课程名称" width="90"></el-table-column>
-                <el-table-column prop="vedio" label="观看" width="80"></el-table-column>
+                <el-table-column label="视频" width="80">
+                    <template slot-scope="scope">
+                        <el-button @click="checkVideoFun(scope.row.vedio)">观看</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
+                         <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
+            <div class='mask' v-if='videoState == true' @click='masksCloseFun'></div>
+            <!-- //弹窗 -->
+            <div class="videomasks" v-if="videoState == true">
+            <!-- //视频：h5的视频播放video -->
+            
+              <video :src='videoSrc' controls='controls' autoplay>
+              <!-- 您的浏览器不支持 video 标签。 -->
+              </video>
+            </div>
         </el-dialog>
+      
     </div>
 </template>
 
@@ -171,13 +186,20 @@ export default {
                 learnType: '',
                 manager: '',
                 testPeople: ''
-            }
+            },
+            videoState:false,
+            videoSrc:""
+
         };
     },
     mounted() {
         this.selectSaftyEdu();
+        this.loadVedio();
     },
     methods: {
+        	masksCloseFun(){
+   			this.videoState = false;
+         },
         selectSaftyEdu: function() {
             var qwe = this;
             this.$axios
@@ -194,6 +216,24 @@ export default {
                 .catch(function(err) {
                     console.log(err);
                 });
+        },
+        checkVideoFun(videos) {
+            this.videoState = true;
+            this.videoSrc = videos;
+        },
+        loadVedio() {
+            let myPlayer = this.$video({
+                //确定播放器是否具有用户可以与之交互的控件。没有控件，启动视频播放的唯一方法是使用autoplay属性或通过Player API。
+                controls: true,
+                //自动播放属性,muted:静音播放
+                autoplay: 'muted',
+                //建议浏览器是否应在<video>加载元素后立即开始下载视频数据。
+                preload: 'auto',
+                //设置视频播放器的显示宽度（以像素为单位）
+                width: '800px',
+                //设置视频播放器的显示高度（以像素为单位）
+                height: '400px'
+            });
         },
         //删除培训
         deleteSaftyedu: function(e) {
@@ -230,14 +270,14 @@ export default {
                     });
                 });
         },
-        //查看课程 
+        //查看课程
         selectlession: function(e) {
             this.dialogVisiblelession = true;
             var qwe = this;
             this.$axios
                 .get('http://localhost:8081/saftyEdu/classDetailList?id=' + e)
                 .then(function(res) {
-                     qwe.lessionlist = res.data;
+                    qwe.lessionlist = res.data;
                 })
                 .catch(function(err) {
                     console.log(err);
@@ -395,4 +435,41 @@ export default {
     position: absolute;
     right: 30px;
 }
+
+body > .el-container {
+    margin-bottom: 40px;
+  }
+  
+  .el-container:nth-child(5) .el-aside,
+  .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+  
+  .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+
+  .mask{
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index:10;
+	background-color: #000000;
+    opacity: .6;
+}
+/* // 内容层 z-index要比遮罩大，否则会被遮盖 */
+.videomasks{
+    max-width: 1200px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 20;
+    transform: translate(-50%,-50%);
+  }
+  .videomasks video{
+    width: 100%;
+    height: 100%;
+  }
 </style>
