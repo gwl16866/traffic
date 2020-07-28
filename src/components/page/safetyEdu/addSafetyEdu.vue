@@ -231,16 +231,6 @@ export default {
                 manager: '',
                 testPeople: ''
             },
-            // rules: {
-            //     a1: [{ required: true, message: '请输入培训主题', trigger: 'blur' }],
-            //     a2: [{ required: true, message: '请选中活动时长', trigger: 'change' }],
-            //     a3: [{ required: true, message: '请选择培训课程', trigger: 'blur' }],
-            //     a4: [{ required: true, message: '请选择参训人员', trigger: 'blur' }],
-            //     a5: [{ required: true, message: '请选择安全管理员', trigger: 'blur' }],
-            //     a6: [{ required: true, message: '请选择考核人', trigger: 'blur' }],
-            //     a7: [{ required: true, message: '请选择开始时间', trigger: 'blur' }],
-            //     a8: [{ required: true, message: '请选择结束时间', trigger: 'blur' }]
-            // }
         };
     },
     mounted() {},
@@ -251,7 +241,7 @@ export default {
         back: function() {
             this.$emit('back', 'false');
         },
-        //提交整个页面
+        //提交整个页面 
         submintSafetyEdu() {
             var qwe = this;
             this.$axios

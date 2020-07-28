@@ -230,7 +230,7 @@ export default {
                     });
                 });
         },
-        //查看课程
+        //查看课程 
         selectlession: function(e) {
             this.dialogVisiblelession = true;
             var qwe = this;
