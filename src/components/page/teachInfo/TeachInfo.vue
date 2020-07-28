@@ -533,6 +533,7 @@ export default {
                         .then(function(res) {
                           that.addLessionsShow=false
                           that.queryAllTeachinfo()
+                           that.queryClassDetail(that.thisCla);
                               that.addKejieShowTemp.dagang=""
                               that.addKejieShowTemp.zhangjie=""
                               that.addKejieShowTemp.dajie=""
@@ -626,7 +627,7 @@ export default {
                         .then(function(res) {
                           that.addkejianShow=false
                           that.queryAllTeachinfo()
-                          that.queryClassDetail(this.thisCla)
+                          that.queryClassDetail(that.thisCla)
                                that.addKejianTemp.d1=""
                               that.addKejianTemp.d2=""
                               that.addKejianTemp.j=""
@@ -651,6 +652,7 @@ export default {
                         .then(function(res) {
                           that.addQuestionShow=false
                           that.queryAllQuestion()
+                           that.queryClassDetail(that.thisCla);
                                that.questionTemp.classId=""
                               that.questionTemp.zhangs=""
                               that.questionTemp.jies=""
@@ -766,7 +768,7 @@ export default {
               this.thisCla=cla.id;
               this.queryClassDetail(cla.id);
               this.left=true
-               this.pageCheck=true
+              this.pageCheck=true
            } ,
            peixun(){
              this.pageCheck=true

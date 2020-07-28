@@ -124,7 +124,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://localhost:8080/upload/uploadImage',
+      uploadUrl: 'http://localhost:8081/teachInfo/uploadFile',
       headImg: '',
       rules: {
           realName: [
@@ -215,12 +215,12 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       const currThis = this
-      if (res.code === 200) {
+      if (res.code == 0) {
         currThis.headImg = res.filename
-        currThis.$message.success(res.message)
+        currThis.$message.success("上传成功")
         currThis.queryStudentById()
       } else {
-        currThis.$message.error(res.message)
+        currThis.$message.error("上传失败")
       }
       // console.log(res)
       // this.imageUrl = URL.createObjectURL(file.raw);

@@ -185,7 +185,6 @@ export default {
             pagesize: 10,
             currpage: 1,
             tableData: [],
-             content: '',
         editorOption: {
         placeholder: 'Hello World'
                 }
