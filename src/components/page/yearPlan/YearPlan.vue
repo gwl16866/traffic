@@ -5,7 +5,7 @@
      <el-select v-model="select" slot="prepend" placeholder="按标题">
       <el-option label="按标题" value="1"></el-option>
     </el-select>
-  <el-input placeholder="请输入内容" v-model="year.title" class="input-with-select">
+  <el-input placeholder="请输入内容" v-model="name" class="input-with-select">
     <el-button slot="append" icon="el-icon-search"  @click="somebutton()">搜索</el-button>
    </el-input>
 </div>
@@ -78,7 +78,7 @@
             </el-breadcrumb>
         </div> 
         <div class="container">
-            <quill-editor ref="myTextEditor" v-model="year.bodys" :options="editorOption"></quill-editor>
+            <quill-editor ref="myTextEditor" v-model="content" :options="editorOption"></quill-editor>
         </div>   
       <el-form-item>
         <el-button
@@ -133,7 +133,7 @@
             </el-breadcrumb>
         </div> 
         <div class="container">
-            <quill-editor ref="myTextEditor"  v-model="year.bodys" :options="editorOption"></quill-editor>
+            <quill-editor ref="myTextEditor"  v-model="content" :options="editorOption"></quill-editor>
         </div>   
       <el-form-item>
           <el-button @click="add()" >添加</el-button>
@@ -163,7 +163,7 @@
     import { quillEditor } from 'vue-quill-editor';
 export default {
      name: 'editor',
-    data(){
+    data:function(){
         return{
             lbutton:true,
             addtian:false,
@@ -174,6 +174,7 @@ export default {
             istable: true,
             show: false,
             fid: '',
+            name:'',
          year: {
             id:'',
             title: '',
@@ -199,7 +200,9 @@ export default {
     },methods:{
       
     upd(row) {
-      this.year = row
+        this.year.id=row.id
+      this.year.title = row.title
+      this.content=row.bodys
       this.istable = false
       this.isform = true 
       this.sele=false
@@ -216,6 +219,8 @@ export default {
        this.isform1=false
       this.fen=false
       this.addtian=true 
+      this.year.title=""
+      this.content=""
     },reback(){
                 this.$emit("add","reback");
             },
@@ -262,7 +267,7 @@ export default {
 		 const a = this
       this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan', {
         params: {
-         title:a.year.title
+         title:a.name
         }
 
       })
@@ -292,9 +297,9 @@ export default {
       var a = this
       this.$axios.get('http://localhost:8081/yearPlan/yearplan/upd', {
         params: {
-            id:this.year.id,
+            id:a.year.id,
           title: a.year.title,
-         bodys:a.year.bodys
+          bodys:a.content
         }
 
       })
@@ -317,6 +322,7 @@ add () {
           for(const key in this.year){
          formData.set(key,this.year[key]);
                 }
+                formData.set('bodys',this.content)
                 const that=this;
                 this.$axios({
                     method:"post",
