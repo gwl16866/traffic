@@ -565,6 +565,7 @@ export default {
                       });
         }
         this.addKejianTemp.ve=res.filename
+        this.addKejieShowTemp.shipin=res.filename
       },uploadError(res){
                this.$message({
                       showClose: true,
