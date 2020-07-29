@@ -1,32 +1,19 @@
 <template>
-<div>
-    公文
-</div>
-   
+    <div class="pdf">
+        <pdf ref="pdf" :src="pdfUrl"></pdf>
+    </div>
 </template>
-
-
-
-
 <script>
+import pdf from 'vue-pdf';
 export default {
-    data(){
-        return{
-
-        }
-
-    },mounted() {
-
-
-    },methods:{
-
-
+    name: 'Pdf',
+    components: {
+        pdf
+    },
+    data() {
+        return {
+            pdfUrl: 'src/components/page/汤豪.pdf'
+        };
     }
-    
-}
+};
 </script>
-
-
-<style scoped>
-
-</style>
