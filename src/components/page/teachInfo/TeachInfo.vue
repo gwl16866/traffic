@@ -83,7 +83,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次允许上传一个视频</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
             </el-upload>
              </el-form-item>
 
@@ -262,7 +262,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次允许上传一个视频，最大100MB</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
             </el-upload>
 </el-form-item>
 
@@ -302,7 +302,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次允许上传一个视频，最大100MB</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
             </el-upload>
 </el-form-item>
 
