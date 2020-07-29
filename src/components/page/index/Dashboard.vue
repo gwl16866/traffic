@@ -48,7 +48,7 @@
     <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top:15px">
 
    <el-col :span="24" style="background:#DCDFE6;"><div class="grid-content bg-purple-dark" style="height:70px;text-align:center; line-height:70px;border:#18a077 solid 1px; ">
-    <h3 style="display: inline;">下属企业培训统计-2020年</h3>
+    <h3 style="display: inline;">下属企业培训统计-{{FullYear}}年</h3>
     </div></el-col>
 
   <el-col :span="24"><div class="grid-content bg-purple-dark">
@@ -93,7 +93,7 @@
         align="center"
           size="mini"
           type="danger"
-          @click="handleDelete()">查看详情</el-button>
+          @click="handleDelete(scope.row.id)">查看详情</el-button>
       </template>
     </el-table-column>
      
@@ -120,7 +120,8 @@ export default {
             thenumbers2:[],
             Bchar1:{},
             Bchar2:{},
-            Bchar3:{}
+            Bchar3:{},
+            FullYear:""
           
         };
     },
@@ -132,6 +133,8 @@ export default {
             this.Bchar1info3();
             this.inittableData();
             this.inittableData2();
+
+            this.nnn();
 
             //this.mqbbcolumns();
     },
@@ -150,6 +153,13 @@ componentWillReceiveProps() {
     },
   
     methods: {
+         nnn(){
+              var date=new Date;
+              var y = date.getFullYear()
+              this.FullYear=y;
+             
+
+        },
         changeDate() {
             const now = new Date().getTime();
             this.data.forEach((item, index) => {
@@ -266,8 +276,8 @@ componentWillReceiveProps() {
          this.zxcolumns.setOption({
 
                     title: {
-        text: '2020年培训人次统计',
-        subtext: '(含子公司)'
+        text:a.FullYear+'年培训人次统计',
+        subtext: '(不含子公司)'
     },
     tooltip: {
         trigger: 'axis'
@@ -323,7 +333,7 @@ componentWillReceiveProps() {
              
 
     title: {
-        text: '2020培训（线上/现场/现场+线上）分类统计',
+        text: a.FullYear+'培训（线上/现场/现场+线上）分类统计',
         subtext: '真实有效',
         left: 'center'
     },

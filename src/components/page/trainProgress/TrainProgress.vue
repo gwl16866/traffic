@@ -103,15 +103,11 @@
                     </div>
                     <el-radio-group v-model="radio" class="radioS" @change="LikeSelects">
                         <el-radio :label="0">所有</el-radio>
-                        <el-radio :label="1">已完成</el-radio>
-                        <el-radio :label="2">未完成</el-radio>
+                        <el-radio :label="2">已完成</el-radio>
+                        <el-radio :label="1">未完成</el-radio>
                     </el-radio-group>
                 </div>
             </el-form>
-            <div class="right">
-                <el-button type="primary" round icon="el-icon-printer" class="excelsss" @click="importExcel">导出Excel</el-button>
-                <el-button type="primary" round >打印</el-button>
-            </div> 
         </div>
         <el-table :data="cxInfo" height="250" border style="width: 100%">
             <el-table-column type="index" width="60"></el-table-column>
@@ -126,9 +122,9 @@
             <el-table-column prop="busNum" label="车牌号码"  width="120"></el-table-column>
             <el-table-column prop="linkNum" label="联系电话" width="100"></el-table-column>
             <el-table-column prop=" " label="群组名称" width="130"></el-table-column>
-            <el-table-column prop="status" label="培训状态"  width="100">
+            <el-table-column prop="completion" label="培训状态"  width="100">
                 <template slot-scope="scope">
-                　　<div>{{ scope.row.status==1?'已完成':'未完成' }}</div>
+                　　<div>{{ scope.row.completion==1?'未完成':'已完成' }}</div>
                 </template>
             </el-table-column>
             <el-table-column prop="createTime" label="开始时间"  width="160"></el-table-column>
@@ -173,7 +169,7 @@ export default {
         return{
             activeIndex2: '1',
             selectValue: 'realName',
-            radio:"",
+            radio:0,
             inputs: '',
             keChengPopUp: false,
             canXunPopUp: false,

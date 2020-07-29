@@ -108,6 +108,7 @@ export default {
                 .get('http://localhost:8081/document/document/insertdocument', {
                     params: {
                         texts: th.content,
+                        id:th.form.id,
                         num: th.form.num,
                         title: th.form.title
                     }

@@ -83,7 +83,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次允许上传一个视频，最大100MB</div>
+                    <div slot="tip" class="el-upload__tip">每次允许上传一个视频</div>
             </el-upload>
              </el-form-item>
 
@@ -570,7 +570,7 @@ export default {
                       showClose: true,
                       duration: 1000,
                       message: "上传失败，可能文件过大",
-                      type: "success"
+                      type: "error"
                       });
       },
       handleRemove(file, fileList) {

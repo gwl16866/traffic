@@ -183,12 +183,10 @@
 
 
 <script>
-import pdf from 'vue-pdf';
+
 
 export default {
-    name: 'pdf',
     components: {
-        pdf
     },
     data() {
         return {
@@ -213,7 +211,6 @@ export default {
             tableDatasize3: 0,
             pagesize3: 3,
             currpage3: 1,
-            src: 'E:/Users/HAO/IdeaProjects/traffic_manager/src/main/java/com/hy/traffic/pdf汤豪.pdf',
             pdfTop: 40,
 
             showTips: true
@@ -246,7 +243,7 @@ export default {
             this.yuefen = '';
             var th = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/saftyedu/querySaftyedu?pagesize=' + this.pagesize + '&currpage=' + this.currpage)
+                .get('http://localhost:8081/saftyEdu/querySaftyedu?pagesize=' + this.pagesize + '&currpage=' + this.currpage)
                 .then(function (response) {
                     console.log(response);
                     th.tableData = response.data.data;
@@ -316,7 +313,7 @@ export default {
 
                 this.$axios
                     .get(
-                        'http://localhost:8081/saftyEdu/saftyedu/querySaftyeduMonth?yuefen=' +
+                        'http://localhost:8081/saftyEdu/querySaftyeduMonth?yuefen=' +
                             this.yuefenfromet +
                             '&pagesize=' +
                             this.pagesize +
@@ -348,7 +345,7 @@ export default {
                 console.log(th.multipleSelection);
                 this.$axios
                     .get(
-                        'http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' +
+                        'http://localhost:8081/saftyEdu/queryStudentByid?said=' +
                             th.multipleSelection.id +
                             '&pagesize=' +
                             this.pagesize2 +
@@ -390,7 +387,7 @@ export default {
                 this.$message('没有可打印的东风西');
             } else if (this.multipleSelection == '') {
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/saftyedu/genjustuxiazaipdf?arr=' + this.dayinshuzu)
+                    .get('http://localhost:8081/saftyEdu/genjustuxiazaipdf?arr=' + this.dayinshuzu)
                     .then(function (response) {
                         th.$message('已下载到本地');
                     })
@@ -399,7 +396,7 @@ export default {
                     });
             } else {
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/saftyedu/xiazaipdf?arr=' + this.dayinshuzu + '&said=' + this.multipleSelection.id)
+                    .get('http://localhost:8081/saftyEdu/xiazaipdf?arr=' + this.dayinshuzu + '&said=' + this.multipleSelection.id)
                     .then(function (response) {
                         th.$message('已下载到本地');
                     })
@@ -414,7 +411,7 @@ export default {
             var th = this;
             this.$axios
                 .get(
-                    'http://localhost:8081/saftyEdu/saftyedu/queryByid?said=' +
+                    'http://localhost:8081/saftyEdu/queryByid?said=' +
                         th.multipleSelection.id +
                         '&select=' +
                         th.select +
@@ -437,7 +434,7 @@ export default {
             var th = this;
             this.$axios
                 .get(
-                    'http://localhost:8081/saftyEdu/saftyedu/queryStudentByid?said=' +
+                    'http://localhost:8081/saftyEdu/queryStudentByid?said=' +
                         th.multipleSelection.id +
                         '&pagesize=' +
                         this.pagesize2 +
