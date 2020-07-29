@@ -3,7 +3,7 @@
         <el-row style="background:#fff;padding:16px 16px 0;margin-bottom:32px;margin-top:15px">
 
    <el-col :span="24" style="background:#DCDFE6;"><div class="grid-content bg-purple-dark" style="height:70px;text-align:center; line-height:70px;border:#18a077 solid 1px; ">
-    <h3 style="display: inline;">枣阳市光武石化有限公司-2020年培训详情</h3>
+    <h3 style="display: inline;">枣阳市光武石化有限公司-{{FullYear}}年培训详情</h3>
     </div></el-col>
 
   <el-col :span="24"><div class="grid-content bg-purple-dark">
@@ -71,16 +71,25 @@ export default {
 
 data() {
         return {
-          tableData:[]
+          tableData:[],
+          FullYear:""
         };
     }, 
      mounted(){
          this.inittableData();
+         this.nnn();
 
      },
       methods: {
 
-              inittableData(){
+          nnn(){
+              var date=new Date;
+              var y = date.getFullYear()
+              this.FullYear=y;
+             
+
+        },
+             inittableData(){
              var a=this;   
       		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing')
 			  .then(function (response) {
