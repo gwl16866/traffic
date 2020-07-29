@@ -92,6 +92,7 @@
         <el-button
         align="center"
           size="mini"
+          
           type="danger"
           @click="handleDelete(scope.row.id)">查看详情</el-button>
       </template>

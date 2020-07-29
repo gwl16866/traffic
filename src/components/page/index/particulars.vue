@@ -89,7 +89,14 @@ data() {
 
         },
 
-              inittableData(){
+          nnn(){
+              var date=new Date;
+              var y = date.getFullYear()
+              this.FullYear=y;
+             
+
+        },
+             inittableData(){
              var a=this;   
       		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing')
 			  .then(function (response) {
