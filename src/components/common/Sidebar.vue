@@ -103,19 +103,10 @@ export default {
                 },
                  {
                     icon: 'el-icon-lx-cascades',
-                    index: '/jihuahuishou',
-                    title: '计划回收'
-                },
-                 {
-                    icon: 'el-icon-lx-cascades',
                     index: '/fabugongwen',
                     title: '发布公文'
                 },
-                 {
-                    icon: 'el-icon-lx-cascades',
-                    index: '/gongwengonggao',
-                    title: '公文公告'
-                }
+             
             ]
         };
     },

@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/login'
         },
         {
             path: '/',
@@ -17,7 +17,7 @@ export default new Router({
                 {
                     path: '/dashboard',
                     component: () => import(/* webpackChunkName: "dashboard" */ '../components/page/index/Dashboard.vue'),
-                    meta: { title: '系统首页' }
+                    meta: { title: '系统首页' },
                 },
                 {
                     path: '/xueyuanxinxi',
@@ -63,29 +63,13 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "chart" */ '../components/page/studyEvidence/StudyEvidence.vue'),
                     meta: { title: '学习证明' }
                 },
-                {
-                    // 拖拽列表组件
-                    path: '/jihuahuishou',
-                    component: () => import(/* webpackChunkName: "drag" */ '../components/page/planRecycle/PlanRecycle.vue'),
-                    meta: { title: '计划回收' }
-                },
+           
                 {
                     path: '/fabugongwen',
                     component: () => import(/* webpackChunkName: "dragdialog" */ '../components/page/issuerOfficialDocument/issuerOfficialDocument.vue'),
                     meta: { title: '发布公文' }
                 },
-                {
-                    path: '/gongwengonggao',
-                    component: () => import(/* webpackChunkName: "i18n" */ '../components/page/OfficialDocument/OfficialDocument.vue'),
-                    meta: { title: '公文公告' }
-                },
-                 {
-                     path: '/fuwenben',
-                     component: () => import( /* webpackChunkName: "i18n" */ '../components/page/富文本模板.vue'),
-                     meta: {
-                         title: '公文公告'
-                     }
-                 },
+              
                 {
                     path: '/particulars',
                     component: () => import(/* webpackChunkName: "login" */ '../components/page/index/particulars.vue'),

@@ -7,6 +7,7 @@
   <div>添加</div>
   <el-button type="danger" style="width:50px" size="mini" @click="addLession">菜单</el-button>
   <el-button type="danger" style="width:50px" size="mini" @click="addLessionKejie">课节</el-button>
+  <el-button type="danger" style="width:50px" size="mini" @click="addLittleLes">小节</el-button><br><br>
   <el-button type="danger" style="width:50px" size="mini" @click="addQuestion">题目</el-button>
   <el-divider></el-divider>
       <el-row>
@@ -89,6 +90,79 @@
 
                <el-form-item>
                     <el-button type="primary" @click="addLessionss()">确 定</el-button>
+          </el-form-item>
+
+  </el-form>
+</el-dialog>
+
+
+<el-dialog
+  title="添加小节"
+  :visible.sync="addLittleLesShow"
+  v-if="addLittleLesShow"
+  width="40%"
+  @close="addLittleLesShowClose"
+  >
+  <el-form label-width="100px">
+   <el-form-item label="大纲:">
+                        <el-select style="width:400px;" v-model="addLittleLesTemp.big" filterable placeholder="请选择" @change="dagangChange">
+                              <el-option
+                                    v-for="item in leftClassName"
+                                    :key="item.id"
+                                    :label="item.classTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+
+                <el-form-item label="章节:">
+                        <el-select style="width:400px;" v-model="addLittleLesTemp.zh" filterable placeholder="请选择" @change="zhangChange">
+                              <el-option
+                                    v-for="item in zhang"
+                                    :key="item.id"
+                                    :label="item.oneTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+                </el-form-item>
+
+                 <el-form-item label="节:">
+                        <el-select style="width:400px;" v-model="addLittleLesTemp.da" filterable placeholder="请选择" @change="jieChange">
+                              <el-option
+                                    v-for="item in jie"
+                                    :key="item.id"
+                                    :label="item.oneTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+
+
+                <el-form-item label="小节:">
+                       <el-input style="width:400px;" v-model="addLittleLesTemp.xj" placeholder="请输入小节"></el-input>
+                </el-form-item>
+
+                <el-form-item label="视频:">
+              <el-upload
+                    v-model="addLittleLesTemp.sp"
+                    class="upload-demo"
+                    action="http://localhost:8081/teachInfo/uploadFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :on-success="uploadSuccess"
+                    :on-error="uploadError"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
+            </el-upload>
+             </el-form-item>
+
+               <el-form-item>
+                    <el-button type="primary" @click="addLittleLesSubmit()">确 定</el-button>
           </el-form-item>
 
   </el-form>
@@ -515,6 +589,15 @@ export default {
               dajie:"",
               xiaojie:"",
               shipin:""
+            },addLittleLesShow:false,
+            addLittleLesTemp:{
+              big:"",
+              zh:"",
+              da:"",
+              xj:"",
+              sp:"",
+
+
             }
 
         }
@@ -524,6 +607,39 @@ export default {
         this.queryAllQuestion()
         this.loadVedio()
     },methods:{
+      addLittleLesShowClose(){
+            this.addLittleLesTemp.big=""
+                              this.addLittleLesTemp.zh=""
+                              this.addLittleLesTemp.da=""
+                              this.addLittleLesTemp.xj=""
+                              this.addLittleLesTemp.sp=""
+
+
+
+      },
+      addLittleLesSubmit(){
+                  const that = this;
+                     this.$axios
+                        .post("http://localhost:8081/teachInfo/addLittleLes", 
+                          that.addLittleLesTemp
+                        )
+                        .then(function(res) {
+                          that.addLittleLesShow=false
+                          that.queryAllTeachinfo()
+                           that.queryClassDetail(that.thisCla);
+                              that.addLittleLesTemp.big=""
+                              that.addLittleLesTemp.zh=""
+                              that.addLittleLesTemp.da=""
+                              that.addLittleLesTemp.xj=""
+                              that.addLittleLesTemp.sp=""
+                             that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "添加成功",
+                                  type: "success"
+                                });
+                        });
+      },
       addLessionss(){
                   const that = this;
                      this.$axios
@@ -566,6 +682,7 @@ export default {
         }
         this.addKejianTemp.ve=res.filename
         this.addKejieShowTemp.shipin=res.filename
+        this.addLittleLesTemp.sp=res.filename
       },uploadError(res){
                this.$message({
                       showClose: true,
@@ -750,6 +867,18 @@ export default {
                         .then(function(res) {
                         that.questions = res.data;
                         });
+            },       queryAllQuestionById(e) {
+
+                    const that = this;
+                    this.$axios
+                        .get("http://localhost:8081/teachInfo/queryAllQuestionById", {
+                          params:{
+                            id:e
+                          }
+                        })
+                        .then(function(res) {
+                        that.questions = res.data;
+                        });
             },
               queryClassDetail(e) {
 
@@ -768,6 +897,7 @@ export default {
               this.title=cla.classTitle
               this.thisCla=cla.id;
               this.queryClassDetail(cla.id);
+              this.queryAllQuestionById(cla.id)
               this.left=true
               this.pageCheck=true
            } ,
@@ -807,7 +937,8 @@ export default {
                  this.addKejianTemp.z=""
          },addLessionKejie(){
             this.addLessionsShow=true
-
+         },addLittleLes(){
+            this.addLittleLesShow=true
          }
          ,addQuestion(){
            this.addQuestionShow=true
