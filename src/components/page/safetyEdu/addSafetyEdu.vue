@@ -62,6 +62,14 @@
                     readonly
                 ></el-input>
             </el-form-item>
+            <el-form-item prop="a6">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;及格分数：
+                <el-input
+                    v-model="addEdu.passscore"
+                    autocomplete="off"
+                    style="width:300px"
+                ></el-input>
+            </el-form-item>
             <el-divider></el-divider>线上培训
             <el-form-item prop="a7">
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始时间：
@@ -229,7 +237,8 @@ export default {
                 trainteacher: '',
                 learnType:1,
                 manager: '',
-                testPeople: ''
+                testPeople: '',
+                passscore:''
             },
         };
     },
