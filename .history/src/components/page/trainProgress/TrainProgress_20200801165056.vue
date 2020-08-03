@@ -79,17 +79,16 @@
             {{queryZhuTiClass.project}}
 
           <el-table :data="queryZhuTiClass" style="width: 100%">
-            <el-table-column prop="project" width="900">
+            <el-table-column prop="project" label="日期" width="900">
+              <el-table-column prop="oneTitle,vedio,vedioTime" label="project" width="900">
               <template slot-scope="scope">
-                <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
-                <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
-                  {{scope.row.oneTitle}}
-                  {{scope.row.vedioTime}}分钟
-                </i>
-                </template>
-              </el-table-column>
+              <!--  <video src=""></video> -->
+              <button @click="checkVideoFun('scope.row.vedio')"><i class="el-icon-video-play" ></i>
+              </button>
+                {{scope.row.oneTitle}}
+                {{scope.row.vedioTime}}分钟
               </template>
+            </el-table-column>
             </el-table-column>
             
           </el-table>
@@ -137,7 +136,7 @@ export default {
    		    	this.videoState = false;
          },
          checkVideoFun(videos){
-            this.videoState = true;
+   		    	this.videoState = true;
             this.videoSrc = videos;
    			},
       //查询某一条培训的课程

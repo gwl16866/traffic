@@ -38,7 +38,7 @@
     <div class="pro">
         <div>{{jindu.years}}/{{mothons}}月培训计划进度 </div>
         <div class="allpro"> 总进度：（{{Teachinfo.okProper}}/{{Teachinfo.allProper}}）学员</div>            
-        <el-progress :text-inside="true" :stroke-width="12" :percentage="Teachinfo.allProper==0?0:Number(Teachinfo.okProper/Teachinfo.allProper*100).toFixed(2)"></el-progress>
+        <el-progress :text-inside="true" :stroke-width="12" :percentage="Teachinfo.allProper==0?'0':Number(Teachinfo.okProper/Teachinfo.allProper*100).toFixed(2)"></el-progress>
     </div>
 
     <el-table :data="tableData" >
@@ -69,43 +69,23 @@
         
         <el-table-column  width="300">
           <template slot-scope="scope">
-            <el-link type="success" @click="queryAllPeiXunClass(scope.row)">培训课程</el-link>&emsp;&emsp;
+            <el-link type="success" @click="selectPXClass(scope.row)">培训课程</el-link>&emsp;&emsp;
             <el-link type="success" @click="selectCanXun(scope.row)">参训学员</el-link>&emsp;&emsp;
+            <el-link type="success" >考试详情</el-link>&emsp;&emsp;
           </template>
         </el-table-column>
     </el-table>
-      <el-dialog title="培训课程" :visible.sync="selectPXClassVisible" width="50%" center>
-       
-            {{queryZhuTiClass.project}}
-
-          <el-table :data="queryZhuTiClass" style="width: 100%">
-            <el-table-column prop="project" width="900">
-              <template slot-scope="scope">
-                <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
-                <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
-                  {{scope.row.oneTitle}}
-                  {{scope.row.vedioTime}}分钟
-                </i>
-                </template>
-              </el-table-column>
-              </template>
-            </el-table-column>
-            
-          </el-table>
-
-                <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
-            <div class='mask' v-if='videoState == true' @click='masksCloseFun'></div>
-            <!-- //弹窗 -->
-            <div class="videomasks" v-if="videoState == true">
-            <!-- //视频：h5的视频播放video -->
-            
-              <video :src='videoSrc' controls='controls' autoplay>
-              <!-- 您的浏览器不支持 video 标签。 -->
-              </video>
-            </div>
-
-    </el-dialog>  
+    <el-dialog
+      title="提示"
+      :visible.sync="selectPXClassVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+  </span>
+</el-dialog>
 </div>
 </template>
 <script>
@@ -113,7 +93,6 @@ export default {
     data(){
         return{
           selectPXClassVisible:false,
-          queryZhuTiClass:[],
           jindu:{},
           years:[],
           mothons:"",
@@ -121,8 +100,6 @@ export default {
           dateYears:"0",
           dateMonths:0,
           Teachinfo:{},
-          videoSrc:'',
-          videoState:false,
         }
     },
     
@@ -133,29 +110,9 @@ export default {
     },
 
     methods:{
-      		masksCloseFun(){
-   		    	this.videoState = false;
-         },
-         checkVideoFun(videos){
-            this.videoState = true;
-            this.videoSrc = videos;
-   			},
       //查询某一条培训的课程
-      queryAllPeiXunClass(zhuti){
+      queryAllPeiXunClass(){
         this.selectPXClassVisible = !this.selectPXClassVisible
-        const that = this
-        this.$axios.get('http://localhost:8081/trainProgress/queryAllPeiXunClass',{
-          params:{
-            Id: zhuti.id
-          }
-        })
-        .then(res => {
-          that.queryZhuTiClass = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
       },
       handleClose(done) {
         this.$confirm('确认关闭？')
@@ -293,28 +250,4 @@ export default {
     margin-left: 20px;
     margin-top: 10px;
 }  
-
-.mask{
-	position:fixed;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;
-	z-index:10;
-	background-color: #000000;
-    opacity: .6;
-}
-/* // 内容层 z-index要比遮罩大，否则会被遮盖 */
-.videomasks{
-    max-width: 1200px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    z-index: 20;
-    transform: translate(-50%,-50%);
-  }
-  .videomasks video{
-    width: 100%;
-    height: 100%;
-  }
 </style>

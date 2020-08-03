@@ -83,10 +83,10 @@
               <template slot-scope="scope">
                 <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
                 <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
+                <!--  <video src=""></video> -->
+                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)></i>
                   {{scope.row.oneTitle}}
                   {{scope.row.vedioTime}}分钟
-                </i>
                 </template>
               </el-table-column>
               </template>
@@ -137,7 +137,8 @@ export default {
    		    	this.videoState = false;
          },
          checkVideoFun(videos){
-            this.videoState = true;
+             this.videoState = true;
+             alert(videos)
             this.videoSrc = videos;
    			},
       //查询某一条培训的课程

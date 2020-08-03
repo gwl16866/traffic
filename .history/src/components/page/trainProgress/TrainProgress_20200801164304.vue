@@ -76,22 +76,18 @@
     </el-table>
       <el-dialog title="培训课程" :visible.sync="selectPXClassVisible" width="50%" center>
        
-            {{queryZhuTiClass.project}}
-
+          
           <el-table :data="queryZhuTiClass" style="width: 100%">
-            <el-table-column prop="project" width="900">
+            {{project}}
+            <el-table-column prop="oneTitle,vedio,vedioTime" label="日期" width="180">
               <template slot-scope="scope">
-                <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
-                <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
-                  {{scope.row.oneTitle}}
-                  {{scope.row.vedioTime}}分钟
-                </i>
-                </template>
-              </el-table-column>
+              <!--  <video src=""></video> -->
+              <button @click="checkVideoFun('scope.row.vedio')">
+              </button>
+                {{scope.row.oneTitle}}
+                {{scope.row.vedioTime}}
               </template>
             </el-table-column>
-            
           </el-table>
 
                 <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
@@ -137,7 +133,7 @@ export default {
    		    	this.videoState = false;
          },
          checkVideoFun(videos){
-            this.videoState = true;
+   		    	this.videoState = true;
             this.videoSrc = videos;
    			},
       //查询某一条培训的课程

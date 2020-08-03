@@ -75,24 +75,16 @@
         </el-table-column>
     </el-table>
       <el-dialog title="培训课程" :visible.sync="selectPXClassVisible" width="50%" center>
-       
-            {{queryZhuTiClass.project}}
-
-          <el-table :data="queryZhuTiClass" style="width: 100%">
-            <el-table-column prop="project" width="900">
-              <template slot-scope="scope">
-                <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
-                <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
-                  {{scope.row.oneTitle}}
-                  {{scope.row.vedioTime}}分钟
-                </i>
-                </template>
-              </el-table-column>
-              </template>
-            </el-table-column>
-            
-          </el-table>
+        <el-table :data="queryZhuTiClass" style="width: 100%">
+          <el-table-column prop="oneTitle,vedioTime" label="日期" width="180">
+             <template slot-scope="scope">
+             <!--  <video src=""></video> -->
+             <button @click="checkVideoFun('https://cdn.course.ggjtaq.com/zizhikejian/shiguanli/weixianpinyunshushiguanli.mp4')">观看</button>
+               {{scope.row.oneTitle}}
+               {{scope.row.vedioTime}}
+            </template>
+          </el-table-column>
+        </el-table>
 
                 <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
             <div class='mask' v-if='videoState == true' @click='masksCloseFun'></div>
@@ -137,7 +129,7 @@ export default {
    		    	this.videoState = false;
          },
          checkVideoFun(videos){
-            this.videoState = true;
+   		    	this.videoState = true;
             this.videoSrc = videos;
    			},
       //查询某一条培训的课程
@@ -293,28 +285,4 @@ export default {
     margin-left: 20px;
     margin-top: 10px;
 }  
-
-.mask{
-	position:fixed;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;
-	z-index:10;
-	background-color: #000000;
-    opacity: .6;
-}
-/* // 内容层 z-index要比遮罩大，否则会被遮盖 */
-.videomasks{
-    max-width: 1200px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    z-index: 20;
-    transform: translate(-50%,-50%);
-  }
-  .videomasks video{
-    width: 100%;
-    height: 100%;
-  }
 </style>

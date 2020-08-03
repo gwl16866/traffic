@@ -86,7 +86,7 @@
                 <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
                   {{scope.row.oneTitle}}
                   {{scope.row.vedioTime}}分钟
-                </i>
+                  
                 </template>
               </el-table-column>
               </template>

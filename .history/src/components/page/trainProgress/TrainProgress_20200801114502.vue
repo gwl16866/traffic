@@ -36,9 +36,9 @@
     </div>
 
     <div class="pro">
-        <div>{{jindu.years}}/{{mothons}}月培训计划进度 </div>
-        <div class="allpro"> 总进度：（{{Teachinfo.okProper}}/{{Teachinfo.allProper}}）学员</div>            
-        <el-progress :text-inside="true" :stroke-width="12" :percentage="Teachinfo.allProper==0?0:Number(Teachinfo.okProper/Teachinfo.allProper*100).toFixed(2)"></el-progress>
+        <div>{{jindu.years}}培训计划进度 </div>
+        <div class="allpro"> 总进度：（{{okStu}}/{{allStu}}）学员</div>            
+        <el-progress :text-inside="true" :stroke-width="12" :percentage="zongJinDu"></el-progress>
     </div>
 
     <el-table :data="tableData" >
@@ -63,67 +63,32 @@
         <el-table-column width="200" >
             <template slot-scope="scope">
                 <div>当前进度:（{{scope.row.okProper}}/{{scope.row.allProper}}学员）</div>
-              <el-progress :text-inside="true" :stroke-width="12" :percentage="scope.row.allProper==0?0:Number(scope.row.okProper/scope.row.allProper*100).toFixed(2)"></el-progress>
+              <el-progress :text-inside="true" :stroke-width="12" :percentage="Number(scope.row.okProper/scope.row.allProper*100).toFixed(2)"></el-progress>
             </template>
         </el-table-column>
         
         <el-table-column  width="300">
           <template slot-scope="scope">
-            <el-link type="success" @click="queryAllPeiXunClass(scope.row)">培训课程</el-link>&emsp;&emsp;
+            <el-link type="success" @click="selectPXClass(scope.row)">培训课程</el-link>&emsp;&emsp;
             <el-link type="success" @click="selectCanXun(scope.row)">参训学员</el-link>&emsp;&emsp;
+            <el-link type="success" >考试详情</el-link>&emsp;&emsp;
           </template>
         </el-table-column>
     </el-table>
-      <el-dialog title="培训课程" :visible.sync="selectPXClassVisible" width="50%" center>
-       
-            {{queryZhuTiClass.project}}
-
-          <el-table :data="queryZhuTiClass" style="width: 100%">
-            <el-table-column prop="project" width="900">
-              <template slot-scope="scope">
-                <el-table-column prop="oneTitle,vedio,vedioTime" :label="scope.row.project" width="900">
-                <template slot-scope="scope">
-                <i class="el-icon-video-play" @click="checkVideoFun(scope.row.vedio)">
-                  {{scope.row.oneTitle}}
-                  {{scope.row.vedioTime}}分钟
-                </i>
-                </template>
-              </el-table-column>
-              </template>
-            </el-table-column>
-            
-          </el-table>
-
-                <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
-            <div class='mask' v-if='videoState == true' @click='masksCloseFun'></div>
-            <!-- //弹窗 -->
-            <div class="videomasks" v-if="videoState == true">
-            <!-- //视频：h5的视频播放video -->
-            
-              <video :src='videoSrc' controls='controls' autoplay>
-              <!-- 您的浏览器不支持 video 标签。 -->
-              </video>
-            </div>
-
-    </el-dialog>  
 </div>
 </template>
 <script>
 export default {
     data(){
         return{
-          selectPXClassVisible:false,
-          queryZhuTiClass:[],
           jindu:{},
           years:[],
           mothons:"",
           tableData:[],
           dateYears:"0",
           dateMonths:0,
-          Teachinfo:{},
-          videoSrc:'',
-          videoState:false,
         }
+
     },
     
     mounted() {
@@ -133,37 +98,6 @@ export default {
     },
 
     methods:{
-      		masksCloseFun(){
-   		    	this.videoState = false;
-         },
-         checkVideoFun(videos){
-            this.videoState = true;
-            this.videoSrc = videos;
-   			},
-      //查询某一条培训的课程
-      queryAllPeiXunClass(zhuti){
-        this.selectPXClassVisible = !this.selectPXClassVisible
-        const that = this
-        this.$axios.get('http://localhost:8081/trainProgress/queryAllPeiXunClass',{
-          params:{
-            Id: zhuti.id
-          }
-        })
-        .then(res => {
-          that.queryZhuTiClass = res.data
-        })
-        .catch(err => {
-          console.log(err)
-        })
-
-      },
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      },
       // 查询所有年份
         selectYear(){
             const that = this
@@ -187,10 +121,6 @@ export default {
             that.dateMonths=that.$moment(times).format('MM')
             that.mothons=months
         },
-        //点击年时清空月的信息
-        clealMonth(){
-            this.mothons=!this.mothons
-         },
 
         // 查询信息填充table表
         async selectTableInfo(){
@@ -203,54 +133,160 @@ export default {
             })
             .then(res => {
                 that.tableData = res.data
-                that.queryAllProperAndOkProper();
             })
             .catch(err => {
                 console.log(err)
             })
         },
-        //查询当前年当前月的总人数/已完成人数
-        queryAllProperAndOkProper(){
-          const that = this
-            this.$axios.get('http://localhost:8081/trainProgress/queryAllProperAndOkProper',{
-                params:{
-                    Year:that.jindu.years.slice(0,4),
-                    Month:that.mothons
-                }
-            })
-            .then(res => {
-                that.Teachinfo = res.data
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        },
-        // 将table数据导出到Excel中
-    importExcel(){
-        const that = this
-        this.$axios.get('http://localhost:8081/trainProgress/exportExcel.do',{
-          params:{
-             Year:that.jindu.years.slice(0,4),
-             Month:that.mothons
-            },
-            responseType: 'blob'
-            })
-        .then(res => {
-             console.log("导出成功")
-             const link = document.createElement('a')
-             let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
-             link.style.display = 'none'
-             link.href = URL.createObjectURL(blob)
-             // link.download = res.headers['content-disposition'] //下载后文件名
-             link.download = '培训进度表'//下载的文件名
-             document.body.appendChild(link)
-             link.click()
-             document.body.removeChild(link)
-           })
-        .catch(err => {
-                console.log("导出失败")
-            })
-     },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+//         //设置总进度百分百
+//         zongJinDus(){
+//             const that = this
+//             that.allStu=0
+//             that.okStu=0
+//             that.$axios.get('http://localhost:8081/trainProgress/allNum.do',{
+//                     params:{
+//                         Year:that.jindu.years.slice(0,4),
+//                         Month:that.mothons
+//                     }
+//                 })
+//                 .then(res => {
+//                     that.allStu = res.data
+//                     that.successNums()
+//                     console.log(1)
+//                 })
+//                 .catch(err => {
+//                     console.log(err)
+//                 })
+//         },
+//         //查询已完成某年月的人数
+//         successNums(){
+//             let that = this
+//             that.$axios.get('http://localhost:8081/trainProgress/successNum.do',{
+//                  params:{
+//                     Year:that.jindu.years.slice(0,4),
+//                     Month:that.mothons
+//                 }
+//             })
+//             .then(res => {
+//                 that.okStu = res.data
+//                 that.zongJinDuv()
+//                 console.log(2)
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//             })
+//         },
+//         //计算进度条的值
+//         zongJinDuv(){
+//             let that = this
+//             console.log(3)
+//             if(that.okStu === 0 && that.allStu === 0 ){
+//                 that.zongJinDu=0
+//             }else{
+//                 that.zongJinDu=parseFloat((that.okStu/that.allStu)*100).toFixed(2);
+//             }
+//         },
+
+//         //点击年时清空月的信息
+//         clealMonth(){
+//             this.mothons=!this.mothons
+//          },
+
+// // 将table数据导出到Excel中
+//     importExcel(){
+//         const that = this
+//         this.$axios.get('http://localhost:8081/trainProgress/exportExcel.do',{
+//           params:{
+//              Year:that.jindu.years.slice(0,4),
+//              Month:that.mothons
+//             },
+//             responseType: 'blob'
+//             })
+//         .then(res => {
+//              console.log("导出成功")
+//              const link = document.createElement('a')
+//              let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+//              link.style.display = 'none'
+//              link.href = URL.createObjectURL(blob)
+//              // link.download = res.headers['content-disposition'] //下载后文件名
+//              link.download = '培训进度表'//下载的文件名
+//              document.body.appendChild(link)
+//              link.click()
+//              document.body.removeChild(link)
+//            })
+//         .catch(err => {
+//                 console.log("导出失败")
+//             })
+//      },
+
+// //    培训课程弹框查询
+//     selectPXClass(){
+//         const that = this
+//         this.keChengPopUp = !this.keChengPopUp
+//      },
+// // 参训学员弹框查询
+//     selectCanXun(id){
+//         this.safeid=id.id //将传过来的Id放入data中，LikeSelects方法要用
+//         const that = this
+//         this.canXunPopUp = !this.canXunPopUp
+//          that.$axios.get('http://localhost:8081/trainProgress/SelectCXInfo.do',{
+//              params:{
+//                  saftyid:id.id
+//              }
+//          })
+//             .then(res => {
+//                 that.cxInfo = res.data
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//             })
+//      },
+// // 参训学员内的模糊查询
+//     LikeSelects(){
+//         console.log(this.radio)
+//         const that = this
+//          that.$axios.get('http://localhost:8081/trainProgress/LikeCXInfo.do',{
+//              params:{
+//                  saftyid:that.safeid,
+//                  selects:that.selectValue,
+//                  inputs:that.inputs,
+//                  oneStatus:that.radio
+//              }
+//          })
+//             .then(res => {
+//                 that.cxInfo = res.data
+//             })
+//             .catch(err => {
+//                 console.log(err)
+//             })
+//      },
+
+
+// // 考试详情弹框查询
+//     selectKSDetails(){
+//         const that = this
+//         this.KSDetails = !this.KSDetails
+//      }
+
  }
     
 }
@@ -293,28 +329,8 @@ export default {
     margin-left: 20px;
     margin-top: 10px;
 }  
-
-.mask{
-	position:fixed;
-	top:0;
-	left:0;
-	bottom:0;
-	right:0;
-	z-index:10;
-	background-color: #000000;
-    opacity: .6;
-}
-/* // 内容层 z-index要比遮罩大，否则会被遮盖 */
-.videomasks{
-    max-width: 1200px;
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    z-index: 20;
-    transform: translate(-50%,-50%);
-  }
-  .videomasks video{
-    width: 100%;
-    height: 100%;
-  }
+/* .sizes{
+    font-size: 20mm;
+    color:darkgrey;
+} */
 </style>
