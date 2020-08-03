@@ -248,7 +248,7 @@ componentWillReceiveProps() {
             var a=this;   
       		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/year')
 			  .then(function (response) {
-                a.thenumbers=response.data
+                a.thenumbers2=response.data
                 a.thenumber2();
                 a.mqZxcolumns();
 			  })
@@ -261,7 +261,7 @@ componentWillReceiveProps() {
             var a=this;   
       		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/thenumber')
 			  .then(function (response) {
-                a.thenumbers2=response.data
+                a.thenumbers=response.data
                 a.mqZxcolumns();
 			  })
 			  .catch(function (error) {

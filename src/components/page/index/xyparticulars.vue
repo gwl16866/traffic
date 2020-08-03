@@ -13,42 +13,37 @@
     border
     style="width: 100%">
     <el-table-column
-      prop="browsecount"
+      prop="headImg"
       label="头像"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="ordersCount"
+      prop="realname"
       label="真实姓名"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="身份证号"
+      prop="cardid"
       label="身份证号"
        width="180">
     </el-table-column>
       <el-table-column
-      prop="岗位名称"
+      prop="jobname"
       label="岗位名称"
         width="180">
     </el-table-column>
       <el-table-column
-      prop="车牌号码"
+      prop="busnum"
       label="车牌号码"
         width="180">
     </el-table-column>
       <el-table-column
-      prop="联系电话"
+      prop="linknum"
       label="联系电话"
       width="180">
     </el-table-column>
-      <el-table-column
-      prop="联系电话"
-      label="群组名称"
-      width="180">
-    </el-table-column>
        <el-table-column
-      prop="联系电话"
+      prop="status"
       label="培训状态"
       width="180">
     </el-table-column>
@@ -58,7 +53,7 @@
       width="180">
     </el-table-column>
        <el-table-column
-      prop="联系电话"
+      prop="score"
       label="考试分数"
       width="180">
     </el-table-column>
@@ -87,15 +82,31 @@ export default {
 
 data() {
         return {
-          tableData:[],
+          tableData:{},
           id:""
         };
     }, 
      mounted(){
       this.id=this.$route.query.value;
+      this.tableinit();
 
      },
       methods: {
+        tableinit(){
+               var a=this;   
+      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing2?id='+a.id)
+			  .then(function (response) {
+                a.tableData=response.data
+                
+			  })
+			  .catch(function (error) {
+			    console.log(error);
+			  });
+
+
+
+
+        }
 
       }
 
