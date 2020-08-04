@@ -9,7 +9,7 @@
   <el-col :span="24"><div class="grid-content bg-purple-dark">
  
       <el-table
-    :data="tableData"
+    :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" 
     border
     style="width: 100%">
     <el-table-column
@@ -60,6 +60,15 @@
     </el-table-column>
      
   </el-table>
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-sizes="[5, 10, 15, 20]"   
+          :page-size="pagesize"       
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="tableData.length">   
+        </el-pagination>
 
     </div></el-col>
 </el-row>
@@ -72,7 +81,10 @@ export default {
 data() {
         return {
           tableData:[],
-          FullYear:""
+          FullYear:"",
+          currentPage:1, //初始页
+          pagesize:5,   //    每页的数据
+         
         };
     }, 
      mounted(){
@@ -111,6 +123,20 @@ data() {
         },
         xiangqing(e){
             this.$router.push({path:'/xyparticulars',query:{value:e}});
+        },
+           // 初始页currentPage、初始每页数据数pagesize和数据data
+        handleSizeChange: function (size) {
+                this.pagesize = size;
+                console.log(this.pagesize)  //每页下拉显示数据
+        },
+        handleCurrentChange: function(currentPage){
+                this.currentPage = currentPage;
+                console.log(this.currentPage)  //点击第几页
+        },
+        handleUserList() {
+            this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing').then(res => {  //这是从本地请求的数据接口，
+                this.tableData = res.body
+            })
         }
 
       }
