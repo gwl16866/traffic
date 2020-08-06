@@ -70,13 +70,13 @@
         <el-table-column  width="300">
           <template slot-scope="scope">
             <el-link type="success" @click="queryAllPeiXunClass(scope.row)">培训课程</el-link>&emsp;&emsp;
-            <el-link type="success" @click="selectCanXun(scope.row)">参训学员</el-link>&emsp;&emsp;
+            <el-link type="success" @click="selectCanXun(scope.row.id)">参训学员</el-link>&emsp;&emsp;
           </template>
         </el-table-column>
     </el-table>
-      <el-dialog title="培训课程" :visible.sync="selectPXClassVisible" width="50%" center>
-       
-            {{queryZhuTiClass.project}}
+
+    <el-dialog title="" :visible.sync="selectPXClassVisible" width="50%">
+      {{queryZhuTiClass.project}}培训课程
 
           <el-table :data="queryZhuTiClass" style="width: 100%">
             <el-table-column prop="project" width="900">
@@ -104,8 +104,7 @@
               <!-- 您的浏览器不支持 video 标签。 -->
               </video>
             </div>
-
-    </el-dialog>  
+    </el-dialog>
 </div>
 </template>
 <script>
@@ -133,6 +132,9 @@ export default {
     },
 
     methods:{
+      selectCanXun(e){
+        this.$router.push({path:'/xyparticulars',query:{value:e}});
+      },
       		masksCloseFun(){
    		    	this.videoState = false;
          },
