@@ -48,7 +48,7 @@
     <el-table-column
       prop="headImg"
       label="头像"
-      width="180">
+    >
               <template slot-scope="scope">
           <img :src="scope.row.headImg" class="avatar">
         </template>
@@ -56,32 +56,32 @@
     <el-table-column
       prop="realName"
       label="真实姓名"
-      width="180">
+     >
     </el-table-column>
     <el-table-column
       prop="cardId"
       label="身份证号"
-       width="180">
+      >
     </el-table-column>
       <el-table-column
       prop="jobName"
       label="岗位名称"
-        width="180">
+       >
     </el-table-column>
       <el-table-column
       prop="busNum"
       label="车牌号码"
-        width="180">
+       >
     </el-table-column>
       <el-table-column
       prop="linkNum"
       label="联系电话"
-      width="180">
+     >
     </el-table-column>
        <el-table-column
       prop="status"
       label="培训状态"
-      width="180">
+     >
        <template slot-scope="scope" >
         <el-tag v-if="scope.row.astatus=='1'" type="danger">未合格</el-tag>
         <el-tag v-else-if="scope.row.astatus=='2'" type="success">培训合格</el-tag>
@@ -92,7 +92,7 @@
        <el-table-column
       prop="startTime"
       label="开始时间"
-      width="180">
+     >
          <template slot-scope="scope" >
         <el-tag v-if="scope.row.startTime==null" type="danger">未开始</el-tag>
         <el-tag v-else>{{scope.row.startTime}}</el-tag>
@@ -103,16 +103,26 @@
        <el-table-column
       prop="score"
       label="考试分数"
-      width="180">
+     >
        <template scope="scope">                    
                     <p v-if="scope.row.score==null">暂未考试</p>
                     <p v-if="scope.row.score!=null">{{scope.row.score}}</p>             
                 </template>
     </el-table-column>
+
+  <el-table-column
+      prop="playtime"
+      label="视频观看时间"
+       >
+          <template scope="scope">                    
+                    <p v-if="scope.row.score==null">暂未观看</p>
+                    <p v-if="scope.row.score!=null">{{scope.row.playtime}}分钟</p>             
+                </template>
+    </el-table-column>
+
        <el-table-column
-      prop="联系电话"
       label="考试详情"
-      width="180">
+     >
        <template slot-scope="scope" >
         <el-button
         align="center"
