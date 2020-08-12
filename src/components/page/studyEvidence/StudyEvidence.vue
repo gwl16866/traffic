@@ -98,7 +98,7 @@
                     </el-container>
                 </el-header>
                 <el-footer style="height:10%">
-                    <el-button type="success" @click="dayin()" plain>成功按钮</el-button>
+                    <el-button type="success" @click="dayin()" plain>下载</el-button>
                 </el-footer>
             </el-container>
         </el-tab-pane>
