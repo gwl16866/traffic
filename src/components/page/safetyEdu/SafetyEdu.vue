@@ -69,7 +69,7 @@
             <el-table :data="studentList" border>
                 <el-table-column prop="headImg" label="头像"></el-table-column>
                 <el-table-column prop="realName" label="真实姓名" ></el-table-column>
-                <el-table-column prop="cardId" label="身份证号" ></el-table-column>
+                <el-table-column prop="cardId" label="身份证号" width="150px"></el-table-column>
                 <el-table-column prop="busNum" label="车牌号码"></el-table-column>
                 <el-table-column prop="jobName" label="岗位名称" ></el-table-column>
                 <el-table-column prop="linkNum" label="联系电话" ></el-table-column>
