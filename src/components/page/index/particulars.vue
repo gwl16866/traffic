@@ -11,12 +11,12 @@
       <el-table
     :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" 
     border
-    style="width: 100%">
+    >
     <el-table-column
     align="center"
       prop="learnType"
       label="培训方式"
-      width="395">
+     >
        <template slot-scope="scope" >
         <el-tag v-if="scope.row.learnType=='1'" type="danger">线上</el-tag>
         <el-tag v-else-if="scope.row.learnType=='2'" type="success">现场</el-tag>
@@ -27,23 +27,23 @@
     align="center"
       prop="theme"
       label="培训主题"
-      width="395">
+     >
     </el-table-column>
     <el-table-column
     align="center"
       prop="project"
       label="培训科目"
-       width="395">
+      >
         <template slot-scope="scope" >
         {{scope.row.project}}<br>
-        计划时间: {{scope.row.startTime}}-{{scope.row.endTime}}
+        计划时间: {{scope.row.startTime}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>{{scope.row.endTime}}
       </template>
      </el-table-column>
       <el-table-column
       align="center"
       prop="count"
       label="培训进度"
-        width="395">
+       >
       <template slot-scope="scope" >
         当前进度：（{{scope.row.a}}/{{scope.row.b}}）
        <el-progress :percentage="scope.row.jd"></el-progress>

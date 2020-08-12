@@ -21,7 +21,7 @@
         <img  v-if="student.headImg" :src="student.headImg" class="avatar"/>
       </el-form-item>
 
-      <el-form-item label="相片审核状态">
+      <el-form-item label="审核状态">
           <el-select class="y1" v-model="headImgStatus" placeholder="请选择活动区域">
           <el-option label="待审核"   value="4"></el-option>
           <el-option label="通过"     value="5"></el-option>

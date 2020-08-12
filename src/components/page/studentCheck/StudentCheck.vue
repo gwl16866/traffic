@@ -138,9 +138,20 @@ export default {
       this.queryNotReviewed();
     },
     methods:{
+      // 重置表单并刷新页面
+			resetForm() {
+				this.student={}
+				this.queryNotReviewed()
+			},
       //按条件查询所有未审核的学员e
 			queryNotReviewed(e){
         const currentThis = this
+        let createTimes = ''
+        let endTimes = ''
+				if (currentThis.student.createTime != null && currentThis.student.endTime != null) {
+					createTimes = currentThis.$moment(currentThis.student.createTime).format('YYYY-MM-DDTHH:mm:ss')
+					endTimes = currentThis.$moment(currentThis.student.endTime).format('YYYY-MM-DDTHH:mm:ss')
+        }
         if(e !== undefined){
           currentThis.currentPage=1
         }
@@ -149,7 +160,9 @@ export default {
             realName: currentThis.student.realName,
             headImgStatus: currentThis.student.headImgStatus,
             currentPage: currentThis.currentPage,
-						pageSize: currentThis.pageSize,
+            pageSize: currentThis.pageSize,
+            createTimes: createTimes,
+						endTimes: endTimes,
 					}
 				})
 				.then(res=>{

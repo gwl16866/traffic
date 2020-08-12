@@ -23,24 +23,24 @@
         <el-table
     :data="tableData"
     border
-    style="width: 100%">
+   >
     <el-table-column
       align="center"
       prop="learning"
       label="学习方式"
-      width="650">
+    >
     </el-table-column>
     <el-table-column
       align="center"
       prop="num"
       label="报名总人数"
-      width="650">
+    >
     </el-table-column>
     <el-table-column
       align="center"
       prop="percentage"
       label="完成率(%)"
-       width="650">
+       >
     </el-table-column>
   </el-table>
     </el-row>
@@ -56,36 +56,36 @@
       <el-table
     :data="tableData2"
     border
-    style="width: 100%">
+  >
     <el-table-column
     align="center"
       prop="name"
       label="企业名称"
-      width="330">
+     >
     </el-table-column>
     <el-table-column
     align="center"
       prop="wcl"
       label="完成率(%)"
-      width="330">
+     >
     </el-table-column>
     <el-table-column
     align="center"
       prop="jhs"
       label="培训计划数"
-       width="330">
+      >
     </el-table-column>
       <el-table-column
       align="center"
       prop="count"
       label="报名总人次"
-        width="330">
+       >
     </el-table-column>
       <el-table-column
       align="center"
       prop="okcount"
       label="完成总人次"
-        width="330">
+       >
     </el-table-column>
     <el-table-column label="操作" align="center">
       <template slot-scope="scope" >

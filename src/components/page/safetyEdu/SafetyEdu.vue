@@ -65,15 +65,15 @@
             </el-col>
         </el-row>
 
-        <el-dialog v-if="dialogProduct" title="参训学员" :visible.sync="dialogProduct">
-            <el-table :data="studentList" border style="width: 100%;">
-                <el-table-column prop="headImg" label="头像" width="90"></el-table-column>
-                <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
-                <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
-                <el-table-column prop="busNum" label="车牌号码" width="80"></el-table-column>
-                <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
-                <el-table-column prop="linkNum" label="联系电话" width="90"></el-table-column>
-                <el-table-column label="状态" width="80">
+        <el-dialog v-if="dialogProduct" title="参训学员" :visible.sync="dialogProduct" width="70%">
+            <el-table :data="studentList" border>
+                <el-table-column prop="headImg" label="头像"></el-table-column>
+                <el-table-column prop="realName" label="真实姓名" ></el-table-column>
+                <el-table-column prop="cardId" label="身份证号" ></el-table-column>
+                <el-table-column prop="busNum" label="车牌号码"></el-table-column>
+                <el-table-column prop="jobName" label="岗位名称" ></el-table-column>
+                <el-table-column prop="linkNum" label="联系电话" ></el-table-column>
+                <el-table-column label="状态" >
                     <template slot-scope="scope">
                         <span v-show="scope.row.completion==1">
                             <i class="el-icon-circle-close">未完成</i>
@@ -83,13 +83,13 @@
                         </span>
                     </template>
                 </el-table-column>
-                <el-table-column label="是否离职" width="80">
+                <el-table-column label="是否离职" >
                     <template slot-scope="scope">
                         <span v-show="scope.row.status==1">否</span>
                         <span v-show="scope.row.status==2">是</span>
                     </template>
                 </el-table-column>
-                <el-table-column label="操作" width="80">
+                <el-table-column label="操作" >
                     <template slot-scope="scope">
                         <el-button
                             size="mini"
@@ -107,16 +107,15 @@
                 <el-table
                     :data="allStudent"
                     border
-                    style="width: 100%;"
                     @selection-change="handleSelectionChange"
                 >
-                    <el-table-column type="selection" width="40" />
-                    <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                    <el-table-column prop="headImg" label="头像" width="90"></el-table-column>
-                    <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
-                    <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
-                    <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
-                    <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column>
+                    <el-table-column type="selection"  />
+                    <el-table-column prop="id" label="编号" ></el-table-column>
+                    <el-table-column prop="headImg" label="头像" ></el-table-column>
+                    <el-table-column prop="realName" label="真实姓名" ></el-table-column>
+                    <el-table-column prop="cardId" label="身份证号" ></el-table-column>
+                    <el-table-column prop="jobName" label="岗位名称" ></el-table-column>
+                    <el-table-column prop="LinkNum" label="联系电话" ></el-table-column>
                 </el-table>
                 <el-button :plain="true" @click="submitStudent()">添加</el-button>
                 <el-button @click="quxiao()">取消</el-button>
@@ -132,11 +131,11 @@
             <addSafetyEdu @back="listener" @changeLearnType="tiaozhuan"></addSafetyEdu>
         </el-dialog>
 
-        <el-dialog v-if="dialogVisiblelession" title="课程" :visible.sync="dialogVisiblelession">
-            <el-table :data="lessionlist" border style="width: 100%;">
-                <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                <el-table-column prop="oneTitle" label="课程名称" width="90"></el-table-column>
-                <el-table-column label="视频" width="80">
+        <el-dialog v-if="dialogVisiblelession" title="课程" :visible.sync="dialogVisiblelession" >
+            <el-table :data="lessionlist" border >
+                <el-table-column prop="id" label="编号"></el-table-column>
+                <el-table-column prop="oneTitle" label="课程名称" ></el-table-column>
+                <el-table-column label="视频" >
                     <template slot-scope="scope">
                         <el-button @click="checkVideoFun(scope.row.vedio)">观看</el-button>
                     </template>

@@ -112,11 +112,11 @@
 
   <el-table-column
       prop="playtime"
-      label="视频观看时间"
+      label="视频观看总时长"
        >
           <template scope="scope">                    
-                    <p v-if="scope.row.score==null">暂未观看</p>
-                    <p v-if="scope.row.score!=null">{{scope.row.playtime}}分钟</p>             
+                    <p v-if="scope.row.playtime==null">暂未观看</p>
+                    <p v-if="scope.row.playtime!=null">{{scope.row.playtime}}</p>             
                 </template>
     </el-table-column>
 
