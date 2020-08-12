@@ -97,9 +97,9 @@
                         </el-main>
                     </el-container>
                 </el-header>
-                <el-footer style="height:10%">
+                <!-- <el-footer style="height:10%">
                     <el-button type="success" @click="dayin()" plain>下载</el-button>
-                </el-footer>
+                </el-footer> -->
             </el-container>
         </el-tab-pane>
         <el-tab-pane label="自定义查询证明">
