@@ -408,6 +408,8 @@
             &nbsp;&nbsp;&nbsp;
             
             {{item.oneTitle}}
+             <el-button type="primary" size="mini" @click='updateTitle(item)'>修改</el-button>&nbsp;&nbsp;
+             <el-button type="danger" size="mini" @click='deleteTitle(item.id)'>删除</el-button>
             </div>
             <br>
         <div v-for="item1 in item.list" :key="item1.id">
@@ -421,7 +423,8 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{item1.oneTitle}} 
-
+             <el-button type="primary" size="mini" @click='updateTitle(item1)'>修改</el-button>&nbsp;&nbsp;
+             <el-button type="danger" size="mini" @click='deleteTitle(item1.id)'>删除</el-button>
            
           </div>
 
@@ -441,8 +444,9 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
              &nbsp;
             {{item2.oneTitle}} 
-            
-           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button @click='checkVideoFun(item2.vedio)'>观看</button>
+             <el-button type="primary" size="mini" @click='updateTitle(item2)'>修改</el-button>&nbsp;&nbsp;
+             <el-button type="danger" size="mini" @click='deleteTitle(item2.id)'>删除</el-button>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<el-button @click='checkVideoFun(item2.vedio)'>观看</el-button>
           
           </div>
           <br>
@@ -468,7 +472,20 @@
 
 
 </div>
-
+    <el-dialog
+  title="修改标题"
+  :visible.sync="updateTitleShow"
+  v-if="updateTitleShow"
+  width="30%"
+  >
+  <el-input v-model="titles"></el-input>
+  <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <el-button type="primary" @click="updateTitleOk">修改</el-button>
+  </el-dialog>
         <div v-show="pageCheck==false">
           <el-table 
             :data="questions"
@@ -513,6 +530,8 @@
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
   </span>
 </el-dialog>
+
+
 
 
 
@@ -596,9 +615,9 @@ export default {
               da:"",
               xj:"",
               sp:"",
-
-
-            }
+            },titles:"",
+            titlesId:"",
+            updateTitleShow:false
 
         }
 
@@ -607,15 +626,77 @@ export default {
         this.queryAllQuestion()
         this.loadVedio()
     },methods:{
+      updateTitleOk(){
+         const that = this;
+                     this.$axios
+                           .get("http://localhost:8081/teachInfo/updateTitle", {
+                          params:{
+                            id:that.titlesId,
+                            title:that.titles
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "修改成功",
+                                  type: "success"
+                                });
+                               that.queryClassDetail(that.thisCla);
+                               that.updateTitleShow=false
+                               that.titles=""
+                          }
+                        });
+
+
+      },
+      updateTitle(items){
+       this.titles=items.oneTitle;
+       this.titlesId=items.id;
+       this.updateTitleShow=true
+      },
+      deleteTitle(id){
+           
+           this.$confirm('标题下若有小的课节，也将会被删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            const that = this;
+                     this.$axios
+                           .get("http://localhost:8081/teachInfo/deleteTitleById", {
+                          params:{
+                            id:id
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "删除成功",
+                                  type: "success"
+                                });
+                               that.queryClassDetail(that.thisCla);
+
+                          }
+                        });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+
+      },
       addLittleLesShowClose(){
             this.addLittleLesTemp.big=""
                               this.addLittleLesTemp.zh=""
                               this.addLittleLesTemp.da=""
                               this.addLittleLesTemp.xj=""
                               this.addLittleLesTemp.sp=""
-
-
-
       },
       addLittleLesSubmit(){
                   const that = this;
