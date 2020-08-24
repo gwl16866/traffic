@@ -124,7 +124,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://localhost:8081/teachInfo/uploadFile',
+      uploadUrl: 'http://47.114.1.9/traffic/teachInfo/uploadFile',
       headImg: '',
       rules: {
           realName: [
@@ -174,7 +174,7 @@ export default {
   methods: {
     queryStudentById(){
       const currentThis = this
-      currentThis.$axios.get('http://localhost:8081/studentinfo/queryStudentById',{
+      currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryStudentById',{
 					params: {
 						id:currentThis.stuid
 					}
@@ -199,7 +199,7 @@ export default {
             currThis.student.driverOverTime=''
             currThis.student.busCarefulTime=''
             currThis.student.createTime=''
-          currThis.$axios.get('http://localhost:8081/studentinfo/updateStudent', {
+          currThis.$axios.get('http://47.114.1.9/traffic/studentinfo/updateStudent', {
             params: currThis.student,
           })
             .then(res => currThis.$emit('updateSuccessClick', res.data))

@@ -53,7 +53,7 @@ export default {
   methods: {
     queryStudentById(){
       const currentThis = this
-      currentThis.$axios.get('http://localhost:8081/studentinfo/queryStudentById',{
+      currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryStudentById',{
 					params: {
 						id:currentThis.stuid
 					}
@@ -65,7 +65,7 @@ export default {
     },
     updateStudents() {
       const currThis = this
-      currThis.$axios.get('http://localhost:8081/studentinfo/updateStudent', {
+      currThis.$axios.get('http://47.114.1.9/traffic/studentinfo/updateStudent', {
         params: {
           id: currThis.stuid,
           status : 1,

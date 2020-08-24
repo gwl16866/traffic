@@ -73,7 +73,7 @@
               <el-upload
                     v-model="addKejieShowTemp.shipin"
                     class="upload-demo"
-                    action="http://localhost:8081/teachInfo/uploadFile"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -146,7 +146,7 @@
               <el-upload
                     v-model="addLittleLesTemp.sp"
                     class="upload-demo"
-                    action="http://localhost:8081/teachInfo/uploadFile"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -325,7 +325,7 @@
               <el-upload
                     v-model="addKejianTemp.ve"
                     class="upload-demo"
-                    action="http://localhost:8081/teachInfo/uploadFile"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -365,7 +365,7 @@
               <el-upload
                     v-model="addKejianTemp.ve"
                     class="upload-demo"
-                    action="http://localhost:8081/teachInfo/uploadFile"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -629,7 +629,7 @@ export default {
       updateTitleOk(){
          const that = this;
                      this.$axios
-                           .get("http://localhost:8081/teachInfo/updateTitle", {
+                           .get("http://47.114.1.9/traffic/teachInfo/updateTitle", {
                           params:{
                             id:that.titlesId,
                             title:that.titles
@@ -665,7 +665,7 @@ export default {
         }).then(() => {
             const that = this;
                      this.$axios
-                           .get("http://localhost:8081/teachInfo/deleteTitleById", {
+                           .get("http://47.114.1.9/traffic/teachInfo/deleteTitleById", {
                           params:{
                             id:id
                           }
@@ -701,7 +701,7 @@ export default {
       addLittleLesSubmit(){
                   const that = this;
                      this.$axios
-                        .post("http://localhost:8081/teachInfo/addLittleLes", 
+                        .post("http://47.114.1.9/traffic/teachInfo/addLittleLes",
                           that.addLittleLesTemp
                         )
                         .then(function(res) {
@@ -724,7 +724,7 @@ export default {
       addLessionss(){
                   const that = this;
                      this.$axios
-                        .post("http://localhost:8081/teachInfo/addLessionsJie", 
+                        .post("http://47.114.1.9/traffic/teachInfo/addLessionsJie",
                           that.addKejieShowTemp
                         )
                         .then(function(res) {
@@ -820,7 +820,7 @@ export default {
       addKe(e){
             const that = this;
                      this.$axios
-                        .post("http://localhost:8081/teachInfo/addLession", 
+                        .post("http://47.114.1.9/traffic/teachInfo/addLession",
                           that.addKejianTemp
                         )
                         .then(function(res) {
@@ -845,7 +845,7 @@ export default {
       addTi(e){
             const that = this;
                      this.$axios
-                        .post("http://localhost:8081/teachInfo/addQues", 
+                        .post("http://47.114.1.9/traffic/teachInfo/addQues",
                           that.questionTemp
                         )
                         .then(function(res) {
@@ -896,7 +896,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryZhangByClass", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryZhangByClass", {
                           params:{
                             id:e
                           }
@@ -909,7 +909,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryJieByClass", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryJieByClass", {
                           params:{
                             id:e
                           }
@@ -921,7 +921,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryJieByClass", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryJieByClass", {
                           params:{
                             id:e
                           }
@@ -935,7 +935,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryAllTeachinfo", {})
+                        .get("http://47.114.1.9/traffic/teachInfo/queryAllTeachinfo", {})
                         .then(function(res) {
                         that.leftClassName = res.data;
                         });
@@ -944,7 +944,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryAllQuestion", {})
+                        .get("http://47.114.1.9/traffic/teachInfo/queryAllQuestion", {})
                         .then(function(res) {
                         that.questions = res.data;
                         });
@@ -952,7 +952,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryAllQuestionById", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryAllQuestionById", {
                           params:{
                             id:e
                           }
@@ -965,7 +965,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryClassDetail", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryClassDetail", {
                           params:{
                               cid:e
                           }
@@ -999,7 +999,7 @@ export default {
            this.dialogVisible=true
              const that = this;
                     this.$axios
-                        .get("http://localhost:8081/teachInfo/queryOneAnswer", {
+                        .get("http://47.114.1.9/traffic/teachInfo/queryOneAnswer", {
                           params:{
                             id:row.id
                           }

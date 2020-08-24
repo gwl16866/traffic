@@ -174,7 +174,7 @@ componentWillReceiveProps() {
         inittableData2(){
 
               var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/inittableData2')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/inittableData2')
 			  .then(function (response) {
                 a.tableData2=response.data
                 
@@ -190,7 +190,7 @@ componentWillReceiveProps() {
 
 
              var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/inittableData')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/inittableData')
 			  .then(function (response) {
                 a.tableData=response.data
                 
@@ -204,7 +204,7 @@ componentWillReceiveProps() {
         Bchar1info(){
             
                 var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar1')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/Bchar1')
 			  .then(function (response) {
                 a.Bchar1=response.data
                 
@@ -218,7 +218,7 @@ componentWillReceiveProps() {
            Bchar1info2(){
             
                 var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar2')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/Bchar2')
 			  .then(function (response) {
                 a.Bchar2=response.data
                 
@@ -232,7 +232,7 @@ componentWillReceiveProps() {
            Bchar1info3(){
             
                 var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/Bchar3')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/Bchar3')
 			  .then(function (response) {
                 a.Bchar3=response.data
                 //alert(response)
@@ -246,7 +246,7 @@ componentWillReceiveProps() {
         thenumber(){
 
             var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/year')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/year')
 			  .then(function (response) {
                 a.thenumbers2=response.data
                 a.thenumber2();
@@ -259,7 +259,7 @@ componentWillReceiveProps() {
         thenumber2(){
 
             var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/thenumber')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/thenumber')
 			  .then(function (response) {
                 a.thenumbers=response.data
                 a.mqZxcolumns();

@@ -225,7 +225,7 @@ export default {
             var th = this;
             this.$axios
                 .get(
-                    'http://localhost:8081/studyEvidence/saftyedu/queryStudentinfo?pagesize=' +
+                    'http://47.114.1.9/traffic/studyEvidence/saftyedu/queryStudentinfo?pagesize=' +
                         this.pagesize3 +
                         '&currpage=' +
                         this.currpage3
@@ -243,7 +243,7 @@ export default {
             this.yuefen = '';
             var th = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/querySaftyedu?pagesize=' + this.pagesize + '&currpage=' + this.currpage)
+                .get('http://47.114.1.9/traffic/saftyEdu/querySaftyedu?pagesize=' + this.pagesize + '&currpage=' + this.currpage)
                 .then(function (response) {
                     console.log(response);
                     th.tableData = response.data.data;
@@ -313,7 +313,7 @@ export default {
 
                 this.$axios
                     .get(
-                        'http://localhost:8081/saftyEdu/querySaftyeduMonth?yuefen=' +
+                        'http://47.114.1.9/traffic/saftyEdu/querySaftyeduMonth?yuefen=' +
                             this.yuefenfromet +
                             '&pagesize=' +
                             this.pagesize +
@@ -345,7 +345,7 @@ export default {
                 console.log(th.multipleSelection);
                 this.$axios
                     .get(
-                        'http://localhost:8081/saftyEdu/queryStudentByid?said=' +
+                        'http://47.114.1.9/traffic/saftyEdu/queryStudentByid?said=' +
                             th.multipleSelection.id +
                             '&pagesize=' +
                             this.pagesize2 +
@@ -387,7 +387,7 @@ export default {
                 this.$message('没有可打印的东风西');
             } else if (this.multipleSelection == '') {
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/genjustuxiazaipdf?arr=' + this.dayinshuzu)
+                    .get('http://47.114.1.9/traffic/saftyEdu/genjustuxiazaipdf?arr=' + this.dayinshuzu)
                     .then(function (response) {
                         th.$message('已下载到本地');
                     })
@@ -396,7 +396,7 @@ export default {
                     });
             } else {
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/xiazaipdf?arr=' + this.dayinshuzu + '&said=' + this.multipleSelection.id)
+                    .get('http://47.114.1.9/traffic/saftyEdu/xiazaipdf?arr=' + this.dayinshuzu + '&said=' + this.multipleSelection.id)
                     .then(function (response) {
                         th.$message('已下载到本地');
                     })
@@ -411,7 +411,7 @@ export default {
             var th = this;
             this.$axios
                 .get(
-                    'http://localhost:8081/saftyEdu/queryByid?said=' +
+                    'http://47.114.1.9/traffic/saftyEdu/queryByid?said=' +
                         th.multipleSelection.id +
                         '&select=' +
                         th.select +
@@ -434,7 +434,7 @@ export default {
             var th = this;
             this.$axios
                 .get(
-                    'http://localhost:8081/saftyEdu/queryStudentByid?said=' +
+                    'http://47.114.1.9/traffic/saftyEdu/queryStudentByid?said=' +
                         th.multipleSelection.id +
                         '&pagesize=' +
                         this.pagesize2 +

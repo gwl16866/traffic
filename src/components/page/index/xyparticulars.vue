@@ -234,7 +234,7 @@ data() {
         tableinit(id,aaa,realName,radio){
                var a=this;   
              
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing2',{
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/xiangqing2',{
 
                params:{
                 id:id,
@@ -267,7 +267,7 @@ data() {
           }else{
               a.dialogVisible = true
                   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/corexiangqing?id='+e)
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/corexiangqing?id='+e)
 			  .then(function (response) {
                 a.tableData2=response.data
                 
