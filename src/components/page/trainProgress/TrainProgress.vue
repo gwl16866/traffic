@@ -146,7 +146,7 @@ export default {
       queryAllPeiXunClass(zhuti){
         this.selectPXClassVisible = !this.selectPXClassVisible
         const that = this
-        this.$axios.get('http://localhost:8081/trainProgress/queryAllPeiXunClass',{
+        this.$axios.get('http://47.114.1.9/traffic/trainProgress/queryAllPeiXunClass',{
           params:{
             Id: zhuti.id
           }
@@ -169,7 +169,7 @@ export default {
       // 查询所有年份
         selectYear(){
             const that = this
-            this.$axios.get('http://localhost:8081/trainProgress/selectYear.do')
+            this.$axios.get('http://47.114.1.9/traffic/trainProgress/selectYear.do')
             .then(res => {
                     that.years = res.data
                 })
@@ -197,7 +197,7 @@ export default {
         // 查询信息填充table表
         async selectTableInfo(){
             const that = this
-            this.$axios.get('http://localhost:8081/trainProgress/queryThemTable',{
+            this.$axios.get('http://47.114.1.9/traffic/trainProgress/queryThemTable',{
                 params:{
                     Year:that.jindu.years.slice(0,4),
                     Month:that.mothons
@@ -214,7 +214,7 @@ export default {
         //查询当前年当前月的总人数/已完成人数
         queryAllProperAndOkProper(){
           const that = this
-            this.$axios.get('http://localhost:8081/trainProgress/queryAllProperAndOkProper',{
+            this.$axios.get('http://47.114.1.9/traffic/trainProgress/queryAllProperAndOkProper',{
                 params:{
                     Year:that.jindu.years.slice(0,4),
                     Month:that.mothons
@@ -230,7 +230,7 @@ export default {
         // 将table数据导出到Excel中
     importExcel(){
         const that = this
-        this.$axios.get('http://localhost:8081/trainProgress/exportExcel.do',{
+        this.$axios.get('http://47.114.1.9/traffic/trainProgress/exportExcel.do',{
           params:{
              Year:that.jindu.years.slice(0,4),
              Month:that.mothons

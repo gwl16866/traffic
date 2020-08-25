@@ -113,7 +113,7 @@ this.loadDate()
     },methods:{
 loadDate() {
         var a = this
-        this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan')
+        this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan')
             .then(res => {
             a.tableData = res.data
             })

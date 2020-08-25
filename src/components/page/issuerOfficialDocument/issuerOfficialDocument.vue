@@ -105,7 +105,7 @@ export default {
             console.log(this.form.texts);
             var th = this;
             this.$axios
-                .get('http://localhost:8081/document/document/insertdocument', {
+                .get('http://47.114.1.9/traffic/document/document/insertdocument', {
                     params: {
                         texts: th.content,
                         id:th.form.id,
@@ -131,7 +131,7 @@ export default {
         onload() {
             var th = this;
             this.$axios
-                .get('http://localhost:8081/document/document/queryDocument?pagesize=' + th.pagesize + '&currpage=' + th.currpage)
+                .get('http://47.114.1.9/traffic/document/document/queryDocument?pagesize=' + th.pagesize + '&currpage=' + th.currpage)
                 .then(function (response) {
                     console.log(response);
                     th.tableData = response.data.data;
@@ -159,7 +159,7 @@ export default {
 
             var th = this;
             this.$axios
-                .get('http://localhost:8081/document/document/queryByid?id=' + row.id)
+                .get('http://47.114.1.9/traffic/document/document/queryByid?id=' + row.id)
                 .then(function (response) {
                     console.log(response);
                     th.form = response.data;
@@ -177,7 +177,7 @@ export default {
 
             var th = this;
             this.$axios
-                .get('http://localhost:8081/document/document/queryByid?id=' + row.id)
+                .get('http://47.114.1.9/traffic/document/document/queryByid?id=' + row.id)
                 .then(function (response) {
                     console.log(response);
                     th.form = response.data;

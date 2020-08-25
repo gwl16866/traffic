@@ -235,7 +235,7 @@ export default {
     },
      loadDate() {
         var a = this
-        this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan')
+        this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan')
             .then(res => {
             a.tableData = res.data
             })
@@ -245,7 +245,7 @@ export default {
     },
        jiazai() {
         var a = this
-        this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan')
+        this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan')
             .then(res => {
             a.tableData = res.data
             })
@@ -264,7 +264,7 @@ export default {
     },
        somebutton() {
 		 const a = this
-      this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan', {
+      this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan', {
         params: {
          title:a.name
         }
@@ -279,7 +279,7 @@ export default {
     },
        del: function(c, a) {
           var that = this
-      this.$axios.get('http://localhost:8081/yearPlan/yearplan/del', {
+      this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/del', {
         params: {
           id: c.id
         }
@@ -294,7 +294,7 @@ export default {
     },
      onbutton() {
       var a = this
-      this.$axios.get('http://localhost:8081/yearPlan/yearplan/upd', {
+      this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/upd', {
         params: {
             id:a.year.id,
           title: a.year.title,
@@ -325,7 +325,7 @@ add () {
                 const that=this;
                 this.$axios({
                     method:"post",
-                    url:"http://localhost:8081/yearPlan/yearplan/tianjiaYearplan",
+                    url:"http://47.114.1.9/traffic/yearPlan/yearplan/tianjiaYearplan",
                      headers: {
                          "Content-Type": "multipart/form-data"
                      },
@@ -346,7 +346,7 @@ add () {
  guanbi() {
      var a = this
 
-     this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan')
+     this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan')
             .then(res => {
           a.isform=false
           a.isform1 = false
@@ -367,7 +367,7 @@ add () {
  reback() {
      var a1 = this
 
-     this.$axios.get('http://localhost:8081/yearPlan/yearplan/selectYearplan')
+     this.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan')
             .then(res => {
           a1.isform=false
           a1.isform1 = false
