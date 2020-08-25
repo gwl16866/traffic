@@ -13,6 +13,11 @@
       <el-row>
                 <el-col :span="24" v-for="cla in leftClassName" :key="cla.id">
                   <span style="cursor: default" @click="handleOpen(cla)">{{cla.classTitle}}</span>
+                  <div>
+                   <el-button type="primary" size="mini" @click='updateLeftTitle(cla)'>修改</el-button>&nbsp;
+                   <el-button type="danger" size="mini" @click='deleteLeftTitle(cla)'>删除</el-button>
+                  </div>
+                 
                   <el-divider></el-divider>
                   <br>
                   <br>
@@ -486,6 +491,23 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <el-button type="primary" @click="updateTitleOk">修改</el-button>
   </el-dialog>
+
+      <el-dialog
+  title="修改大标题"
+  :visible.sync="leftUpdateTitleShow"
+  v-if="leftUpdateTitleShow"
+  width="30%"
+  >
+  <el-input v-model="leftTitles"></el-input>
+  <br>
+  <br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <el-button type="primary" @click="leftUpdateTitleOk">修改</el-button>
+  </el-dialog>
+
+
         <div v-show="pageCheck==false">
           <el-table 
             :data="questions"
@@ -615,9 +637,13 @@ export default {
               da:"",
               xj:"",
               sp:"",
-            },titles:"",
+            },
+            titles:"",
             titlesId:"",
-            updateTitleShow:false
+            updateTitleShow:false,
+            leftTitles:"",
+            leftTitlesId:"",
+            leftUpdateTitleShow:false
 
         }
 
@@ -626,6 +652,32 @@ export default {
         this.queryAllQuestion()
         this.loadVedio()
     },methods:{
+      leftUpdateTitleOk(){
+         const that = this;
+                     this.$axios
+                           .get("http://localhost:8081/teachInfo/leftUpdateTitle", {
+                          params:{
+                            id:that.leftTitlesId,
+                            title:that.leftTitles
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "修改成功",
+                                  type: "success"
+                                });
+                                 that.queryAllTeachinfo();
+                               that.queryClassDetail(that.thisCla);
+                               that.leftUpdateTitleShow=false
+                               that.leftTitles=""
+                          }
+                        });
+
+
+      },
       updateTitleOk(){
          const that = this;
                      this.$axios
@@ -656,8 +708,47 @@ export default {
        this.titlesId=items.id;
        this.updateTitleShow=true
       },
+      updateLeftTitle(claa){
+       this.leftTitles=claa.classTitle;
+       this.leftTitlesId=claa.id;
+       this.leftUpdateTitleShow=true
+      },
+      deleteLeftTitle(claa){
+           this.$confirm('将删除其下所有课件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            const that = this;
+                     this.$axios
+                           .get("http://localhost:8081/teachInfo/deleteLeftTitleById", {
+                          params:{
+                            id:claa.id
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "删除成功",
+                                  type: "success"
+                                });
+                               that.queryAllTeachinfo()
+                               that.queryClassDetail(that.thisCla);
+                               that.title=""
+
+                          }
+                        });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+      },
       deleteTitle(id){
-           
            this.$confirm('标题下若有小的课节，也将会被删除, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
