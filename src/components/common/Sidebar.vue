@@ -91,11 +91,11 @@ export default {
                     index: '/peixunjindu',
                     title: '培训进度'
                 },
-                 {
-                    icon: 'el-icon-lx-cascades',
-                    index: '/peixunbaogao',
-                    title: '培训报告'
-                },
+                //  {
+                //     icon: 'el-icon-lx-cascades',
+                //     index: '/peixunbaogao',
+                //     title: '培训报告'
+                // },
                  {
                     icon: 'el-icon-lx-cascades',
                     index: '/xuexizhengming',

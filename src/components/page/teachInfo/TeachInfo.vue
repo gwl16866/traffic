@@ -9,6 +9,7 @@
   <el-button type="danger" style="width:50px" size="mini" @click="addLessionKejie">课节</el-button>
   <el-button type="danger" style="width:50px" size="mini" @click="addLittleLes">小节</el-button><br><br>
   <el-button type="danger" style="width:50px" size="mini" @click="addQuestion">题目</el-button>
+  <el-button type="danger" style="width:100px" size="mini" @click="importStudent">导入题目</el-button>
   <el-divider></el-divider>
       <el-row>
                 <el-col :span="24" v-for="cla in leftClassName" :key="cla.id">
@@ -33,6 +34,85 @@
             <el-button style="width:300px;" type="default" :disabled="right" @click="tiku">题库管理</el-button>
         </el-header>
     <el-main>
+
+ <el-dialog title="导入题目" :visible.sync="importStudentVisible" @close="importClo">
+      
+      <el-form label-width="100px" :inline="true">
+
+             <el-form-item label="大纲:">
+                        <el-select style="width:400px;" v-model="questionTemp.classId" filterable placeholder="请选择" @change="dagangChange">
+                              <el-option
+                                    v-for="item in leftClassName"
+                                    :key="item.id"
+                                    :label="item.classTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+
+                <el-form-item label="章节:">
+                        <el-select style="width:400px;" v-model="questionTemp.zhangs" filterable placeholder="请选择" @change="zhangChange">
+                              <el-option
+                                    v-for="item in zhang"
+                                    :key="item.id"
+                                    :label="item.oneTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+
+                <el-form-item label="节:">
+                        <el-select style="width:400px;" v-model="questionTemp.jies" filterable placeholder="请选择" @change="jieChange">
+                              <el-option
+                                    v-for="item in jie"
+                                    :key="item.id"
+                                    :label="item.oneTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+
+             <el-form-item label="小节:">
+                        <el-select style="width:400px;" v-model="questionTemp.xiaojies" filterable placeholder="请选择">
+                              <el-option
+                                    v-for="item in xiaojie"
+                                    :key="item.id"
+                                    :label="item.oneTitle"
+                                    :value="item.id">
+                              </el-option>
+                        </el-select>
+            </el-form-item>
+           
+     <h1>模板：</h1><el-button type="success" round @click="choiceFile">下载模板</el-button>
+     <h1>要求：答案ABCD必须有逗号隔开且为英文逗号 答案字段为大写ABCD，多选需要逗号隔开</h1>
+      <h1>题目是每一小节下对应的题目，所以请先选择上面小节后再导入数据，否则失败</h1>
+ 
+      <el-upload
+        class="upload-demo"
+        :action="daoruxlsURL"
+        :on-success="handleAvatarSuccess"
+        multiple
+        :limit="3"
+        :file-list="fileList">
+        <el-button size="small" type="primary">导入年计划</el-button>
+      </el-upload>
+
+           
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+
+      </el-form>
+    
+
+     
+    </el-dialog>
+
+
 
 <!--添加课节  -->
  <el-dialog
@@ -78,7 +158,7 @@
               <el-upload
                     v-model="addKejieShowTemp.shipin"
                     class="upload-demo"
-                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    action="http://localhost:8081/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -89,7 +169,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！最大500MB，格式MP4</div>
             </el-upload>
              </el-form-item>
 
@@ -151,7 +231,7 @@
               <el-upload
                     v-model="addLittleLesTemp.sp"
                     class="upload-demo"
-                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    action="http://localhost:8081/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -162,7 +242,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！最大500MB，格式MP4</div>
             </el-upload>
              </el-form-item>
 
@@ -330,7 +410,7 @@
               <el-upload
                     v-model="addKejianTemp.ve"
                     class="upload-demo"
-                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    action="http://localhost:8081/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -341,7 +421,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！最大500MB，格式MP4</div>
             </el-upload>
 </el-form-item>
 
@@ -370,7 +450,7 @@
               <el-upload
                     v-model="addKejianTemp.ve"
                     class="upload-demo"
-                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    action="http://localhost:8081/teachInfo/uploadFile"
                     :on-preview="handlePreview"
                     :on-remove="handleRemove"
                     :on-success="uploadSuccess"
@@ -381,7 +461,7 @@
                     :on-exceed="handleExceed"
                     :file-list="fileList">
                     <el-button size="small" type="primary">点击上传</el-button>
-                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！</div>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个视频！最大500MB，格式MP4</div>
             </el-upload>
 </el-form-item>
 
@@ -517,18 +597,26 @@
         <!-- <el-table-column prop="date" label="序号" width="180"></el-table-column> -->
         <el-table-column label="序号" type="index" align="center" show-overflow-tooltip width="50px"></el-table-column>
         <el-table-column prop="oneTitle" label="课件" width="200"></el-table-column>
-        <el-table-column prop="questionTitle" label="题目" width="550" ></el-table-column>
+        <el-table-column prop="questionTitle" label="题目" width="500"></el-table-column>
 
        
 
 
-        <el-table-column prop="questionType" label="题型" width="70"></el-table-column>
+        <el-table-column prop="questionType" label="题型" width="60"></el-table-column>
 
         <el-table-column label="答案">
             <template slot-scope="scope">
                 <el-button
                         size="mini"
                         @click="handleEdit(scope.row)">选项/分析</el-button>
+             
+            </template>
+        </el-table-column>
+         <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button
+                        size="mini" type="danger"
+                        @click="deleteQues(scope.row)">删除</el-button>
              
             </template>
         </el-table-column>
@@ -578,6 +666,8 @@
 export default {
     data(){
         return{
+          daoruxlsURL:"http://localhost:8081/teachInfo/importExcelToMySql",
+          importStudentVisible:false,
             leftClassName:[],
             classDetails:[],
             left:false,
@@ -652,10 +742,59 @@ export default {
         this.queryAllQuestion()
         this.loadVedio()
     },methods:{
+      importClo(){
+        this.questionTemp.classId=""
+        this.questionTemp.zhangs=""
+        this.questionTemp.jies=""
+        this.questionTemp.xiaojies=""
+
+
+      },
+           handleAvatarSuccess(res, file) {
+        const currThis = this
+        if (res.code === 200) {
+          currThis.$message.success(res.message)
+          this.$axios
+                           .get("http://localhost:8081/teachInfo/updateQuestionOfTitle", {
+                          params:{
+                            id:currThis.questionTemp.xiaojies
+                          }
+                        })
+                        .then(function(res) {
+                        });
+
+        } else {
+          currThis.$message.error(res.message)
+        }
+      },
+      choiceFile(){
+        const currentThis = this
+        currentThis.$axios.get('http://localhost:8081/teachInfo/exportFile',{
+          responseType: 'blob'
+        })
+				.then(res=>{
+          console.log(res.data)
+          const link = document.createElement('a')
+          let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+          link.style.display = 'none'
+          link.href = URL.createObjectURL(blob)
+ 
+        // link.download = res.headers['content-disposition'] //下载后文件名
+        link.download = '考试题目信息表'//下载的文件名
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+				})
+				.catch(err=>console.log(err))
+      },
+        importStudent(){
+        this.importStudentVisible = !this.importStudentVisible
+      },
       leftUpdateTitleOk(){
          const that = this;
                      this.$axios
-                           .get("http://47.114.1.9/traffic/teachInfo/leftUpdateTitle", {
+                           .get("http://localhost:8081/teachInfo/leftUpdateTitle", {
                           params:{
                             id:that.leftTitlesId,
                             title:that.leftTitles
@@ -681,7 +820,7 @@ export default {
       updateTitleOk(){
          const that = this;
                      this.$axios
-                           .get("http://47.114.1.9/traffic/teachInfo/updateTitle", {
+                           .get("http://localhost:8081/teachInfo/updateTitle", {
                           params:{
                             id:that.titlesId,
                             title:that.titles
@@ -721,7 +860,7 @@ export default {
         }).then(() => {
             const that = this;
                      this.$axios
-                           .get("http://47.114.1.9/traffic/teachInfo/deleteLeftTitleById", {
+                           .get("http://localhost:8081/teachInfo/deleteLeftTitleById", {
                           params:{
                             id:claa.id
                           }
@@ -756,7 +895,7 @@ export default {
         }).then(() => {
             const that = this;
                      this.$axios
-                           .get("http://47.114.1.9/traffic/teachInfo/deleteTitleById", {
+                           .get("http://localhost:8081/teachInfo/deleteTitleById", {
                           params:{
                             id:id
                           }
@@ -792,7 +931,7 @@ export default {
       addLittleLesSubmit(){
                   const that = this;
                      this.$axios
-                        .post("http://47.114.1.9/traffic/teachInfo/addLittleLes",
+                        .post("http://localhost:8081/teachInfo/addLittleLes",
                           that.addLittleLesTemp
                         )
                         .then(function(res) {
@@ -815,7 +954,7 @@ export default {
       addLessionss(){
                   const that = this;
                      this.$axios
-                        .post("http://47.114.1.9/traffic/teachInfo/addLessionsJie",
+                        .post("http://localhost:8081/teachInfo/addLessionsJie",
                           that.addKejieShowTemp
                         )
                         .then(function(res) {
@@ -911,7 +1050,7 @@ export default {
       addKe(e){
             const that = this;
                      this.$axios
-                        .post("http://47.114.1.9/traffic/teachInfo/addLession",
+                        .post("http://localhost:8081/teachInfo/addLession",
                           that.addKejianTemp
                         )
                         .then(function(res) {
@@ -936,7 +1075,7 @@ export default {
       addTi(e){
             const that = this;
                      this.$axios
-                        .post("http://47.114.1.9/traffic/teachInfo/addQues",
+                        .post("http://localhost:8081/teachInfo/addQues",
                           that.questionTemp
                         )
                         .then(function(res) {
@@ -987,7 +1126,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryZhangByClass", {
+                        .get("http://localhost:8081/teachInfo/queryZhangByClass", {
                           params:{
                             id:e
                           }
@@ -1000,7 +1139,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryJieByClass", {
+                        .get("http://localhost:8081/teachInfo/queryJieByClass", {
                           params:{
                             id:e
                           }
@@ -1012,7 +1151,7 @@ export default {
                this.questionTemp.xiaojies=""
                  const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryJieByClass", {
+                        .get("http://localhost:8081/teachInfo/queryJieByClass", {
                           params:{
                             id:e
                           }
@@ -1026,7 +1165,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryAllTeachinfo", {})
+                        .get("http://localhost:8081/teachInfo/queryAllTeachinfo", {})
                         .then(function(res) {
                         that.leftClassName = res.data;
                         });
@@ -1035,7 +1174,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryAllQuestion", {})
+                        .get("http://localhost:8081/teachInfo/queryAllQuestion", {})
                         .then(function(res) {
                         that.questions = res.data;
                         });
@@ -1043,7 +1182,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryAllQuestionById", {
+                        .get("http://localhost:8081/teachInfo/queryAllQuestionById", {
                           params:{
                             id:e
                           }
@@ -1056,7 +1195,7 @@ export default {
 
                     const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryClassDetail", {
+                        .get("http://localhost:8081/teachInfo/queryClassDetail", {
                           params:{
                               cid:e
                           }
@@ -1086,11 +1225,48 @@ export default {
    			masksCloseFun(){
    			this.videoState = false;
          },
+
+         deleteQues(row){
+            this.$confirm('将删除本题, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            const that = this;
+                     this.$axios
+                           .get("http://localhost:8081/teachInfo/deleteQuestion", {
+                          params:{
+                            id:row.id
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "删除成功",
+                                  type: "success"
+                                });
+                               that.queryAllTeachinfo()
+                               that.queryClassDetail(that.thisCla);
+                               that.queryAllQuestionById(that.thisCla)
+                          }
+                        });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+
+
+         },
          handleEdit(row){
            this.dialogVisible=true
              const that = this;
                     this.$axios
-                        .get("http://47.114.1.9/traffic/teachInfo/queryOneAnswer", {
+                        .get("http://localhost:8081/teachInfo/queryOneAnswer", {
                           params:{
                             id:row.id
                           }

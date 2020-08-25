@@ -23,32 +23,33 @@
 <div class="lbutton" v-show="lbutton">
 <el-button type="primary" @click="xinzeng()" icon="el-icon-plus">新增年度计划</el-button>
 <el-button type="primary" @click="jiazai()" icon="el-icon-refresh">加载</el-button>
+<el-button type="success" round @click="importStudent">导入年计划</el-button>
 </div>
 <el-table
      v-show="istable"
       :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)"
       border
-      style="width: 100%"
+      
       @selection-change="handleSelectionChange">
     <el-table-column
        prop="id"
        label="ID"
-       width="180">
+      >
     </el-table-column>
     <el-table-column
       prop="title"
       label="大纲"
-      width="450">
+     >
     </el-table-column>
     <el-table-column
       prop="createTime"
       label="创建时间"
-      width="440">
+      >
     </el-table-column>
   
   <el-table-column
         label="操作"
-        width="440"
+       
       >
 <template slot-scope="scope">
             <el-button type="primary" size="small" plain  @click="upd(scope.row)" icon="el-icon-edit">编辑</el-button>
@@ -152,6 +153,22 @@
     >
     </el-pagination>
     
+      <el-dialog title="导入年计划" :visible.sync="importStudentVisible">
+      <h1>提示：</h1>*如果没有模板，请选择相应的模板下载后，按照 "文件严格规定填写" 并且确保 "记录不重复" 再进行导入，否则将会不成功！
+      <h1>模板：</h1><el-button type="success" round @click="choiceFile">下载模板</el-button>
+      <h1>文件：</h1>
+
+
+      <el-upload
+        class="upload-demo"
+        :action="daoruxlsURL"
+        :on-success="handleAvatarSuccess"
+        multiple
+        :limit="3"
+        :file-list="fileList">
+        <el-button size="small" type="primary">导入年计划</el-button>
+      </el-upload>
+    </el-dialog>
 
 </div> 
 </template>
@@ -165,6 +182,8 @@ export default {
      name: 'editor',
     data:function(){
         return{
+            daoruxlsURL:"http://47.114.1.9/traffic/yearPlan/yearplan/importExcelToMySql",
+            importStudentVisible:false,
             lbutton:true,
             addtian:false,
             fen:true,
@@ -197,6 +216,40 @@ export default {
      this.loadDate()
 
     },methods:{
+      handleAvatarSuccess(res, file) {
+        const currThis = this
+        if (res.code === 200) {
+          currThis.$message.success(res.message)
+        } else {
+          currThis.$message.error(res.message)
+        }
+      },
+      importStudent(){
+        this.importStudentVisible=true
+
+      },
+      //导出模板
+      choiceFile(){
+        const currentThis = this
+        currentThis.$axios.get('http://47.114.1.9/traffic/yearPlan/yearplan/exportFile',{/* http://47.114.1.9/traffic */
+          responseType: 'blob'
+        })
+				.then(res=>{
+          console.log(res.data)
+          const link = document.createElement('a')
+          let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+          link.style.display = 'none'
+          link.href = URL.createObjectURL(blob)
+ 
+        // link.download = res.headers['content-disposition'] //下载后文件名
+        link.download = '年计划表'//下载的文件名
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+
+				})
+				.catch(err=>console.log(err))
+      },
       
     upd(row) {
         this.year.id=row.id
@@ -300,7 +353,6 @@ export default {
           title: a.year.title,
           bodys:a.content
         }
-
       })
         .then(function(response) {
           a.isform = false

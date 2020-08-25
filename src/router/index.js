@@ -51,12 +51,12 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "markdown" */ '../components/page/trainProgress/TrainProgress.vue'),
                     meta: { title: '培训进度' }
                 },
-                {
-                    // 图片上传组件
-                    path: '/peixunbaogao',
-                    component: () => import(/* webpackChunkName: "upload" */ '../components/page/trainReport/TrainReport.vue'),
-                    meta: { title: '培训报告' }
-                },
+                // {
+                //     // 图片上传组件
+                //     path: '/peixunbaogao',
+                //     component: () => import(/* webpackChunkName: "upload" */ '../components/page/trainReport/TrainReport.vue'),
+                //     meta: { title: '培训报告' }
+                // },
                 {
                     // vue-schart组件
                     path: '/xuexizhengming',
