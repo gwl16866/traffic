@@ -76,7 +76,6 @@
         </el-table-column>
     </el-table>
 
-<!-- -----------       删除某课程开始 ---------------------------------- -->
 <el-dialog
   title="提示"
   :visible.sync="deleteThemeVisible"
@@ -85,7 +84,7 @@
   <span>您确定要删除当前培训主题吗?</span>
   <span slot="footer" class="dialog-footer">
     <el-button @click="deleteThemeVisible = false">取 消</el-button>
-    <el-button type="primary" @click="deleteThemeOk">确 定</el-button>
+    <el-button type="primary" @click="">确 定</el-button>
   </span>
 </el-dialog>
 
@@ -148,20 +147,14 @@ export default {
     },
 
     methods:{
-          handleClose(done) {
-            this.$confirm('确认关闭？')
-            .then(_ => {
-              done();
-            })
-            .catch(_ => {});
-          },
           deleteTheme(themeId){
             this.deleteThemeVisible=!this.deleteThemeVisible
             this.deleteThemeId = themeId
           },
           deleteThemeOk(){
             const currentThis = this
-            currentThis.$axios.get('http://47.114.1.9/traffic/trainProgress/deleteTheme',{
+            currentThis.studentStatus.status=1
+            currentThis.$axios.get('http://8081/trainProgress/deleteTheme',{
               params:{
                 ThemeId:currentThis.deleteThemeId,
                 status:3,
@@ -175,10 +168,11 @@ export default {
                   type: 'success'
                 });
               }else{
-                currentThis.deleteThemeVisible = !currentThis.deleteThemeVisible
+                currentThis.updateStatus = !currentThis.updateStatus
                 currentThis.$message.error(res.data.message);
               }
-              currentThis.selectTableInfo()
+              currentThis.student.status=1
+              currentThis.queryAllStudent()
             })
             .catch(err=>console.log(err))
           },
@@ -247,7 +241,7 @@ export default {
         // 查询信息填充table表
         async selectTableInfo(){
             const that = this
-            this.$axios.get('http://47.114.1.9/traffic/trainProgress/queryThemTable',{
+            this.$axios.get('http://localhost:8081/trainProgress/queryThemTable',{
                 params:{
                     Year:that.jindu.years.slice(0,4),
                     Month:that.mothons

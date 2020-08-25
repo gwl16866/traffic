@@ -76,7 +76,6 @@
         </el-table-column>
     </el-table>
 
-<!-- -----------       删除某课程开始 ---------------------------------- -->
 <el-dialog
   title="提示"
   :visible.sync="deleteThemeVisible"
@@ -153,7 +152,7 @@ export default {
             .then(_ => {
               done();
             })
-            .catch(_ => {});
+          .catch(_ => {});
           },
           deleteTheme(themeId){
             this.deleteThemeVisible=!this.deleteThemeVisible
@@ -161,7 +160,8 @@ export default {
           },
           deleteThemeOk(){
             const currentThis = this
-            currentThis.$axios.get('http://47.114.1.9/traffic/trainProgress/deleteTheme',{
+            currentThis.studentStatus.status=1
+            currentThis.$axios.get('http://8081/trainProgress/deleteTheme',{
               params:{
                 ThemeId:currentThis.deleteThemeId,
                 status:3,
@@ -247,7 +247,7 @@ export default {
         // 查询信息填充table表
         async selectTableInfo(){
             const that = this
-            this.$axios.get('http://47.114.1.9/traffic/trainProgress/queryThemTable',{
+            this.$axios.get('http://localhost:8081/trainProgress/queryThemTable',{
                 params:{
                     Year:that.jindu.years.slice(0,4),
                     Month:that.mothons

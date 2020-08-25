@@ -76,7 +76,6 @@
         </el-table-column>
     </el-table>
 
-<!-- -----------       删除某课程开始 ---------------------------------- -->
 <el-dialog
   title="提示"
   :visible.sync="deleteThemeVisible"
@@ -85,7 +84,7 @@
   <span>您确定要删除当前培训主题吗?</span>
   <span slot="footer" class="dialog-footer">
     <el-button @click="deleteThemeVisible = false">取 消</el-button>
-    <el-button type="primary" @click="deleteThemeOk">确 定</el-button>
+    <el-button type="primary" @click="">确 定</el-button>
   </span>
 </el-dialog>
 
@@ -126,7 +125,7 @@ export default {
     data(){
         return{
           deleteThemeVisible:false,
-          deleteThemeId:"",
+          deleteTheme:"",
           selectPXClassVisible:false,
           queryZhuTiClass:[],
           jindu:{},
@@ -148,40 +147,11 @@ export default {
     },
 
     methods:{
-          handleClose(done) {
-            this.$confirm('确认关闭？')
-            .then(_ => {
-              done();
-            })
-            .catch(_ => {});
-          },
           deleteTheme(themeId){
             this.deleteThemeVisible=!this.deleteThemeVisible
-            this.deleteThemeId = themeId
+            this.deleteTheme = themeId
           },
-          deleteThemeOk(){
-            const currentThis = this
-            currentThis.$axios.get('http://47.114.1.9/traffic/trainProgress/deleteTheme',{
-              params:{
-                ThemeId:currentThis.deleteThemeId,
-                status:3,
-              }
-            })
-            .then(res=>{
-              if(res.data.code===200){
-                currentThis.deleteThemeVisible = !currentThis.deleteThemeVisible
-                currentThis.$message({
-                  message: res.data.message,
-                  type: 'success'
-                });
-              }else{
-                currentThis.deleteThemeVisible = !currentThis.deleteThemeVisible
-                currentThis.$message.error(res.data.message);
-              }
-              currentThis.selectTableInfo()
-            })
-            .catch(err=>console.log(err))
-          },
+          deleteTheme
           selectCanXun(e){
             this.$router.push({path:'/xyparticulars',query:{value:e}});
           },
@@ -240,7 +210,7 @@ export default {
             that.mothons=months
         },
         //点击年时清空月的信息
-       clealMonth(){
+        clealMonth(){
             this.mothons=!this.mothons
          },
 
@@ -287,20 +257,20 @@ export default {
             },
             responseType: 'blob'
             })
-          .then(res => {
-            const link = document.createElement('a')
-            let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
-            link.style.display = 'none'
-            link.href = URL.createObjectURL(blob)
-            // link.download = res.headers['content-disposition'] //下载后文件名
-            link.download = '培训进度表'//下载的文件名
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-          })
+        .then(res => {
+             const link = document.createElement('a')
+             let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+             link.style.display = 'none'
+             link.href = URL.createObjectURL(blob)
+             // link.download = res.headers['content-disposition'] //下载后文件名
+             link.download = '培训进度表'//下载的文件名
+             document.body.appendChild(link)
+             link.click()
+             document.body.removeChild(link)
+           })
         .catch(err => {
-          console.log("导出失败")
-        })
+                console.log("导出失败")
+            })
      },
  }
     

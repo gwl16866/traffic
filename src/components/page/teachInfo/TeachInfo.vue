@@ -655,7 +655,7 @@ export default {
       leftUpdateTitleOk(){
          const that = this;
                      this.$axios
-                           .get("http://localhost:8081/teachInfo/leftUpdateTitle", {
+                           .get("http://47.114.1.9/traffic/teachInfo/leftUpdateTitle", {
                           params:{
                             id:that.leftTitlesId,
                             title:that.leftTitles
@@ -721,7 +721,7 @@ export default {
         }).then(() => {
             const that = this;
                      this.$axios
-                           .get("http://localhost:8081/teachInfo/deleteLeftTitleById", {
+                           .get("http://47.114.1.9/traffic/teachInfo/deleteLeftTitleById", {
                           params:{
                             id:claa.id
                           }
