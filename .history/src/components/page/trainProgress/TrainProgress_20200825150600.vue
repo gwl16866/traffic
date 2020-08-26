@@ -71,25 +71,10 @@
           <template slot-scope="scope">
             <el-link type="success" @click="queryAllPeiXunClass(scope.row)">培训课程</el-link>&emsp;&emsp;
             <el-link type="success" @click="selectCanXun(scope.row.id)">参训学员</el-link>&emsp;&emsp;
-            <el-link type="danger" @click="deleteTheme(scope.row.id)">删除课程</el-link>&emsp;&emsp;
+            <el-link type="success" @click="selectCanXun(scope.row.id)">参训学员</el-link>&emsp;&emsp;
           </template>
         </el-table-column>
     </el-table>
-
-<!-- -----------       删除某课程开始 ---------------------------------- -->
-<el-dialog
-  title="提示"
-  :visible.sync="deleteThemeVisible"
-  width="30%"
-  :before-close="handleClose">
-  <span>您确定要删除当前培训主题吗?</span>
-  <span slot="footer" class="dialog-footer">
-    <el-button @click="deleteThemeVisible = false">取 消</el-button>
-    <el-button type="primary" @click="deleteThemeOk">确 定</el-button>
-  </span>
-</el-dialog>
-
-
 
     <el-dialog title="" :visible.sync="selectPXClassVisible" width="50%">
       {{queryZhuTiClass.project}}培训课程
@@ -107,7 +92,9 @@
               </el-table-column>
               </template>
             </el-table-column>
+            
           </el-table>
+
                 <!-- //外层的遮罩 v-if用来控制显示隐藏 点击事件用来关闭弹窗 -->
             <div class='mask' v-if='videoState == true' @click='masksCloseFun'></div>
             <!-- //弹窗 -->
@@ -125,8 +112,6 @@
 export default {
     data(){
         return{
-          deleteThemeVisible:false,
-          deleteThemeId:"",
           selectPXClassVisible:false,
           queryZhuTiClass:[],
           jindu:{},
@@ -148,43 +133,9 @@ export default {
     },
 
     methods:{
-          handleClose(done) {
-            this.$confirm('确认关闭？')
-            .then(_ => {
-              done();
-            })
-            .catch(_ => {});
-          },
-          deleteTheme(themeId){
-            this.deleteThemeVisible=!this.deleteThemeVisible
-            this.deleteThemeId = themeId
-          },
-          deleteThemeOk(){
-            const currentThis = this
-            currentThis.$axios.get('http://47.114.1.9/traffic/trainProgress/deleteTheme',{
-              params:{
-                ThemeId:currentThis.deleteThemeId,
-                status:3,
-              }
-            })
-            .then(res=>{
-              if(res.data.code===200){
-                currentThis.deleteThemeVisible = !currentThis.deleteThemeVisible
-                currentThis.$message({
-                  message: res.data.message,
-                  type: 'success'
-                });
-              }else{
-                currentThis.deleteThemeVisible = !currentThis.deleteThemeVisible
-                currentThis.$message.error(res.data.message);
-              }
-              currentThis.selectTableInfo()
-            })
-            .catch(err=>console.log(err))
-          },
-          selectCanXun(e){
-            this.$router.push({path:'/xyparticulars',query:{value:e}});
-          },
+      selectCanXun(e){
+        this.$router.push({path:'/xyparticulars',query:{value:e}});
+      },
       		masksCloseFun(){
    		    	this.videoState = false;
          },
@@ -240,7 +191,7 @@ export default {
             that.mothons=months
         },
         //点击年时清空月的信息
-       clealMonth(){
+        clealMonth(){
             this.mothons=!this.mothons
          },
 
@@ -287,20 +238,21 @@ export default {
             },
             responseType: 'blob'
             })
-          .then(res => {
-            const link = document.createElement('a')
-            let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
-            link.style.display = 'none'
-            link.href = URL.createObjectURL(blob)
-            // link.download = res.headers['content-disposition'] //下载后文件名
-            link.download = '培训进度表'//下载的文件名
-            document.body.appendChild(link)
-            link.click()
-            document.body.removeChild(link)
-          })
+        .then(res => {
+             console.log("导出成功")
+             const link = document.createElement('a')
+             let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
+             link.style.display = 'none'
+             link.href = URL.createObjectURL(blob)
+             // link.download = res.headers['content-disposition'] //下载后文件名
+             link.download = '培训进度表'//下载的文件名
+             document.body.appendChild(link)
+             link.click()
+             document.body.removeChild(link)
+           })
         .catch(err => {
-          console.log("导出失败")
-        })
+                console.log("导出失败")
+            })
      },
  }
     

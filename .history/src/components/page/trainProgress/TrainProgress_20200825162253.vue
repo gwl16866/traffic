@@ -76,7 +76,6 @@
         </el-table-column>
     </el-table>
 
-<!-- -----------       删除某课程开始 ---------------------------------- -->
 <el-dialog
   title="提示"
   :visible.sync="deleteThemeVisible"
