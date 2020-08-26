@@ -97,6 +97,34 @@
                     </div>
                 </template>
             </el-form-item>
+            <el-divider></el-divider>现场信息
+              <el-form-item prop="a9">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;培训地点：
+                <el-input
+                    v-model="addEdu.address"
+                    autocomplete="off"
+                    style="width:300px"
+                ></el-input>
+            </el-form-item>
+            <el-form-item prop="a10">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;培训图片：
+                <el-upload
+                    v-model="addEdu.image"
+                    class="upload-demo"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :on-success="uploadSuccess"
+                    :on-error="uploadError"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                    <el-button size="small" type="primary">点击上传</el-button>
+                    <div slot="tip" class="el-upload__tip">每次只允许上传一个图片！</div>
+            </el-upload>
+            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button type="primary" @click="submintSafetyEdu()">确 定</el-button>
@@ -212,7 +240,7 @@ export default {
     data() {
         return {
             aaa: true,
-            learnType: '1',
+            learnType: '3',
             allStudent: [],
             anquanguanli: [],
             kaoheren: [],
@@ -235,15 +263,47 @@ export default {
                 lession: '',
                 address: '',
                 trainteacher: '',
-                learnType:1,
+                learnType:3,
                 manager: '',
                 testPeople: '',
-                passscore:''
+                passscore:'',
+                image:''
             },
         };
     },
     mounted() {},
     methods: {
+        uploadSuccess(res){
+        console.log(res)
+        if(res.code == 0){
+           this.$message({
+                      showClose: true,
+                      duration: 1000,
+                      message: "上传成功",
+                      type: "success"
+                      });
+        }
+        this.addEdu.image=res.filename
+      },uploadError(res){
+               this.$message({
+                      showClose: true,
+                      duration: 1000,
+                      message: "上传失败，可能文件过大",
+                      type: "error"
+                      });
+      },
+      handleRemove(file, fileList) {
+        console.log(file, fileList);
+      },
+      handlePreview(file) {
+        console.log(file);
+      },
+      handleExceed(files, fileList) {
+        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+      },
+      beforeRemove(file, fileList) {
+        return this.$confirm(`确定移除 ${ file.name }？`);
+      },
         changeLearnType: function(e) {
             this.$emit('changeLearnType', e);
         },
