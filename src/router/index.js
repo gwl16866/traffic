@@ -64,11 +64,11 @@ export default new Router({
                     meta: { title: '学习证明' }
                 },
            
-                {
-                    path: '/fabugongwen',
-                    component: () => import(/* webpackChunkName: "dragdialog" */ '../components/page/issuerOfficialDocument/issuerOfficialDocument.vue'),
-                    meta: { title: '发布公文' }
-                },
+                // {
+                //     path: '/fabugongwen',
+                //     component: () => import(/* webpackChunkName: "dragdialog" */ '../components/page/issuerOfficialDocument/issuerOfficialDocument.vue'),
+                //     meta: { title: '发布公文' }
+                // },
               
                 {
                     path: '/particulars',
