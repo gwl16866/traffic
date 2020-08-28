@@ -11,7 +11,6 @@
                         @change="changeLearnType(9)"
                     >全部</el-radio>
                     <el-radio v-model="learnType" label="1" @change="changeLearnType(1)">线上培训</el-radio>
-                    <el-radio v-model="learnType" label="2" @change="changeLearnType(2)">现场培训</el-radio>
                     <el-radio v-model="learnType" label="3" @change="changeLearnType(3)">线上+现场培训</el-radio>
                 </template>
                 <el-button
@@ -28,7 +27,6 @@
                 <br />
                 培训时间：{{list.startTime| dateFormat}}-{{list.endTime| dateFormat}}
                 <br />
-                <div v-show="list.learnType==2">培训地点：{{list.address}}</div>
                 <div v-show="list.learnType==3">培训地点：{{list.address}}</div>
                 培训时长：{{list.learnTime}}
                 <br />培训课程：
@@ -48,7 +46,7 @@
                 >增加学员</el-button>
                 安全管理员：{{list.manager}} 考核人：{{list.testPeople}}
                 <br />培训状态：
-                <span v-show="list.status==1">进行中</span>
+                <span v-show="list.status==1">进行中<el-button @click="dianjijieshu(list.id)">点击结束</el-button></span>
                 <span v-show="list.status==2">已结束</span>
                 <br />学习方式：
                 <span v-show="list.learnType==1">线上</span>
@@ -130,6 +128,14 @@
         >
             <addSafetyEdu @back="listener" @changeLearnType="tiaozhuan"></addSafetyEdu>
         </el-dialog>
+        <el-dialog
+            title="培训课程"
+            :visible.sync="dialogsubmitProductCopy"
+            v-if="dialogsubmitProductCopy"
+            width="60%"
+        >
+            <addSafetyEduCopy @back="listener1" @changeLearnType="tiaozhuan"></addSafetyEduCopy>
+        </el-dialog>
 
         <el-dialog v-if="dialogVisiblelession" title="课程" :visible.sync="dialogVisiblelession" >
             <el-table :data="lessionlist" border >
@@ -158,9 +164,11 @@
 
 <script>
 import addSafetyEdu from '@/components/page/safetyEdu/addSafetyEdu.vue';
+import addSafetyEduCopy from '@/components/page/safetyEdu/addSafetyEduCopy.vue';
 export default {
     components: {
-        addSafetyEdu
+        addSafetyEdu,
+        addSafetyEduCopy
     },
     data() {
         return {
@@ -173,6 +181,7 @@ export default {
             zhutiid: '',
             dialogVisibleadd: false,
             dialogsubmitProduct: false,
+            dialogsubmitProductCopy:false,
             dialogVisiblelession: false,
             dialogProduct: false,
             addEdu: {
@@ -196,6 +205,41 @@ export default {
         this.loadVedio();
     },
     methods: {
+        //结束
+        dianjijieshu: function(e) {
+            this.$confirm('确定结束当前培训?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            })
+                .then(() => {
+                    var qwe = this;
+                    this.$axios
+                        .get('http://47.114.1.9/traffic/saftyEdu/dianjijieshu?id=' + e)
+                        .then(function(res = 1) {
+                            qwe.$message({
+                                message: '结束成功',
+                                type: 'success'
+                            });
+                            qwe.selectSaftyEdu();
+                        })
+                        .catch(function(err) {
+                            console.log(err);
+                            qwe.$message({
+                                message: '结束失败',
+                                type: 'error'
+                            });
+                        });
+                })
+                .catch(() => {
+                    this.$message({
+                        type: 'info',
+                        showClose: true,
+                        duration: 1000,
+                        message: '已取消结束'
+                    });
+                });
+        },
         	masksCloseFun(){
    			this.videoState = false;
          },
@@ -309,6 +353,12 @@ export default {
                 this.selectSaftyEdu();
             }
         },
+         listener1: function(val) {
+            if (val == 'false') {
+                this.dialogsubmitProductCopy = false;
+                this.selectSaftyEdu();
+            }
+        },
         //查询学员
         selectStudent: function(e) {
             this.dialogProduct = true;
@@ -417,6 +467,16 @@ export default {
                         });
                     });
             }
+        },
+        //跳转
+        tiaozhuan(e){
+if(e==1){
+this.dialogsubmitProduct=true
+this.dialogsubmitProductCopy=false
+}else if(e==3){
+this.dialogsubmitProduct=false
+this.dialogsubmitProductCopy=true
+}
         }
     }
 };

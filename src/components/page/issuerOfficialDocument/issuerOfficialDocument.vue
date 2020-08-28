@@ -34,20 +34,33 @@
         </div>
 
         <div>
-            <el-table ref="singleTable" :data="tableData" highlight-current-row style="width: 100%">
+            <el-table :data="tableData" border>
                 <el-table-column type="index" width="50"></el-table-column>
-                <el-table-column property="title" label="标题" width="120"></el-table-column>
-                <el-table-column property="num" label="公文号" width="120"></el-table-column>
+                <el-table-column property="title" label="标题" ></el-table-column>
+                <el-table-column property="num" label="公文号" ></el-table-column>
                 <el-table-column property="sendCounts" label="下发数"></el-table-column>
                 <el-table-column property="readCounts" label="阅读数"></el-table-column>
                 <el-table-column property="readTime" label="阅读时长"></el-table-column>
-                <el-table-column property="createTime" label="创建时间"></el-table-column>
-                <el-table-column property="updateTime" label="修改时间"></el-table-column>
-                <el-table-column property="status" label="状态"></el-table-column>
-                <el-table-column label="操作">
+                <el-table-column property="createTime" label="创建时间" width="150">
+                     <template slot-scope="scope">
+                         {{scope.row.createTime | dateFormat}}
+                     </template>
+                </el-table-column>
+                <el-table-column property="updateTime" label="修改时间" width="150">
+                     <template slot-scope="scope">
+                         {{scope.row.updateTime | dateFormat}}
+                     </template>
+                </el-table-column>
+                <el-table-column property="status" label="状态" width="60">
+                      <template slot-scope="scope">
+                         <span v-if="scope.row.status==1">已发布</span>
+                     </template>
+                </el-table-column>
+                <el-table-column label="操作" width="230">
                     <template slot-scope="scope">
                         <el-button size="mini" @click="handleUpdate( scope.row)">编辑</el-button>
                         <el-button size="mini" @click="handleyulan( scope.row)">预览</el-button>
+                         <el-button size="mini" type="danger" @click="deleteRow( scope.row)">删除</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -101,8 +114,42 @@ export default {
         this.onload();
     },
     methods: {
+        deleteRow(row){
+
+             this.$confirm('将删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            const that = this;
+                     this.$axios
+                           .get("http://47.114.1.9/traffic/document/document/deleteDoc", {
+                          params:{
+                            id:row.id
+                          }
+                        })
+                        .then(function(res) {
+                          if(res.data == 1){
+                                   that.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "删除成功",
+                                  type: "success"
+                                });
+                             that.onload()
+                          }
+                        });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+           
+
+        },
         onsubmit() {
-            console.log(this.form.texts);
             var th = this;
             this.$axios
                 .get('http://47.114.1.9/traffic/document/document/insertdocument', {

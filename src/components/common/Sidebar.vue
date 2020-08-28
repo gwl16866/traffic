@@ -101,11 +101,11 @@ export default {
                     index: '/xuexizhengming',
                     title: '学习证明'
                 },
-                 {
-                    icon: 'el-icon-lx-cascades',
-                    index: '/fabugongwen',
-                    title: '发布公文'
-                },
+                //  {
+                //     icon: 'el-icon-lx-cascades',
+                //     index: '/fabugongwen',
+                //     title: '发布公文'
+                // },
              
             ]
         };
