@@ -132,7 +132,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://47.114.1.9/traffic/teachInfo/uploadFile',
+      uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
       headImg: '',
       rules: {
           realName: [

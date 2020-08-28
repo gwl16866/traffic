@@ -38,7 +38,7 @@
     </el-table-column>
     <el-table-column
       prop="title"
-      label="大纲"
+      label="主题"
      >
     </el-table-column>
     <el-table-column
@@ -68,7 +68,7 @@
       ref="form"
       :model="year"
       label-width="80px">
-      <el-form-item label="大纲">
+      <el-form-item label="主题">
         <el-input v-model="year.title" />
       </el-form-item>
      
@@ -96,7 +96,7 @@
       ref="form"
       :model="year"
       label-width="80px">
-      <el-form-item label="大纲">
+      <el-form-item label="主题">
         <el-input v-model="year.title" disabled/>
       </el-form-item>
      
@@ -123,7 +123,7 @@
       :model="year"
       label-width="80px">
       <div>
-      <el-form-item label="大纲">
+      <el-form-item label="主题">
         <el-input v-model="year.title" />
       </el-form-item>
       </div>
@@ -317,12 +317,7 @@ export default {
     },
        somebutton() {
 		 const a = this
-      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan', {
-        params: {
-         title:a.name
-        }
-
-      })
+      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/selectYearplan?title='+a.name)
         .then(res => {
           a.tableData = res.data
         })
@@ -332,11 +327,7 @@ export default {
     },
        del: function(c, a) {
           var that = this
-      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/del', {
-        params: {
-          id: c.id
-        }
-      })
+      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/del?id='+c.id)
     .then(function(response) {
           that.loadDate()
           console.log(response)
@@ -347,13 +338,7 @@ export default {
     },
      onbutton() {
       var a = this
-      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/upd', {
-        params: {
-            id:a.year.id,
-          title: a.year.title,
-          bodys:a.content
-        }
-      })
+      this.$axios.post('http://47.114.1.9/traffic/yearPlan/yearplan/upd?id='+a.year.id+"&title="+a.year.title+"&bodys="+a.content)
         .then(function(response) {
           a.isform = false
           a.istable = true

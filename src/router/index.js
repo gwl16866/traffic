@@ -57,12 +57,12 @@ export default new Router({
                 //     component: () => import(/* webpackChunkName: "upload" */ '../components/page/trainReport/TrainReport.vue'),
                 //     meta: { title: '培训报告' }
                 // },
-                {
-                    // vue-schart组件
-                    path: '/xuexizhengming',
-                    component: () => import(/* webpackChunkName: "chart" */ '../components/page/studyEvidence/StudyEvidence.vue'),
-                    meta: { title: '学习证明' }
-                },
+                // {
+                //     // vue-schart组件
+                //     path: '/xuexizhengming',
+                //     component: () => import(/* webpackChunkName: "chart" */ '../components/page/studyEvidence/StudyEvidence.vue'),
+                //     meta: { title: '学习证明' }
+                // },
            
                 // {
                 //     path: '/fabugongwen',

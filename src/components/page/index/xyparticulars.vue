@@ -80,7 +80,7 @@
     </el-table-column>
        <el-table-column
       prop="status"
-      label="培训状态"
+      label="考试状态"
      >
        <template slot-scope="scope" >
         <el-tag v-if="scope.row.astatus=='1'" type="danger">未合格</el-tag>
@@ -91,7 +91,7 @@
     </el-table-column>
        <el-table-column
       prop="startTime"
-      label="开始时间"
+      label="考试开始时间"
      >
          <template slot-scope="scope" >
         <el-tag v-if="scope.row.startTime==null" type="danger">未开始</el-tag>

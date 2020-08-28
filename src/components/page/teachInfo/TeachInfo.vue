@@ -94,7 +94,7 @@
         multiple
         :limit="3"
         :file-list="fileList">
-        <el-button size="small" type="primary">导入年计划</el-button>
+        <el-button size="small" type="primary">导入题目</el-button>
       </el-upload>
 
            
@@ -778,7 +778,7 @@ export default {
           let blob = new Blob([res.data], {type: 'application/vnd.ms-excel'})
           link.style.display = 'none'
           link.href = URL.createObjectURL(blob)
- 
+
         // link.download = res.headers['content-disposition'] //下载后文件名
         link.download = '考试题目信息表'//下载的文件名
         document.body.appendChild(link)
@@ -789,6 +789,7 @@ export default {
 				.catch(err=>console.log(err))
       },
         importStudent(){
+          this.fileList=new Array();
         this.importStudentVisible = !this.importStudentVisible
       },
       leftUpdateTitleOk(){
