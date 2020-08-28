@@ -254,7 +254,7 @@ export default {
         submintSafetyEdu() {
             var qwe = this;
             this.$axios
-                .post('http://47.114.1.9/traffic/saftyEdu/addSaftyEdu',
+                .post('http://localhost:8081/saftyEdu/addSaftyEdu',
                 qwe.addEdu
                 )
                 .then(function(res=1) {
@@ -290,7 +290,7 @@ export default {
             this.dialogVisiblecanxun = true;
             var qwe = this;
             this.$axios
-                .get('http://47.114.1.9/traffic/saftyEdu/selectAllStu')
+                .get('http://localhost:8081/saftyEdu/selectAllStu')
                 .then(function(res) {
                     const result = res.data;
                     qwe.allStudent = result.data;
@@ -335,7 +335,7 @@ export default {
             var qwe = this;
             qwe.dialogVisibleaddlession = true;
             this.$axios
-                .get('http://47.114.1.9/traffic/saftyEdu/treeList')
+                .get('http://localhost:8081/saftyEdu/treeList')
                 .then(function(res) {
                     qwe.treelist = res.data;
                 })
@@ -393,7 +393,7 @@ export default {
             this.dialogVisibleaddanquan = true;
             var qwe = this;
             this.$axios
-                .get('http://47.114.1.9/traffic/saftyEdu/selectAllStu')
+                .get('http://localhost:8081/saftyEdu/selectAllStu')
                 .then(function(res) {
                     const result = res.data;
                     qwe.guanliyuan = result.data;
@@ -425,7 +425,7 @@ export default {
             this.dialogVisibleaddkaohe = true;
             var qwe = this;
             this.$axios
-                .get('http://47.114.1.9/traffic/saftyEdu/selectAllStu')
+                .get('http://localhost:8081/saftyEdu/selectAllStu')
                 .then(function(res) {
                     const result = res.data;
                     qwe.kaoheren = result.data;
