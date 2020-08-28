@@ -110,7 +110,7 @@ data() {
         },
              inittableData(){
              var a=this;   
-      		this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing')
+      		this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/xiangqing')
 			  .then(function (response) {
                 a.tableData=response.data
                 
@@ -134,7 +134,7 @@ data() {
                 console.log(this.currentPage)  //点击第几页
         },
         handleUserList() {
-            this.$axios.get('http://localhost:8081/statistics/statisticsinfo/xiangqing').then(res => {  //这是从本地请求的数据接口，
+            this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/xiangqing').then(res => {  //这是从本地请求的数据接口，
                 this.tableData = res.body
             })
         }

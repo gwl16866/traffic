@@ -215,7 +215,7 @@ export default {
                 .then(() => {
                     var qwe = this;
                     this.$axios
-                        .get('http://localhost:8081/saftyEdu/dianjijieshu?id=' + e)
+                        .get('http://47.114.1.9/traffic/saftyEdu/dianjijieshu?id=' + e)
                         .then(function(res = 1) {
                             qwe.$message({
                                 message: '结束成功',
@@ -246,7 +246,7 @@ export default {
         selectSaftyEdu: function() {
             var qwe = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/selectSaftyEdu', {
+                .get('http://47.114.1.9/traffic/saftyEdu/selectSaftyEdu', {
                     params: {
                         learnType: qwe.learnType
                     }
@@ -288,7 +288,7 @@ export default {
                 .then(() => {
                     var qwe = this;
                     this.$axios
-                        .get('http://localhost:8081/saftyEdu/deleteSaftyedu?id=' + e)
+                        .get('http://47.114.1.9/traffic/saftyEdu/deleteSaftyedu?id=' + e)
                         .then(function(res = 1) {
                             qwe.$message({
                                 message: '删除成功',
@@ -318,7 +318,7 @@ export default {
             this.dialogVisiblelession = true;
             var qwe = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/classDetailList?id=' + e)
+                .get('http://47.114.1.9/traffic/saftyEdu/classDetailList?id=' + e)
                 .then(function(res) {
                     qwe.lessionlist = res.data;
                 })
@@ -330,7 +330,7 @@ export default {
             console.log('-----' + e);
             var qwe = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/selectSaftyEdu', {
+                .get('http://47.114.1.9/traffic/saftyEdu/selectSaftyEdu', {
                     params: {
                         learnType: e
                     }
@@ -364,7 +364,7 @@ export default {
             this.dialogProduct = true;
             var qwe = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/selectStudent?id=' + e)
+                .get('http://47.114.1.9/traffic/saftyEdu/selectStudent?id=' + e)
                 .then(function(res) {
                     const result = res.data;
                     qwe.studentList = result.data;
@@ -384,7 +384,7 @@ export default {
                 .then(() => {
                     const asd = this;
                     this.$axios
-                        .get('http://localhost:8081/saftyEdu/deleteStudent?studentid=' + e.stuId + '&saftyid=' + e.saftyid)
+                        .get('http://47.114.1.9/traffic/saftyEdu/deleteStudent?studentid=' + e.stuId + '&saftyid=' + e.saftyid)
                         .then(function(res = 1) {
                             asd.selectStudent(e.saftyid);
                             asd.$message({
@@ -416,7 +416,7 @@ export default {
             this.dialogVisibleadd = true;
             var qwe = this;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/selectAllStudent?saftyid=' + qwe.zhutiid)
+                .get('http://47.114.1.9/traffic/saftyEdu/selectAllStudent?saftyid=' + qwe.zhutiid)
                 .then(function(res) {
                     const result = res.data;
                     qwe.allStudent = result.data;
@@ -450,7 +450,7 @@ export default {
                 var qwe = this;
                 console.log('qwe.zhutiid' + qwe.zhutiid + '----------------' + qwe.batchList);
                 this.$axios
-                    .get('http://localhost:8081/saftyEdu/batchAddStudent?saftyid=' + qwe.zhutiid + '&batchList=' + qwe.batchList)
+                    .get('http://47.114.1.9/traffic/saftyEdu/batchAddStudent?saftyid=' + qwe.zhutiid + '&batchList=' + qwe.batchList)
                     .then(function(res = 1) {
                         qwe.$message({
                             message: '添加成功',
