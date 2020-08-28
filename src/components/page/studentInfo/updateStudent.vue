@@ -49,6 +49,14 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="学员状态" prop="status">
+        <el-select class="y" v-model="student.status" placeholder="请选择学员状态">
+          <el-option  label="禁用"     value="0"></el-option>
+          <el-option  label="激活"     value="1"></el-option>
+          <el-option  label="离职"     value="2"></el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item label="车牌号码" prop="busNum">
         <el-input class="y" v-model="student.busNum" placeholder="请输入车牌号码"></el-input>
       </el-form-item>
@@ -181,6 +189,15 @@ export default {
 				})
 				.then(res=>{
           currentThis.student=res.data
+          let status = currentThis.student.status
+          if(status==0){
+            status="禁用"
+          }else if(status==1){
+            status="激活"
+          }else{
+            status="离职"
+          }
+          currentThis.student.status = status
           if (currentThis.headImg !== '') {
             currentThis.student.headImg = currentThis.headImg
           }
