@@ -65,7 +65,7 @@ export default {
     },
     updateStudents() {
       const currThis = this
-      currThis.$axios.get('http://47.114.1.9/traffic/studentinfo/updateStudent', {
+      currThis.$axios.post('http://47.114.1.9/traffic/studentinfo/updateStudent', {
         params: {
           id: currThis.stuid,
           status : 1,

@@ -216,7 +216,10 @@ export default {
             currThis.student.driverOverTime=''
             currThis.student.busCarefulTime=''
             currThis.student.createTime=''
-          currThis.$axios.get('http://47.114.1.9/traffic/studentinfo/updateStudent', {
+            if(currThis.student.status=='激活'){
+              currThis.student.status=1;
+            }
+          currThis.$axios.post('http://47.114.1.9/traffic/studentinfo/updateStudent', {
             params: currThis.student,
           })
             .then(res => currThis.$emit('updateSuccessClick', res.data))
