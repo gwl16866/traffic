@@ -15,9 +15,8 @@
 
       <el-form-item label="岗位名称" prop="jobName">
         <el-select class="y" v-model="student.jobName" placeholder="请选择岗位名称">
-          <el-option label="危货驾驶员" value="危货驾驶员"></el-option>
-          <el-option label="危货押运员" value="危货押运员"></el-option>
-          <el-option label="危货驾驶员+危货押运员" value="危货驾驶员+危货押运员"></el-option>
+          <el-option label="危货驾驶员"     value="危货驾驶人"></el-option>
+          <el-option label="押运员"         value="压运员"></el-option>
         </el-select>
       </el-form-item>
 
@@ -40,7 +39,7 @@
       
       <el-divider content-position="left"><h1>职业信息</h1></el-divider>
 
-      <el-form-item label="从业证号">
+      <el-form-item label="从业证号" prop="employedNum">
         <el-input  v-model="student.employedNum" placeholder="请输入从业证号"></el-input>
       </el-form-item>
 
@@ -117,6 +116,24 @@ export default {
         busNum: [
           { required: true, message: '车牌号码', trigger: 'blur' },
           { min: 7, max: 7, message: '请输入正确的车牌号码', trigger: 'blur' }
+        ],
+        employedNum: [
+          { required: true, message: '请输入从业证书', trigger: 'blur' },
+        ],
+        driverOverTime: [
+          { required: true, message: '请选择驾驶证到期时间', trigger: 'blur' }
+        ],
+        busCarefulTime: [
+          { required: true, message: '请选择车辆年审时间', trigger: 'blur' }
+        ],
+        linkAddress: [
+          { required: true, message: '请输入联系地址', trigger: 'blur' }
+        ],
+        jobType: [
+          { required: true, message: '请选择从业类型', trigger: 'blur' }
+        ],
+        induction: [
+          { required: true, message: '请选择入职时间', trigger: 'blur' }
         ],
       }
     }

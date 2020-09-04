@@ -17,7 +17,6 @@
         <el-select class="y" v-model="student.jobName" placeholder="请选择岗位名称">
           <el-option label="危货驾驶员" value="危货驾驶员"></el-option>
           <el-option label="危货押运员" value="危货押运员"></el-option>
-          <el-option label="危货驾驶员+危货押运员" value="危货驾驶员+危货押运员"></el-option>
         </el-select>
       </el-form-item>
 
