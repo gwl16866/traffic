@@ -51,7 +51,7 @@
 
         <el-table-column prop="learnType" width="270">
           <template slot-scope="scope">
-            培训类型:{{scope.row.learnType==1?"线上培训":"未知"}}
+            培训类型:{{scope.row.learnType==1?"线上培训":"线上+现场培训"}}
           </template>
         </el-table-column>
         <el-table-column prop="project,learnTime" width="230">

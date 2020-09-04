@@ -248,7 +248,7 @@ export default {
             this.$axios
                 .get('http://47.114.1.9/traffic/saftyEdu/selectSaftyEdu', {
                     params: {
-                        learnType: this.learnType
+                        learnType: qwe.learnType
                     }
                 })
                 .then(function(res) {
@@ -384,7 +384,7 @@ export default {
                 .then(() => {
                     const asd = this;
                     this.$axios
-                        .get('http://47.114.1.9/traffic/saftyEdu/deleteStudent?studentid=' + e.studentid + '&saftyid=' + e.saftyid)
+                        .get('http://47.114.1.9/traffic/saftyEdu/deleteStudent?studentid=' + e.stuId + '&saftyid=' + e.saftyid)
                         .then(function(res = 1) {
                             asd.selectStudent(e.saftyid);
                             asd.$message({

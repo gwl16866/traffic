@@ -96,11 +96,11 @@ export default {
                 //     index: '/peixunbaogao',
                 //     title: '培训报告'
                 // },
-                 {
-                    icon: 'el-icon-lx-cascades',
-                    index: '/xuexizhengming',
-                    title: '学习证明'
-                },
+                //  {
+                //     icon: 'el-icon-lx-cascades',
+                //     index: '/xuexizhengming',
+                //     title: '学习证明'
+                // },
                 //  {
                 //     icon: 'el-icon-lx-cascades',
                 //     index: '/fabugongwen',

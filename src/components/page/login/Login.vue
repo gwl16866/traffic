@@ -44,10 +44,20 @@ export default {
     methods: {
         submitForm() {
             this.$refs.login.validate(valid => {
-                if (valid && this.param.username =="admin" && this.param.password == "123") {
-                    this.$message.success('登录成功');
-                    localStorage.setItem('ms_username', this.param.username);
-                    this.$router.push('/dashboard');
+                if (valid) {
+                    var that=this
+                    this.$axios
+                        .post("http://47.114.1.9/traffic/users/find?user="+this.param.username+"&password="+this.param.password)
+                        .then(function(res) {
+                            if(res.data.code=='success'){
+                                that.$message.success('登录成功');
+                                localStorage.setItem('ms_username', that.param.username);
+                                that.$router.push('/dashboard');
+                            }else {
+                                that.$message.error(res.data.msg);
+                                return false;
+                            }
+                        });
                 } else {
                     this.$message.error('登录失败');
                     console.log('error submit!!');
