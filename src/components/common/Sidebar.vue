@@ -90,6 +90,10 @@ export default {
                     icon: 'el-icon-lx-cascades',
                     index: '/peixunjindu',
                     title: '培训进度'
+                },   {
+                    icon: 'el-icon-lx-cascades',
+                    index: '/ManagerMan',
+                    title: '管理员信息'
                 },
                 //  {
                 //     icon: 'el-icon-lx-cascades',

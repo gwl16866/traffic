@@ -119,7 +119,8 @@
                 >
                     <el-table-column type="selection" width="40" />
                     <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                    <el-table-column prop="oneTitle" label="课件名称" width="200"></el-table-column>
+                    <el-table-column prop="oneTitle" label="视频名称" width="200"></el-table-column>
+                      <el-table-column prop="vedioTime" label="时长（分钟）" ></el-table-column>
                 </el-table>
                 <el-button :plain="true" @click="submitlession()">提交</el-button>
                 <el-button @click="quxiaolession()">取消</el-button>

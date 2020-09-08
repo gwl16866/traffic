@@ -3,9 +3,9 @@
     <el-container>
   <el-aside width="200px">
 
-<div style="height:600px;width:200px;overflow:auto">
+<div style="height:580px;width:200px;overflow:auto">
   <div>添加</div>
-  <el-button type="danger" style="width:50px" size="mini" @click="addLession">菜单</el-button>
+  
   <el-button type="danger" style="width:50px" size="mini" @click="addLessionKejie">课节</el-button>
   <el-button type="danger" style="width:50px" size="mini" @click="addLittleLes">小节</el-button><br><br>
   <el-button type="danger" style="width:50px" size="mini" @click="addQuestion">题目</el-button>
@@ -14,19 +14,19 @@
       <el-row>
                 <el-col :span="24" v-for="cla in leftClassName" :key="cla.id">
                   <span style="cursor: default" @click="handleOpen(cla)">{{cla.classTitle}}</span>
+                  <br>
+                  <br>
                   <div>
                    <el-button type="primary" size="mini" @click='updateLeftTitle(cla)'>修改</el-button>&nbsp;
                    <el-button type="danger" size="mini" @click='deleteLeftTitle(cla)'>删除</el-button>
                   </div>
                  
                   <el-divider></el-divider>
-                  <br>
-                  <br>
                 </el-col>
        </el-row>
   </div>
           
-      
+      <el-button type="primary" style="width:50px" size="mini" @click="addLession">添加</el-button>
       </el-aside>
   <el-container>
         <el-header>
@@ -509,7 +509,9 @@
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             {{item1.oneTitle}} 
              <el-button type="primary" size="mini" @click='updateTitle(item1)'>修改</el-button>&nbsp;&nbsp;
+             <el-button type="success" size="mini" @click='batchAdd(item1)'>批量添加</el-button>
              <el-button type="danger" size="mini" @click='deleteTitle(item1.id)'>删除</el-button>
+
            
           </div>
 
@@ -528,7 +530,7 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
             &nbsp;&nbsp;&nbsp;&nbsp;
              &nbsp;
-            {{item2.oneTitle}} 
+            {{item2.oneTitle}}&nbsp;&nbsp;&nbsp; 时长{{item2.vedioTime}}分 
              <el-button type="primary" size="mini" @click='updateTitle(item2)'>修改</el-button>&nbsp;&nbsp;
              <el-button type="danger" size="mini" @click='deleteTitle(item2.id)'>删除</el-button>
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<el-button @click='checkVideoFun(item2.vedio)'>观看</el-button>
@@ -563,7 +565,9 @@
   v-if="updateTitleShow"
   width="30%"
   >
-  <el-input v-model="titles"></el-input>
+
+  标题：<el-input v-model="titles"></el-input>
+    时长：<el-input v-model="timess"></el-input>
   <br>
   <br>
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -586,6 +590,71 @@
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <el-button type="primary" @click="leftUpdateTitleOk">修改</el-button>
   </el-dialog>
+
+     <el-dialog
+  title="批量添加"
+  :visible.sync="batchShow"
+  v-if="batchShow"
+  >
+
+   <el-table :data="two.addList">
+          <el-table-column type="index" label="序号" :index="indexMethod" ></el-table-column>
+          <el-table-column prop="dj" label="大节"  width="300px">
+            <template slot-scope="scope">
+              <el-input readonly v-model="scope.row.dj"></el-input>
+            </template>
+          </el-table-column>
+     
+          <el-table-column prop="xj" label="视频名称" width="250px">
+            <template slot-scope="scope">
+              <el-input
+                v-model="scope.row.xj"
+              ></el-input>
+            </template>
+          </el-table-column>
+
+     <el-table-column prop="vedio" label="视频（每次只允许上传一个视频！最大500MB，格式MP4）" >
+     
+            <template slot-scope="scope">
+                   <el-upload
+                    v-model="scope.row.vedio"
+                    class="upload-demo"
+                    action="http://47.114.1.9/traffic/teachInfo/uploadFile"
+                    :on-preview="handlePreview"
+                    :on-remove="handleRemove"
+                    :on-success="uploadSuccess"
+                    :on-error="uploadError"
+                    :before-remove="beforeRemove"
+                    multiple
+                    :limit="1"
+                    :on-exceed="handleExceed"
+                    :file-list="fileList">
+                    <el-button size="small" type="primary" @click="whyRow(scope.$index)">点击上传</el-button>
+                    
+            </el-upload>
+              
+
+            </template>
+          </el-table-column>
+
+   </el-table>
+   <el-button type="success" @click="run()">追加一行</el-button>
+   <br>
+   <br>
+     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   <el-button type="primary" size="big" @click="batchOkAdd()">添加</el-button>
+
+
+
+
+
+  
+</el-dialog>
 
 
         <div v-show="pageCheck==false">
@@ -640,6 +709,8 @@
     <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
   </span>
 </el-dialog>
+
+
 
 
 
@@ -733,7 +804,15 @@ export default {
             updateTitleShow:false,
             leftTitles:"",
             leftTitlesId:"",
-            leftUpdateTitleShow:false
+            leftUpdateTitleShow:false,
+            batchShow:false,
+            two:{
+               addList:[],
+               dj:""
+            },
+            thisRow:"",
+            timess:""
+           
 
         }
 
@@ -742,6 +821,55 @@ export default {
         this.queryAllQuestion()
         this.loadVedio()
     },methods:{
+      batchOkAdd(){
+         const t=this
+         this.$axios
+                           .post("http://localhost:8081/teachInfo/batchAddJie", 
+                           t.two
+                           )
+                        .then(function(res) {
+                              if(res.data == true){
+                                   t.$message({
+                                  showClose: true,
+                                  duration: 1000,
+                                  message: "添加成功",
+                                  type: "success"
+                                });
+                                t.batchShow=false
+                                
+                          }
+                        });
+      },
+      whyRow(row){
+       this.thisRow=row
+      },
+      run(){
+            let one ={
+            dj:this.two.addList[0].dj,
+            xj:"",
+            vedio:""
+        }
+        this.two.addList.push(one)
+      }, indexMethod(index) {
+      return index + 1;
+    },
+      batchAdd(item){
+        this.two.addList = []
+        let one ={
+            dj:item.oneTitle,
+            xj:"",
+            vedio:""
+        }
+      
+        this.two.addList.push(one)
+        this.two.dj=item.id
+        this.batchShow=true
+        //console.log(this.addList)
+
+
+
+
+      },
       importClo(){
         this.questionTemp.classId=""
         this.questionTemp.zhangs=""
@@ -824,7 +952,8 @@ export default {
                            .get("http://47.114.1.9/traffic/teachInfo/updateTitle", {
                           params:{
                             id:that.titlesId,
-                            title:that.titles
+                            title:that.titles,
+                            times:that.timess
                           }
                         })
                         .then(function(res) {
@@ -845,6 +974,7 @@ export default {
       },
       updateTitle(items){
        this.titles=items.oneTitle;
+       this.timess=items.vedioTime;
        this.titlesId=items.id;
        this.updateTitleShow=true
       },
@@ -996,6 +1126,9 @@ export default {
         this.addKejianTemp.ve=res.filename
         this.addKejieShowTemp.shipin=res.filename
         this.addLittleLesTemp.sp=res.filename
+        this.two.addList[this.thisRow].vedio=res.filename
+        console.log(this.two.addList)
+
       },uploadError(res){
                this.$message({
                       showClose: true,

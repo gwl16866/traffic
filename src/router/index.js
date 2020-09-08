@@ -51,6 +51,12 @@ export default new Router({
                     component: () => import(/* webpackChunkName: "markdown" */ '../components/page/trainProgress/TrainProgress.vue'),
                     meta: { title: '培训进度' }
                 },
+                {
+                    // markdown组件
+                    path: '/ManagerMan',
+                    component: () => import(/* webpackChunkName: "markdown" */ '../components/page/managerPeopleInfo/manager.vue'),
+                    meta: { title: '管理员信息' }
+                },
                 // {
                 //     // 图片上传组件
                 //     path: '/peixunbaogao',
