@@ -161,7 +161,7 @@ import addStudent from '@/components/page/studentInfo/addStudent'
 			return {
         importStudentVisible:false,
         fileList: [],
-        daoruxlsURL:"http://47.114.1.9/traffic/studentinfo/importExcelToMySql",
+        daoruxlsURL:"http://127.0.0.1:8081/studentinfo/importExcelToMySql",
 				student: {status:1},
 				studentStatus:{},
 				studentList: [],
@@ -181,7 +181,7 @@ import addStudent from '@/components/page/studentInfo/addStudent'
       //导出模板
       choiceFile(){
         const currentThis = this
-        currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/exportFile',{
+        currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/exportFile',{
           responseType: 'blob'
         })
 				.then(res=>{
@@ -223,7 +223,7 @@ import addStudent from '@/components/page/studentInfo/addStudent'
         if(e !==undefined){
           currentThis.currentPage=1
         }
-				currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryAllStudentInFo',{
+				currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/queryAllStudentInFo',{
 					params: {
 						realName: currentThis.student.realName,
 						createTimes: createTimes,
@@ -293,7 +293,7 @@ import addStudent from '@/components/page/studentInfo/addStudent'
 			okClickUpdateStatus(){
 				const currentThis = this
 				currentThis.studentStatus.status=1
-				currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/updateOneStudent',{
+				currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/updateOneStudent',{
 					params:{
 						id:currentThis.studentStatus.id,
             status:currentThis.studentStatus.status,

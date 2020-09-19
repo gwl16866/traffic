@@ -29,6 +29,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;培训课程：
                 <el-button icon="el-icon-plus" @click="addLession()">选择课程</el-button>
                 <el-input v-model="lessionname" autocomplete="off" style="width:300px" readonly></el-input>
+                &nbsp;&nbsp;&nbsp;<span v-if="questionCount !=0">题目总数量-{{questionCount}}题，</span>
+                <span v-if="vedioSumTime !=0">视频总时长-{{vedioSumTime}}分钟</span>
                 <el-input
                     v-model="addEdu.lession"
                     autocomplete="off"
@@ -68,7 +70,7 @@
                     v-model="addEdu.passscore"
                     autocomplete="off"
                     style="width:300px"
-                ></el-input>
+                ></el-input><span v-if="questionCount !=0">建议：共{{questionCount}}题，乘以80%，建议取整数过关</span>
             </el-form-item>
             <el-divider></el-divider>线上培训
             <el-form-item prop="a7">
@@ -121,6 +123,7 @@
                     <el-table-column prop="id" label="编号" width="90"></el-table-column>
                     <el-table-column prop="oneTitle" label="视频名称" width="200"></el-table-column>
                       <el-table-column prop="vedioTime" label="时长（分钟）" ></el-table-column>
+                      <el-table-column prop="count" label="题目数量" ></el-table-column>
                 </el-table>
                 <el-button :plain="true" @click="submitlession()">提交</el-button>
                 <el-button @click="quxiaolession()">取消</el-button>
@@ -141,11 +144,15 @@
                 >
                     <el-table-column type="selection" width="40" />
                     <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                    <el-table-column prop="headImg" label="头像" width="90"></el-table-column>
+                    <el-table-column prop="headImg" label="头像" width="90">
+                           <template slot-scope="scope">
+                            <img :src="scope.row.headImg" class="avatar">
+                         </template>
+                    </el-table-column>
                     <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
                     <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
                     <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
-                    <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column>
+                    <!-- <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column> -->
                 </el-table>
                 <el-button :plain="true" @click="submitcanxun()">提交</el-button>
                 <el-button @click="quxiao()">取消</el-button>
@@ -168,11 +175,15 @@
                 >
                     <el-table-column type="selection" width="40" />
                     <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                    <el-table-column prop="headImg" label="头像" width="90"></el-table-column>
+                    <el-table-column prop="headImg" label="头像" width="90">
+                           <template slot-scope="scope">
+                            <img :src="scope.row.headImg" class="avatar">
+                         </template>
+                    </el-table-column>
                     <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
                     <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
                     <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
-                    <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column>
+                   <!--  <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column> -->
                 </el-table>
                 <el-button :plain="true" @click="submitanquan()">提交</el-button>
                 <el-button @click="anquan()">取消</el-button>
@@ -195,11 +206,15 @@
                 >
                     <el-table-column type="selection" width="40" />
                     <el-table-column prop="id" label="编号" width="90"></el-table-column>
-                    <el-table-column prop="headImg" label="头像" width="90"></el-table-column>
+                    <el-table-column prop="headImg" label="头像" width="90">
+                           <template slot-scope="scope">
+                            <img :src="scope.row.headImg" class="avatar">
+                         </template>
+                    </el-table-column>
                     <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
                     <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
                     <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
-                    <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column>
+                   <!--  <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column> -->
                 </el-table>
                 <el-button :plain="true" @click="submitkaohe()">提交</el-button>
                 <el-button @click="kaohe()">取消</el-button>
@@ -240,7 +255,8 @@ export default {
                 manager: '',
                 testPeople: '',
                 passscore:''
-            },
+            },questionCount:0,
+              vedioSumTime:0
         };
     },
     mounted() {},
@@ -336,7 +352,7 @@ export default {
             var qwe = this;
             qwe.dialogVisibleaddlession = true;
             this.$axios
-                .get('http://47.114.1.9/traffic/saftyEdu/treeList')
+                .get('http://localhost:8081/saftyEdu/treeList')
                 .then(function(res) {
                     qwe.treelist = res.data;
                 })
@@ -348,10 +364,20 @@ export default {
         handleSelectionlession(val) {
             const bl = new Array();
             const na = new Array();
+            var c= 0;
+            var v= 0;
             val.forEach(row => {
                 bl.push(row.id);
                 na.push(row.oneTitle);
+                c=c+row.count
+                v=v+row.vedioTime
             });
+             this.questionCount=c
+             this.vedioSumTime=v
+            this.$message({
+                    message: '总时长'+v+'分钟，'+'考试题共'+c+'题',
+                    type: 'success'
+                });
             this.lessionList = bl;
             this.lessionname = na;
         },
@@ -366,7 +392,6 @@ export default {
                 });
             } else {
                 var qwe = this;
-                console.log('----------------' + qwe.lessionList);
                 qwe.addEdu.lession = qwe.lessionList;
                 qwe.$message({
                     message: '添加成功',
@@ -430,6 +455,13 @@ export default {
                 .then(function(res) {
                     const result = res.data;
                     qwe.kaoheren = result.data;
+                    for(var i=0;i<qwe.kaoheren.length;i++){
+                                if(qwe.kaoheren[i].id == qwe.multipleSelection.id){
+                                         qwe.kaoheren.splice(qwe.kaoheren.indexOf(qwe.kaoheren[i]),1)
+                                }
+                     }
+                     
+
                 })
                 .catch(function(err) {
                     console.log(err);

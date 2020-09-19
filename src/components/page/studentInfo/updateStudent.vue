@@ -15,37 +15,9 @@
 
       <el-form-item label="岗位名称" prop="jobName">
         <el-select class="y" v-model="student.jobName" placeholder="请选择岗位名称">
-          <el-option label="驾驶员"         value="驾驶员"></el-option>
-          <el-option label="客运驾驶人"     value="客运驾驶人"></el-option>
-          <el-option label="危货驾驶人"     value="危货驾驶人"></el-option>
-          <el-option label="普货驾驶人"     value="普货驾驶人"></el-option>
-          <el-option label="出租车驾驶人"   value="出租车驾驶人"></el-option>
-          <el-option label="企业负责人"     value="企业负责人"></el-option>
-          <el-option label="安全管理人员"   value="安全管理人员"></el-option>
-          <el-option label="维修人员"       value="维修人员"></el-option>
-          <el-option label="场站管理人员"   value="场站管理人员"></el-option>
-          <el-option label="装卸员"         value="装卸员"></el-option>
-          <el-option label="押运员"         value="压运员"></el-option>
-          <el-option label="乘务员"         value="乘务员"></el-option>
-          <el-option label="后勤人员"       value="后勤人员"></el-option>
-          <el-option label="安全员"         value="安全员"></el-option>
-          <el-option label="安全检查员"     value="安全检查员"></el-option>
-          <el-option label="公交车驾驶员"   value="公交车驾驶员"></el-option>
-          <el-option label="旅游驾驶员"     value="旅游驾驶员"></el-option>
-          <el-option label="工程车驾驶员"   value="工程车驾驶员"></el-option>
-          <el-option label="教练员"         value="教练员"></el-option>
-          <el-option label="监控人员"       value="监控人员"></el-option>
-          <el-option label="办公室管理人员" value="办公室管理人员"></el-option>
-          <el-option label="网约车驾驶员"   value="网约车驾驶员"></el-option>
-          <el-option label="车主"           value="车主"></el-option>
-          <el-option label="大队负责人"     value="大队负责人"></el-option>
-          <el-option label="大队副职"       value="大队副职"></el-option>
-          <el-option label="分管安全领导"   value="分管安全领导"></el-option>
-          <el-option label="科室负责人"     value="科室负责人"></el-option>
-          <el-option label="科员"           value="科员"></el-option>
-          <el-option label="其他管理人员"   value="其他管理人员"></el-option>
-          <el-option label="企业副职领导"   value="企业副职领导"></el-option>
-          <el-option label="校车照管员"     value="校车照管员"></el-option>
+          <el-option label="危货驾驶员" value="危货驾驶员"></el-option>
+          <el-option label="危货押运员" value="危货押运员"></el-option>
+          <el-option label="危货驾驶员+危货押运员" value="危货驾驶员+危货押运员"></el-option>
         </el-select>
       </el-form-item>
 
@@ -129,10 +101,11 @@ export default {
   props: ['stuid'],
   data() {
     return {
+      
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
+      uploadUrl: 'http://127.0.0.1:8081/studentinfo/uploadFile',
       headImg: '',
       rules: {
           realName: [
@@ -182,13 +155,14 @@ export default {
   methods: {
     queryStudentById(){
       const currentThis = this
-      currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryStudentById',{
+      currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/queryStudentById',{
 					params: {
 						id:currentThis.stuid
 					}
 				})
 				.then(res=>{
           currentThis.student=res.data
+          currentThis.student.studentOCardId=currentThis.student.cardId
           let status = currentThis.student.status
           if(status==0){
             status="禁用"
@@ -219,7 +193,7 @@ export default {
             if(currThis.student.status=='激活'){
               currThis.student.status=1;
             }
-          currThis.$axios.post('http://47.114.1.9/traffic/studentinfo/updateStudent', {
+          currThis.$axios.post('http://127.0.0.1:8081/studentinfo/updateStudent', {
             params: currThis.student,
           })
             .then(res => currThis.$emit('updateSuccessClick', res.data))

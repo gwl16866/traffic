@@ -96,7 +96,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
+      uploadUrl: 'http://127.0.0.1:8081/studentinfo/uploadFile',
       headImg: '',
       rules: {
         realName: [
@@ -134,7 +134,7 @@ export default {
           currThis.student.induction=''
           currThis.student.driverOverTime=''
           currThis.student.busCarefulTime=''
-          currThis.$axios.get('http://47.114.1.9/traffic/studentinfo/insterStudent', {
+          currThis.$axios.get('http://127.0.0.1:8081/studentinfo/insterStudent', {
             params: currThis.student,
           })
             .then(res => currThis.$emit('addSuccessClick', res.data))
