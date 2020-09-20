@@ -157,7 +157,7 @@ export default {
         if(e !== undefined){
           currentThis.currentPage=1
         }
-				currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/queryAllStudentInFo',{
+				currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryAllStudentInFo',{
 					params: {
             realName: currentThis.student.realName,
             headImgStatus: currentThis.student.headImgStatus,

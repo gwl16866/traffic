@@ -96,7 +96,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://127.0.0.1:8081/studentinfo/uploadFile',
+      uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
       headImg: '',
       rules: {
         realName: [

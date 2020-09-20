@@ -105,7 +105,7 @@ export default {
       student:{
         headImg: ''
       },
-      uploadUrl: 'http://127.0.0.1:8081/studentinfo/uploadFile',
+      uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
       headImg: '',
       rules: {
           realName: [
@@ -155,7 +155,7 @@ export default {
   methods: {
     queryStudentById(){
       const currentThis = this
-      currentThis.$axios.get('http://127.0.0.1:8081/studentinfo/queryStudentById',{
+      currentThis.$axios.get('http://47.114.1.9/traffic/studentinfo/queryStudentById',{
 					params: {
 						id:currentThis.stuid
 					}
@@ -193,7 +193,7 @@ export default {
             if(currThis.student.status=='激活'){
               currThis.student.status=1;
             }
-          currThis.$axios.post('http://127.0.0.1:8081/studentinfo/updateStudent', {
+          currThis.$axios.post('http://47.114.1.9/traffic/studentinfo/updateStudent', {
             params: currThis.student,
           })
             .then(res => currThis.$emit('updateSuccessClick', res.data))

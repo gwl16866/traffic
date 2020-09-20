@@ -824,7 +824,7 @@ export default {
       batchOkAdd(){
          const t=this
          this.$axios
-                           .post("http://localhost:8081/teachInfo/batchAddJie", 
+                           .post("http://47.114.1.9/traffic/teachInfo/batchAddJie",
                            t.two
                            )
                         .then(function(res) {

@@ -158,7 +158,7 @@ export default {
     },methods:{
         load(){
                  var that = this
-        this.$axios.post('http://localhost:8081/manager/selectList')
+        this.$axios.post('http://47.114.1.9/traffic/manager/selectList')
             .then(res => {
             that.tableData = res.data
             })
@@ -190,7 +190,7 @@ export default {
                 const that=this;
                 this.$axios({
                     method:"post",
-                    url:"http://localhost:8081/manager/insert",
+                    url:"http://47.114.1.9/traffic/manager/insert",
                      /* headers: {
                          "Content-Type": "multipart/form-data"
                      }, */
@@ -221,7 +221,7 @@ export default {
     },del(ida){
 
            var that = this
-        this.$axios.post('http://localhost:8081/manager/delete?id='+ida,
+        this.$axios.post('http://47.114.1.9/traffic/manager/delete?id='+ida,
           
         )
             .then(res => {
@@ -260,7 +260,7 @@ export default {
 
                  this.$axios({
                     method:"post",
-                    url:"http://localhost:8081/manager/update",
+                    url:"http://47.114.1.9/traffic/manager/update",
                      /* headers: {
                          "Content-Type": "multipart/form-data"
                      }, */

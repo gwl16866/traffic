@@ -352,7 +352,7 @@ export default {
             var qwe = this;
             qwe.dialogVisibleaddlession = true;
             this.$axios
-                .get('http://localhost:8081/saftyEdu/treeList')
+                .get('http://47.114.1.9/traffic/saftyEdu/treeList')
                 .then(function(res) {
                     qwe.treelist = res.data;
                 })
