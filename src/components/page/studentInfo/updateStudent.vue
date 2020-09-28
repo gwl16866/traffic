@@ -69,16 +69,16 @@
       </el-form-item>
       <el-form-item label="从业类型" prop="jobType">
           <el-select class="y1" v-model="student.jobType" placeholder="请选择从业类型">
-          <el-option label="客运"     value="客运"></el-option>
-          <el-option label="普货"     value="普货"></el-option>
+<!--          <el-option label="客运"     value="客运"></el-option>-->
+<!--          <el-option label="普货"     value="普货"></el-option>-->
           <el-option label="危险品"   value="危险品"></el-option>
-          <el-option label="出租车"   value="出租车"></el-option>
-          <el-option label="安管人员" value="安管人员"></el-option>
-          <el-option label="押运员"   value="押运员"></el-option>
-          <el-option label="卸货员"   value="卸货员"></el-option>
-          <el-option label="乘务员"   value="乘务员"></el-option>
-          <el-option label="维修人员" value="维修人员"></el-option>
-          <el-option label="站场管理" value="站场管理"></el-option>
+<!--          <el-option label="出租车"   value="出租车"></el-option>-->
+<!--          <el-option label="安管人员" value="安管人员"></el-option>-->
+<!--          <el-option label="押运员"   value="押运员"></el-option>-->
+<!--          <el-option label="卸货员"   value="卸货员"></el-option>-->
+<!--          <el-option label="乘务员"   value="乘务员"></el-option>-->
+<!--          <el-option label="维修人员" value="维修人员"></el-option>-->
+<!--          <el-option label="站场管理" value="站场管理"></el-option>-->
         </el-select>
       </el-form-item>
 
@@ -128,22 +128,22 @@ export default {
             { min: 7, max: 7, message: '请输入正确的车牌号码', trigger: 'blur' }
           ],
           employedNum: [
-            { required: true, message: '请输入从业证书', trigger: 'blur' },
+            { required: false, message: '请输入从业证书', trigger: 'blur' },
           ],
           driverOverTime: [
-            { required: true, message: '请选择驾驶证到期时间', trigger: 'blur' }
+            { required: false, message: '请选择驾驶证到期时间', trigger: 'blur' }
           ],
           busCarefulTime: [
-            { required: true, message: '请选择车辆年审时间', trigger: 'blur' }
+            { required: false, message: '请选择车辆年审时间', trigger: 'blur' }
           ],
           linkAddress: [
-            { required: true, message: '请输入联系地址', trigger: 'blur' }
+            { required: false, message: '请输入联系地址', trigger: 'blur' }
           ],
           jobType: [
-            { required: true, message: '请选择从业类型', trigger: 'blur' }
+            { required: false, message: '请选择从业类型', trigger: 'blur' }
           ],
           induction: [
-            { required: true, message: '请选择入职时间', trigger: 'blur' }
+            { required: false, message: '请选择入职时间', trigger: 'blur' }
           ],
         }
     }
