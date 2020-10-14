@@ -8,7 +8,11 @@
       :data="tableData.slice((currpage - 1) * pagesize, currpage * pagesize)"
       border
       >
-
+        <el-table-column label="用户头像" align="center" >
+            <template slot-scope="scope">
+                <img :src="scope.row.headImg" class="avatar">
+            </template>
+        </el-table-column>
     <el-table-column
       prop="name"
       label="真实姓名"
@@ -76,7 +80,18 @@
                            <el-option label="企业负责人"     value="企业负责人"></el-option>
                         </el-select>
              </el-form-item>
-
+             <el-form-item label="学员头像">
+                 <el-upload
+                         class="avatar-uploader"
+                         :action="uploadUrl"
+                         :show-file-list="false"
+                         :on-success="handleAvatarSuccess"
+                         :before-upload="beforeAvatarUpload"
+                 >
+                     <img  v-if="save.headImg" :src="save.headImg" class="avatar"/>
+                     <i v-else class="el-icon-plus avatar-uploader-icon" />
+                 </el-upload>
+             </el-form-item>
              <el-button type="primary" @click="okadd">确定添加</el-button>
 
          </el-form>
@@ -106,7 +121,18 @@
                            <el-option label="企业负责人"     value="企业负责人"></el-option>
                         </el-select>
              </el-form-item>
-
+             <el-form-item label="学员头像">
+                 <el-upload
+                         class="avatar-uploader"
+                         :action="uploadUrl"
+                         :show-file-list="false"
+                         :on-success="handleAvatarSuccess"
+                         :before-upload="beforeAvatarUpload"
+                 >
+                     <img  v-if="saves.headImg" :src="saves.headImg" class="avatar"/>
+                     <i v-else class="el-icon-plus avatar-uploader-icon" />
+                 </el-upload>
+             </el-form-item>
              <el-button type="primary" @click="okupdate">修改</el-button>
 
          </el-form>
@@ -123,6 +149,8 @@
 export default {
     data(){
         return{
+            uploadUrl: 'http://47.114.1.9/traffic/studentinfo/uploadFile',
+            headImg: '',
             pagesize: 5,
             currpage: 1,
             tableData: [],
@@ -132,13 +160,15 @@ export default {
                  name:"",
                  cardId:"",
                  linkNum:"",
-                 job:""
+                 job:"",
+                  headImg: ""
             },
              saves:{
                  name:"",
                  cardId:"",
                  linkNum:"",
-                 job:""
+                 job:"",
+                 headImg: ""
             }
             ,id:""
 
@@ -156,6 +186,32 @@ export default {
 
 
     },methods:{
+        handleAvatarSuccess(res, file) {
+            const currThis = this
+            if (res.code == 0) {
+                console.log(res.filename)
+                currThis.headImg = res.filename
+                currThis.$message.success("上传成功")
+                currThis.saves.headImg = res.filename
+                currThis.save.headImg = res.filename
+            } else {
+                currThis.$message.error("上传失败")
+            }
+            // console.log(res)
+            // this.imageUrl = URL.createObjectURL(file.raw);
+        },
+        beforeAvatarUpload(file) {
+            const isJPG = file.type === 'image/jpeg'
+            const isLt2M = file.size / 1024 / 1024 < 2
+
+            if (!isJPG) {
+                this.$message.error('上传头像图片只能是 JPG 格式!')
+            }
+            if (!isLt2M) {
+                this.$message.error('上传头像图片大小不能超过 2MB!')
+            }
+            return isJPG && isLt2M
+        },
         load(){
                  var that = this
         this.$axios.post('http://47.114.1.9/traffic/manager/selectList')
@@ -172,7 +228,7 @@ export default {
             this.save.cardId=""
             this.save.linkNum=""
             this.save.job=""
-           
+            that.save.headImg=""
         },
         handleCurrentChange(cpage) {
       this.currpage = cpage
@@ -204,6 +260,7 @@ export default {
                             that.save.cardId=""
                             that.save.linkNum=""
                             that.save.job=""
+                            that.save.headImg=""
                             that.$message({
                                             message: '添加成功',
                                             type: 'success'

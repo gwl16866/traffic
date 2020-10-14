@@ -25,6 +25,7 @@
         <el-form-item>
           <el-button type="primary" @click="queryAllStudent">查询</el-button>
           <el-button @click="congzhi" >重置</el-button>
+          <el-button @click="daochu" >导出</el-button>
         </el-form-item>
       </el-form>
         
@@ -289,6 +290,18 @@ data() {
         this.realName="";
         this.aaa="按姓名";
         this.tableinit(this.id,"","",1);
+
+    }
+    ,daochu(){
+            var aa="http://47.114.1.9/traffic/statistics/statisticsinfo/execls?id="+this.id;
+            window.location.href=aa;
+              // this.$axios.get('http://47.114.1.9/traffic/statistics/statisticsinfo/execls?id='+this.id)
+              //     .then(function (response) {
+              //
+              //     })
+              //     .catch(function (error) {
+              //         console.log(error);
+              //     });
 
     },
                // 初始页currentPage、初始每页数据数pagesize和数据data

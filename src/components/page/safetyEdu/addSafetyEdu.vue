@@ -134,12 +134,22 @@
             title="添加学员"
             :visible.sync="dialogVisiblecanxun"
             :append-to-body="true"
+
         >
-            <el-form>
+            <el-row>
+                <el-col :span="8">
+                    <el-input v-model="names" placeholder="请输入完整姓名" clearable @clear="clears"></el-input>
+                </el-col>
+                <el-col :span="16"><el-button type="primary" @click="setCurrent">查询</el-button></el-col>
+            </el-row>
+
+            <el-form id="forms">
                 <el-table
+
+                   ref="singleTable"
                     :data="allStudent"
                     border
-                    style="width: 100%;"
+                    style="width: 100%;height:70vh;margin-top:1vh;overflow-y: auto"
                     @selection-change="handleSelectioncanxun"
                 >
                     <el-table-column type="selection" width="40" />
@@ -149,7 +159,11 @@
                             <img :src="scope.row.headImg" class="avatar">
                          </template>
                     </el-table-column>
-                    <el-table-column prop="realName" label="真实姓名" width="80"></el-table-column>
+                    <el-table-column prop="realName"  label="真实姓名" width="80">
+                        <template slot-scope="scope">
+                            <span :id="scope.row.id">{{scope.row.realName}}</span>
+                        </template>
+                    </el-table-column>
                     <el-table-column prop="cardId" label="身份证号" width="120"></el-table-column>
                     <el-table-column prop="jobName" label="岗位名称" width="80"></el-table-column>
                     <!-- <el-table-column prop="LinkNum" label="联系电话" width="90"></el-table-column> -->
@@ -170,7 +184,7 @@
                     @row-click="handleRowClick"
                     :data="guanliyuan"
                     border
-                    style="width: 100%;"
+                    style="width: 100%;height:70vh;margin-top:1vh;overflow-y: auto"
                     @selection-change="handleSelectionguanli"
                 >
                     <el-table-column type="selection" width="40" />
@@ -201,7 +215,7 @@
                     @row-click="handleRowClick"
                     :data="kaoheren"
                     border
-                    style="width: 100%;"
+                    style="width: 100%;height:70vh;margin-top:1vh;overflow-y: auto"
                     @selection-change="handleSelectionkaohe"
                 >
                     <el-table-column type="selection" width="40" />
@@ -227,6 +241,8 @@
 export default {
     data() {
         return {
+            names:'',
+            arr: [],
             aaa: true,
             learnType: '1',
             allStudent: [],
@@ -266,6 +282,29 @@ export default {
         },
         back: function() {
             this.$emit('back', 'false');
+        },
+        //查询
+        setCurrent() {
+            var boo=false;
+            for (var i=0;i<this.allStudent.length;i++){
+                console.log(this.names==this.allStudent[i].realName)
+                if(this.names==this.allStudent[i].realName){
+
+                    location.href="#"+String(this.allStudent[i].id);
+                    boo=true;
+                    break;
+                }
+
+            }
+            if(!boo){
+                this.$message('未找到该用户');
+            }
+            this.names=''
+
+        },
+        //清空输入框
+        clears(){
+            // this.allStudent=this.arr;
         },
         //提交整个页面 
         submintSafetyEdu() {
@@ -316,7 +355,8 @@ export default {
                     console.log(err);
                 });
         },
-        //循环学员id
+
+//循环学员id
         handleSelectioncanxun(val) {
             const bl = new Array();
             const na = new Array();
