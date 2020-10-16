@@ -182,10 +182,18 @@ export default {
       this.$refs[stus].validate((valid) => {
         if (valid) {
           const currThis = this
+          if(currThis.student.induction!='' && currThis.student.induction!=null){
             currThis.student.inductions = currThis.$moment(currThis.student.induction).format('YYYY-MM-DDTHH:mm:ss')
+          }
+          if(currThis.student.driverOverTime!='' && currThis.student.driverOverTime!=null){
             currThis.student.driverOverTimes = currThis.$moment(currThis.student.driverOverTime).format('YYYY-MM-DDTHH:mm:ss')
+          }
+          if(currThis.student.busCarefulTime!='' && currThis.student.busCarefulTime!=null){
             currThis.student.busCarefulTimes = currThis.$moment(currThis.student.busCarefulTime).format('YYYY-MM-DDTHH:mm:ss')
+          }
+          if(currThis.student.createTime!='' && currThis.student.createTime!=null){
             currThis.student.createTimes = currThis.$moment(currThis.student.createTime).format('YYYY-MM-DDTHH:mm:ss')
+          }
             currThis.student.induction=''
             currThis.student.driverOverTime=''
             currThis.student.busCarefulTime=''
