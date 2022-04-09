@@ -14,7 +14,7 @@
     "echarts": "^4.8.0",
     "element-ui": "^2.13.2",
     "mavon-editor": "^2.6.17",
-    "moment": "^2.27.0",
+    "moment": "^2.29.2",
     "video.js": "^7.8.4",
     "vue": "^2.6.10",
     "vue-cropperjs": "^3.0.0",
